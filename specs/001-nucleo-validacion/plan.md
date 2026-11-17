@@ -4,8 +4,9 @@
 
 **Input**: Feature specification from `/specs/001-nucleo-validacion/spec.md`
 
-**Note**: Plan técnico generado para revisión. No se implementó código de producto, no se
-ejecutaron validadores matemáticos y no se autoriza todavía `/speckit.tasks` ni la implementación.
+**Note**: Plan técnico aprobado por el Aprobador principal el 2026-11-16. No se implementó código de
+producto ni se ejecutaron validadores matemáticos. La aprobación autoriza la etapa de descomposición
+de tareas y no autoriza la implementación.
 
 ## Summary
 
@@ -79,11 +80,12 @@ E01–E15 y la captura gráfica de intervalos/expresiones pertenecen a los consu
 | Se cubren los diez tipos mínimos y la taxonomía de resultados | Constitución, Principios III y V | **PASS** | REQ-01 enumera los diez tipos; REQ-04 fija `correct`, `incorrect` e `indeterminate`, y trata `incomplete` como error de entrada. |
 | No se reabre el stack ni se añaden dependencias no aprobadas | Constitución, Principio II | **PASS con propuesta** | El núcleo no añade dependencias de ejecución ni de UI. Las herramientas de desarrollo y los adaptadores consumidores se enumeran para aprobación en este plan. |
 | Los contratos se concretan antes de implementar | Constitución, Principio III | **PASS** | Phase 1 genera `contracts/` con esquemas, normalización, catálogos y ejemplos; la implementación queda para una etapa posterior. |
-| La aprobación humana de la etapa está registrada | Constitución, Principio VII | **PASS para la spec; plan en revisión** | La spec está aprobada. El plan se presenta con veredicto `en revisión`; no se declara aprobado ni se autoriza la etapa de tareas. |
-| Registro de aprobaciones en `specs/README.md` | Constitución, Gobernanza | **PENDIENTE ADMINISTRATIVO** | Por instrucción del Aprobador no se editó `specs/README.md` en esta etapa. La spec conserva su bloque de aprobación; la regularización del registro debe completarse antes de la aprobación del plan o de la implementación. |
+| La aprobación humana de la etapa está registrada | Constitución, Principio VII | **PASS** | La spec está aprobada (2026-11-16) y este plan quedó aprobado el 2026-11-16 por el Aprobador principal, con veredicto `aprobado` registrado en su bloque `## Aprobaciones`. |
+| Registro de aprobaciones en `specs/README.md` | Constitución, Gobernanza | **PASS** | La decisión de aprobación de este plan se registró el 2026-11-16 en el bloque `## Aprobaciones` de `specs/README.md`, junto con la aprobación previa de la spec. |
 
 **Resultado de la compuerta: PASS para ejecutar Phase 0 y Phase 1**, con las condiciones
-administrativas y de consumidor indicadas. No se autoriza `/speckit.tasks` ni implementación.
+administrativas y de consumidor indicadas. La aprobación de este plan autoriza la etapa de
+descomposición de tareas; no autoriza la implementación.
 
 ## Project Structure
 
@@ -231,10 +233,10 @@ acredita implementación, validadores matemáticos ni pruebas de UI.
 | La gramática y las asociaciones pendientes siguen bloqueadas | **PASS con restricciones** | `expression` tiene `grammar_status: blocked`; el registro no contiene asociaciones E02–E15. |
 | No se introducen dependencias de UI o servicio en el núcleo | **PASS** | El árbol de código y la prueba de arquitectura prevista excluyen React, PixiJS, Mafs, LocalStorage, FastAPI y SymPy. |
 | El Contrato de API se alineará antes del adaptador | **PASS con condición** | `research.md` D-09 y la secuencia de implementación enumeran los cambios; el documento aún no se modificó. |
-| La aprobación del plan está registrada | **PENDIENTE** | El bloque `## Aprobaciones` queda en `en revisión`; no se autoriza `/speckit.tasks`. |
+| La aprobación del plan está registrada | **PASS** | El bloque `## Aprobaciones` de este plan registra el veredicto `aprobado` del Aprobador principal (2026-11-16, `plan.md` 0.1.0). |
 
-No aparecieron violaciones nuevas durante el diseño. La condición administrativa de
-`specs/README.md` y la aprobación del plan siguen pendientes antes de la etapa de tareas.
+No aparecieron violaciones nuevas durante el diseño. La etapa de descomposición de tareas queda
+autorizada; la implementación continúa sin autorizar.
 
 ## Implementation Sequence (for a later authorized stage)
 
@@ -262,12 +264,12 @@ No aparecieron violaciones nuevas durante el diseño. La condición administrati
 | Campo | Contenido |
 |---|---|
 | Etapa | Aprobación del plan técnico |
-| Veredicto | `en revisión` |
+| Veredicto | `aprobado` |
 | Fecha | 2026-11-16 |
-| Autoridad | Edwin Ernesto Rodríguez Pérez, Aprobador principal (revisión pendiente) |
-| Evidencia | Plan generado para revisión; no existe aprobación registrada de esta versión |
+| Autoridad | Edwin Ernesto Rodríguez Pérez, Aprobador principal |
+| Evidencia | Aprobación explícita del Aprobador principal en la sesión de trabajo del 2026-11-16 |
 | Versión o revisión | `plan.md`, versión 0.1.0 |
-| Comentarios o condiciones | Aprobar este plan antes de `/speckit.tasks`; actualizar el Contrato de API; mantener bloqueadas la gramática de `expression` y las asociaciones E02–E15 hasta que sus consumidores las ratifiquen; regularizar el registro de aprobaciones en `specs/README.md`. |
+| Comentarios o condiciones | Autoriza la etapa de descomposición de tareas; no autoriza la implementación. Actualizar el Contrato de API antes de implementar el adaptador HTTP. Mantener bloqueadas la gramática de `expression` y las asociaciones E02–E15 hasta que sus consumidores las ratifiquen. |
 
-Este plan no autoriza la descomposición de tareas ni la implementación. La aprobación de la spec no
-se extiende automáticamente a este plan.
+Este plan aprobado habilita la descomposición de tareas. La aprobación de la spec no se extiende
+automáticamente a otras etapas y esta decisión no autoriza la implementación.
