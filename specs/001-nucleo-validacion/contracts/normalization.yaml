@@ -1,0 +1,232 @@
+contract: normalization
+version: 0.1.0
+status: proposed
+scope: >
+  Reglas deterministas del núcleo para normalizar respuestas antes de invocar un validador.
+  No implementa validadores matemáticos, no ejecuta texto del estudiante y no sustituye las
+  restricciones particulares de cada Ejercicio.
+
+exactness:
+  representation: exact
+  tolerance: none
+  eval: forbidden
+  floating_point: forbidden
+  comparison: exact_rational
+  rounding: visual_only
+
+number:
+  serialized_type: exact_string
+  accepted_forms:
+    integer: '^-?(0|[1-9][0-9]*)$'
+    finite_decimal: '^-?(0|[1-9][0-9]*)\.[0-9]+$'
+    rational: '^-?(0|[1-9][0-9]*)/[1-9][0-9]*$'
+  rejected_forms:
+    - exponent_notation
+    - leading_plus
+    - leading_zero
+    - trailing_dot
+    - zero_denominator
+    - unicode_minus
+    - decimal_comma
+    - whitespace
+  leading_zero_note: >
+    leading_zero se refiere a enteros como 01 o 00.5; el cero y los decimales como 0.5
+    son válidos.
+  canonical_internal_form: rational
+  canonical_steps:
+    - parse_exact
+    - reduce_fraction
+    - move_sign_to_numerator
+    - normalize_negative_zero
+  canonical_serialized_form: >
+    Entero si el denominador es 1; en otro caso, "numerador/denominador" reducido.
+  equivalence_examples:
+    - ['0.5', '1/2']
+    - ['2.0', '2']
+    - ['-0', '0']
+    - ['6/4', '3/2']
+
+expression:
+  serialization: token_array
+  shape: '{kind:"expression", tokens:["<token>", ...]}'
+  token_pattern: '^(0|[1-9][0-9]*|x|\+|-|\(|\))$'
+  allowed_buttons:
+    - numbers
+    - x
+    - '+'
+    - '-'
+    - '('
+    - ')'
+  grammar_status: blocked
+  grammar_reason: >
+    La gramática sintáctica de secuencias no está aprobada hasta que un Ejercicio requiera
+    expression. E12 usa campos estructurados en v1.
+  behavior_until_grammar_approved:
+    category: configuration
+    code: GRAMMAR_NOT_APPROVED
+    invoke_validator: false
+  invalid_token_behavior:
+    category: format
+    code: EXPRESSION_TOKEN_INVALID
+    invoke_validator: false
+  free_text: forbidden
+  eval: forbidden
+  operational_size_limit: pending_consumer_policy
+
+finite_set:
+  shape: '{kind:"finiteSet", values:[<exact_number>, ...]}'
+  empty: 'values: []'
+  order: irrelevant
+  duplicates: collapse
+  comparison: complete_set
+  textual_aliases: not_accepted
+  missing_values: incomplete
+  null_values: format
+  notes: >
+    La UI puede mostrar ∅, pero el contrato JSON usa values: [] para el vacío explícito.
+    Un campo ausente no equivale a un conjunto vacío.
+
+interval_union:
+  shape: >
+    {kind:"intervalUnion", intervals:[{lower:{value:<exact|-inf>, inclusive:<bool>},
+    upper:{value:<exact|+inf>, inclusive:<bool>}}, ...]}
+  empty: 'intervals: []'
+  infinity:
+    lower_marker: '-inf'
+    upper_marker: '+inf'
+    inclusion: always_open
+  validation:
+    - lower_value_must_be_less_than_or_equal_to_upper_value
+    - equal_bounds_are_a_point_only_when_both_inclusive
+    - infinite_bound_must_be_open
+  normalization:
+    - parse_bounds_exactly
+    - reject_invalid_order
+    - sort_by_lower_then_upper
+    - merge_overlapping_or_touching_intervals
+  merge_rule: >
+    Fusionar si el siguiente extremo inferior es menor que el superior actual, o si es igual
+    y al menos uno de los dos extremos es cerrado. No fusionar [1,2) con (2,3] porque 2 no
+    pertenece a la unión.
+  equivalent_notation: >
+    ℝ\{3} se normaliza a (-inf,3) ∪ (3,+inf). La notación textual no se acepta en el JSON;
+    el consumidor la convierte a la estructura de intervalos.
+  examples:
+    real_line:
+      intervals:
+        - lower: {value: '-inf', inclusive: false}
+          upper: {value: '+inf', inclusive: false}
+    real_line_without_three:
+      intervals:
+        - lower: {value: '-inf', inclusive: false}
+          upper: {value: '3', inclusive: false}
+        - lower: {value: '3', inclusive: false}
+          upper: {value: '+inf', inclusive: false}
+    closed_unit:
+      intervals:
+        - lower: {value: '0', inclusive: true}
+          upper: {value: '1', inclusive: true}
+
+mapping:
+  shape: '{kind:"mapping", pairs:[["<entrada>","<salida>"], ...]}'
+  semantics: set_of_pairs
+  order: irrelevant
+  duplicate_pairs: collapse
+  duplicate_inputs_with_different_outputs: preserve
+  values: exact_number
+  invalid_relation: client_state_not_valid_answer
+  notes: >
+    mapping representa una relación, no necesariamente una función. Por eso se conservan
+    dos pares con la misma entrada y salidas distintas.
+
+boolean:
+  shape: '{kind:"boolean", value:true|false}'
+  accepted_values: [true, false]
+  rejected_values: ['"true"', '"false"', 0, 1]
+  notes: 'Solo se acepta el booleano JSON; no se aceptan cadenas ni números como sustitutos.'
+
+vertex:
+  shape: '{kind:"vertex", h:<exact_number>, k:<exact_number>}'
+  fields: [h, k]
+  values: exact_number
+  association: 'E08 (ratificada 2026-11-16)'
+  tolerance: none
+
+point:
+  shape: '{kind:"point", x:<exact_number>, y:<exact_number>}'
+  fields: [x, y]
+  values: exact_number
+  origin_image: >
+    Si un Ejercicio exige origen→imagen, se usan dos campos point dentro de una respuesta
+    composite; no se reinterpreta un point como par de puntos.
+
+asymptote:
+  shape: '{kind:"asymptote", orientation:"horizontal"|"vertical", value:<exact_number>}'
+  orientation_values: [horizontal, vertical]
+  value: exact_number
+  identity: 'y=0 no equivale a x=0'
+  tolerance: none
+
+composite:
+  shape: '{kind:"composite", fields:{nombre:<answer>, ...}}'
+  fields: named_and_typed
+  required_fields: declared_by_exercise_registration
+  missing_field:
+    category: incomplete
+    code: MISSING_COMPOSITE_FIELD
+  extra_field:
+    category: format
+    code: EXTRA_COMPOSITE_FIELD
+  empty_fields: format
+  nested: allowed_by_contract
+  notes: >
+    La obligatoriedad concreta no se infiere del nombre ni de la forma; la declara el registro
+    del Ejercicio en su spec consumidora.
+
+result:
+  shape: '{status:"correct"|"incorrect"|"indeterminate", feedbackCode:<string>, origin?:"local"|"api"}'
+  statuses: [correct, incorrect, indeterminate]
+  forbidden_statuses: [incomplete]
+  forbidden_fields: [message, apiVersion]
+  error_separate_from_result: true
+
+error:
+  shape: '{category:<category>, code:<string>, message:<string>}'
+  categories:
+    - format
+    - incomplete
+    - unsupported
+    - configuration
+    - transport
+    - service
+  http_mapping: adapter_only
+  logging: adapter_or_consumer_policy
+  never_a_mathematical_result: true
+
+dispatch:
+  selection: explicit
+  fallback: forbidden
+  registry_defaults: none
+  unknown_exercise:
+    category: unsupported
+    code: EXERCISE_NOT_REGISTERED
+  invalid_type:
+    category: unsupported
+    code: TYPE_NOT_ALLOWED
+  missing_mechanism:
+    category: configuration
+    code: MECHANISM_NOT_CONFIGURED
+  mechanism_failure:
+    category: transport
+    code: TRANSPORT_ERROR
+  validator_failure:
+    category: service
+    code: VALIDATOR_ERROR
+  no_validator_invocation_on_structural_error: true
+
+pending:
+  expression_grammar: pending_until_an_exercise_requires_expression
+  exercise_associations: pending_for_e02_to_e15_except_ratified_e01_and_e08
+  operational_limits: pending_consumer_policy
+  logging_metrics_http: pending_consumer_policy
+  canonical_contract_source: resolved_in_plan_d01

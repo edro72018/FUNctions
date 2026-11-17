@@ -1,6 +1,6 @@
 # Política de versiones
 
-**Estado:** estándar inicial propuesto para FUNtions.  
+**Estado:** estándar inicial propuesto para FUNctions.  
 **Alcance:** aplicación web, cliente estático y API de cálculo.
 
 ## 1. Esquema de versiones

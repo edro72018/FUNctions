@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Contrato canónico de error. Versión 0.1.0. Propuesta para revisión del plan.",
+  "title": "ValidationError",
+  "description": "Error estructural, de configuración o técnico, separado del resultado matemático.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["category", "code", "message"],
+  "properties": {
+    "category": {
+      "enum": [
+        "format",
+        "incomplete",
+        "unsupported",
+        "configuration",
+        "transport",
+        "service"
+      ],
+      "description": "Categoría explícita del error."
+    },
+    "code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$",
+      "description": "Código estable del catálogo de errores."
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Mensaje técnico mínimo; no es la presentación localizada."
+    }
+  }
+}

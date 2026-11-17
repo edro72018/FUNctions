@@ -1,6 +1,6 @@
 # Estructura definitiva del proyecto
 
-**Estado:** estructura canónica para FUNtions. Todo el código, las especificaciones y la documentación técnica del producto se organizan dentro de `development/`.  
+**Estado:** estructura canónica para FUNctions. Todo el código, las especificaciones y la documentación técnica del producto se organizan dentro de `development/`.  
 **Stack:** React/TypeScript; PixiJS en Zona 1; Mafs en Zonas 2–5; FastAPI/SymPy; LocalStorage.
 **Metodología:** Spec-Driven Development (SDD).
 

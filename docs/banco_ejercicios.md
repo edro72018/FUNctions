@@ -1,4 +1,4 @@
-# Banco de Ejercicios de *FUNtions*: Análisis Didáctico, Fundamentación y Fichas de Diseño
+# Banco de Ejercicios de *FUNctions*: Análisis Didáctico, Fundamentación y Fichas de Diseño
 
 ---
 
@@ -30,7 +30,7 @@ Estas elecciones resuelven discrepancias editoriales entre los bancos, pero no s
 | C06 | E12 parte de $3^x=81$ y exige conversión y solución | Evitar proporcionar el exponente antes de resolver y aceptar respuestas incompletas |
 | C07 | E13 exige dominio y asíntota; E15 no exige rango | Conservar las tareas del banco ampliado y alinear sus objetivos |
 
-La corrección matemática documental no sustituye la revisión cruzada de Danny/María. Los casos de prueba de estas fichas son **resultados esperados**, no pruebas ejecutadas. Las tres ayudas son contenido propuesto; su activación, los reintentos y el progreso se revisan en la [especificación del primer recorrido](../specs/001-primer-recorrido/spec.md).
+La corrección matemática documental no sustituye la revisión cruzada de Danny/María. Los casos de prueba de estas fichas son **resultados esperados**, no pruebas ejecutadas. El GDD v0.1 aprueba ayudas H1–H3 voluntarias y secuenciales, reintentos ilimitados y progreso por niveles y sistemas reparados; las specs deben convertir estas reglas en requisitos implementables.
 
 ---
 

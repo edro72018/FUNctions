@@ -1,0 +1,15 @@
+{
+  "kind": "composite",
+  "fields": {
+    "vertice": {
+      "kind": "vertex",
+      "h": "3",
+      "k": "2"
+    },
+    "asintota": {
+      "kind": "asymptote",
+      "orientation": "horizontal",
+      "value": "0"
+    }
+  }
+}

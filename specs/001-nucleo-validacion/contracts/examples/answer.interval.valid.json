@@ -1,0 +1,13 @@
+{
+  "kind": "intervalUnion",
+  "intervals": [
+    {
+      "lower": { "value": "-inf", "inclusive": false },
+      "upper": { "value": "3", "inclusive": false }
+    },
+    {
+      "lower": { "value": "3", "inclusive": false },
+      "upper": { "value": "+inf", "inclusive": false }
+    }
+  ]
+}

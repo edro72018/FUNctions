@@ -6,7 +6,7 @@
 
 ## 1. Principios
 
-- La API valida respuestas del banco cerrado de FUNtions; no es una calculadora simbólica pública.
+- La API valida respuestas del banco cerrado de FUNctions; no es una calculadora simbólica pública.
 - El cliente envía `exerciseId`, `answer` y `requestId`; no envía código Python ni expresiones SymPy para ejecución arbitraria.
 - FastAPI valida el formato; el servicio matemático verifica el contenido compatible con SymPy y responde un estado explícito.
 - PixiJS representa la Zona 1 y Mafs las Zonas 2–5; ambos motores son de presentación/interacción, no autoridad de validación.

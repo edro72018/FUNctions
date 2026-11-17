@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Contrato canónico de solicitud. Versión 0.1.0. Propuesta para revisión del plan.",
+  "title": "ValidationRequest",
+  "description": "Solicitud común del núcleo. requestId es solo correlación; no hay idempotencia.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["requestId", "exerciseId", "answer"],
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID de correlación. No es credencial ni clave de deduplicación."
+    },
+    "exerciseId": {
+      "type": "string",
+      "pattern": "^E(0[1-9]|1[0-5])$",
+      "description": "Identificador estable de Ejercicio del banco E01–E15."
+    },
+    "answer": {
+      "$ref": "answer.schema.json"
+    },
+    "mechanism": {
+      "enum": ["local", "api"],
+      "description": "Selección explícita del mecanismo. Si falta, se usa la configuración; no hay fallback automático."
+    }
+  }
+}

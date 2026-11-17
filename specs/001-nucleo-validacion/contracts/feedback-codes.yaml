@@ -1,0 +1,29 @@
+contract: feedback-codes
+version: 0.1.0
+status: proposed
+scope: >
+  Catálogo inicial de códigos de retroalimentación del núcleo. Los códigos son estables y
+  aditivos; el mensaje localizado y su presentación pertenecen a la UI. Un código desconocido
+  no autoriza a inferir el estado matemático.
+
+policy:
+  stable_codes: true
+  additive: true
+  consumer_must_tolerate_unknown_codes: true
+  message_not_in_core: true
+
+codes:
+  CORRECT_DEFAULT:
+    status: correct
+    description: La respuesta cumple el criterio completo del Ejercicio.
+  INCORRECT_DEFAULT:
+    status: incorrect
+    description: La respuesta fue evaluada y no cumple el criterio del Ejercicio.
+  INDETERMINATE_DEFAULT:
+    status: indeterminate
+    description: El validador no pudo decidir dentro de su alcance; no equivale a incorrecta.
+
+notes:
+  - Los validadores específicos pueden añadir códigos propios con el mismo patrón.
+  - Los códigos no contienen texto localizado ni datos personales.
+  - La relación entre código y diagnóstico debe declararse en la spec del validador consumidor.

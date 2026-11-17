@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Contrato canónico de respuesta tipada. Versión 0.1.0. Propuesta para revisión del plan.",
+  "title": "Answer",
+  "description": "Unión discriminada de los diez tipos de respuesta aprobados por la spec del núcleo.",
+  "oneOf": [
+    { "$ref": "#/$defs/number" },
+    { "$ref": "#/$defs/expression" },
+    { "$ref": "#/$defs/finiteSet" },
+    { "$ref": "#/$defs/intervalUnion" },
+    { "$ref": "#/$defs/mapping" },
+    { "$ref": "#/$defs/boolean" },
+    { "$ref": "#/$defs/vertex" },
+    { "$ref": "#/$defs/point" },
+    { "$ref": "#/$defs/asymptote" },
+    { "$ref": "#/$defs/composite" }
+  ],
+  "$defs": {
+    "exactNumber": {
+      "type": "string",
+      "description": "Entero, decimal finito o racional exacto. No se usa punto flotante ni eval.",
+      "oneOf": [
+        {
+          "pattern": "^-?(0|[1-9][0-9]*)$"
+        },
+        {
+          "pattern": "^-?(0|[1-9][0-9]*)\\.[0-9]+$"
+        },
+        {
+          "pattern": "^-?(0|[1-9][0-9]*)/[1-9][0-9]*$"
+        }
+      ]
+    },
+    "number": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": { "const": "number" },
+        "value": { "$ref": "#/$defs/exactNumber" }
+      }
+    },
+    "expression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "tokens"],
+      "properties": {
+        "kind": { "const": "expression" },
+        "tokens": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*|x|\\+|-|\\(|\\))$"
+          },
+          "description": "Secuencia de tokens del teclado virtual. La gramática sintáctica no está aprobada en v1; el despachador la bloquea con error de configuración."
+        }
+      }
+    },
+    "finiteSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "values"],
+      "properties": {
+        "kind": { "const": "finiteSet" },
+        "values": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/exactNumber" },
+          "description": "Conjunto sin orden; los duplicados se colapsan. values: [] es el vacío explícito."
+        }
+      }
+    },
+    "intervalUnion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "intervals"],
+      "properties": {
+        "kind": { "const": "intervalUnion" },
+        "intervals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/interval" },
+          "description": "Unión de intervalos; intervals: [] es la unión vacía explícita."
+        }
+      }
+    },
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {
+        "lower": { "$ref": "#/$defs/lowerBound" },
+        "upper": { "$ref": "#/$defs/upperBound" }
+      }
+    },
+    "lowerBound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "inclusive"],
+      "properties": {
+        "value": {
+          "oneOf": [
+            { "$ref": "#/$defs/exactNumber" },
+            { "const": "-inf" }
+          ]
+        },
+        "inclusive": { "type": "boolean" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["value"],
+            "properties": { "value": { "const": "-inf" } }
+          },
+          "then": {
+            "properties": { "inclusive": { "const": false } }
+          }
+        }
+      ]
+    },
+    "upperBound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "inclusive"],
+      "properties": {
+        "value": {
+          "oneOf": [
+            { "$ref": "#/$defs/exactNumber" },
+            { "const": "+inf" }
+          ]
+        },
+        "inclusive": { "type": "boolean" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["value"],
+            "properties": { "value": { "const": "+inf" } }
+          },
+          "then": {
+            "properties": { "inclusive": { "const": false } }
+          }
+        }
+      ]
+    },
+    "mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "pairs"],
+      "properties": {
+        "kind": { "const": "mapping" },
+        "pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              { "$ref": "#/$defs/exactNumber" },
+              { "$ref": "#/$defs/exactNumber" }
+            ],
+            "items": false,
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "description": "Pares [entrada, salida] con semántica de conjunto; el orden y los duplicados no cambian la identidad."
+        }
+      }
+    },
+    "boolean": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": { "const": "boolean" },
+        "value": { "type": "boolean" }
+      }
+    },
+    "vertex": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "h", "k"],
+      "properties": {
+        "kind": { "const": "vertex" },
+        "h": { "$ref": "#/$defs/exactNumber" },
+        "k": { "$ref": "#/$defs/exactNumber" }
+      }
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "x", "y"],
+      "properties": {
+        "kind": { "const": "point" },
+        "x": { "$ref": "#/$defs/exactNumber" },
+        "y": { "$ref": "#/$defs/exactNumber" }
+      }
+    },
+    "asymptote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "orientation", "value"],
+      "properties": {
+        "kind": { "const": "asymptote" },
+        "orientation": { "enum": ["horizontal", "vertical"] },
+        "value": { "$ref": "#/$defs/exactNumber" }
+      }
+    },
+    "composite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "fields"],
+      "properties": {
+        "kind": { "const": "composite" },
+        "fields": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "minLength": 1 },
+          "additionalProperties": { "$ref": "#" },
+          "description": "Campos nombrados y tipados. La obligatoriedad concreta la declara el registro del Ejercicio."
+        }
+      }
+    }
+  }
+}

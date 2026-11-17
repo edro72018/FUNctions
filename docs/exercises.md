@@ -1,4 +1,4 @@
-# FUNtions — Guía técnica de los 15 ejercicios
+# FUNctions — Guía técnica de los 15 ejercicios
 
 **Estado:** guía derivada del [banco canónico](./banco_ejercicios.md), revisión `0.1-draft` del 15/11/2026. Contenido consolidado; revisión cruzada y criterios adicionales C01–C07 pendientes. No implementado.  
 **Distribución acordada:** 15 ejercicios, tres por cada una de cinco zonas.  

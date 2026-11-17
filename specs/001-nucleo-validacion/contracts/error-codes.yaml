@@ -1,0 +1,77 @@
+contract: error-codes
+version: 0.1.0
+status: proposed
+scope: >
+  Catálogo inicial de códigos de error del núcleo. Complementa error.schema.json y no
+  sustituye la política de logging, los mensajes localizados ni el mapeo HTTP, que
+  pertenecen al adaptador o al consumidor.
+
+policy:
+  stable_codes: true
+  additive: true
+  message_in_core: technical_only
+  http_mapping: adapter_only
+  never_a_mathematical_result: true
+
+codes:
+  INVALID_REQUEST:
+    category: format
+    description: La solicitud no cumple la estructura común.
+    invoke_validator: false
+  INVALID_ANSWER:
+    category: format
+    description: La respuesta no cumple la forma declarada por su discriminante.
+    invoke_validator: false
+  NUMBER_GRAMMAR_INVALID:
+    category: format
+    description: La cadena numérica no pertenece a la gramática exacta aprobada.
+    invoke_validator: false
+  EXPRESSION_TOKEN_INVALID:
+    category: format
+    description: La secuencia contiene un token que no pertenece al teclado virtual aprobado.
+    invoke_validator: false
+  INTERVAL_INVALID:
+    category: format
+    description: Los extremos, la pertenencia o el orden del intervalo son inválidos.
+    invoke_validator: false
+  MISSING_COMPOSITE_FIELD:
+    category: incomplete
+    description: Falta un campo obligatorio declarado por el registro del Ejercicio.
+    invoke_validator: false
+  EXERCISE_NOT_REGISTERED:
+    category: unsupported
+    description: No existe un validador registrado para el Ejercicio.
+    invoke_validator: false
+  TYPE_NOT_ALLOWED:
+    category: unsupported
+    description: El tipo de respuesta no está permitido para el Ejercicio registrado.
+    invoke_validator: false
+  MECHANISM_NOT_CONFIGURED:
+    category: configuration
+    description: No hay un mecanismo local o API seleccionado de forma explícita.
+    invoke_validator: false
+  GRAMMAR_NOT_APPROVED:
+    category: configuration
+    description: El tipo requiere una gramática que no ha sido aprobada.
+    invoke_validator: false
+  NORMALIZATION_NOT_APPROVED:
+    category: configuration
+    description: El tipo requiere una regla de normalización que no ha sido aprobada.
+    invoke_validator: false
+  TRANSPORT_ERROR:
+    category: transport
+    description: Falló la comunicación con el mecanismo seleccionado.
+    invoke_validator: false
+  SERVICE_UNAVAILABLE:
+    category: service
+    description: El servicio de validación no está disponible.
+    invoke_validator: false
+  VALIDATOR_ERROR:
+    category: service
+    description: El validador produjo un error inesperado o no pudo completar su trabajo.
+    invoke_validator: true
+
+notes:
+  - Los códigos de error no se transforman en feedbackCode.
+  - Un error de transporte o servicio no se registra como incorrect.
+  - El adaptador puede añadir códigos de transporte específicos, pero debe conservar la categoría.

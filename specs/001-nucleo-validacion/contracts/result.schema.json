@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Contrato canónico de resultado matemático. Versión 0.1.0. Propuesta para revisión del plan.",
+  "title": "ValidationResult",
+  "description": "Resultado matemático del núcleo. No contiene message, apiVersion ni incomplete.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "feedbackCode"],
+  "properties": {
+    "status": {
+      "enum": ["correct", "incorrect", "indeterminate"],
+      "description": "Exactamente uno de los tres resultados matemáticos aprobados."
+    },
+    "feedbackCode": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$",
+      "description": "Código estable del catálogo; la presentación localizada queda fuera del núcleo."
+    },
+    "origin": {
+      "enum": ["local", "api"],
+      "description": "Origen del resultado, cuando el consumidor lo requiere."
+    }
+  }
+}

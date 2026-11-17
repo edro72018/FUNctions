@@ -1,11 +1,11 @@
 # Guía de convenciones de código
 
-**Estado:** estándar inicial propuesto para el equipo de FUNtions.  
+**Estado:** estándar inicial propuesto para el equipo de FUNctions.  
 **Ámbito:** frontend React/TypeScript, visualizaciones PixiJS y Mafs, backend FastAPI/SymPy y documentación técnica.
 
 ## 1. Propósito y aplicación
 
-Esta guía define las convenciones que deben aplicar quienes implementen, revisen o mantengan FUNtions. Se aplica a código nuevo y a cambios en código existente. Cuando una regla no se pueda cumplir, el autor debe explicarlo en la solicitud de cambio y acordar una excepción con quien revise.
+Esta guía define las convenciones que deben aplicar quienes implementen, revisen o mantengan FUNctions. Se aplica a código nuevo y a cambios en código existente. Cuando una regla no se pueda cumplir, el autor debe explicarlo en la solicitud de cambio y acordar una excepción con quien revise.
 
 Los términos **Zona**, **Ejercicio**, **Validador**, **Modo estático**, **API** y **Progreso local** tienen el significado definido en el [Glosario único](./glosario.md). La distribución de carpetas que complementa estas reglas está en la [Estructura definitiva](./estructura-proyecto.md).
 

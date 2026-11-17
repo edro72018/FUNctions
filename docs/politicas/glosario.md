@@ -1,4 +1,4 @@
-# Glosario único de FUNtions
+# Glosario único de FUNctions
 
 **Estado:** vocabulario canónico inicial para código, documentación, revisiones y consultas asistidas por IA.  
 **Regla de uso:** conservar los nombres y significados de esta tabla; no reutilizar un término para otro concepto sin actualizar este documento y los estándares que lo referencian.
