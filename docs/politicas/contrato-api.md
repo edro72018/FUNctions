@@ -4,6 +4,9 @@
 **Versión de API:** `/api/v1`.  
 **Consumidor:** aplicación React/TypeScript; no se requieren cuentas de usuario en el alcance actual.
 
+**Fuente canónica del núcleo:** [contratos de la spec 001](../../specs/001-nucleo-validacion/contracts/).
+Las rutas y los códigos HTTP de este documento son propuestas del adaptador, no reglas del núcleo.
+
 ## 1. Principios
 
 - La API valida respuestas del banco cerrado de FUNctions; no es una calculadora simbólica pública.
@@ -58,24 +61,29 @@ Solicitud:
 }
 ```
 
-`requestId` es un UUID generado por el cliente para correlacionar una solicitud con su respuesta y registros técnicos; no es una credencial. `exerciseId` debe pertenecer al banco publicado (`E01`–`E15`). `answer` es una unión discriminada y limitada por el tipo de respuesta de ese Ejercicio. La API debe rechazar tipos no admitidos por el Ejercicio correspondiente.
+`requestId` es un UUID obligatorio generado por el cliente para correlacionar una solicitud con su respuesta; no es una credencial ni garantiza idempotencia o deduplicación. `exerciseId` pertenece a `E01`–`E15`. Cada consumidor registra explícitamente los tipos admitidos; el ejemplo E09 no ratifica esa asociación. El mecanismo opcional `mechanism: "local" | "api"` prevalece sobre la configuración explícita. No hay fallback automático.
 
 Formas iniciales admitidas para `answer`:
 
 ```json
 { "kind": "number", "value": "3/2" }
-{ "kind": "expression", "value": "2*x + 1" }
+{ "kind": "expression", "tokens": ["x", "+", "1"] }
 { "kind": "finiteSet", "values": ["-3", "3"] }
 { "kind": "intervalUnion", "intervals": [
-  { "lower": "-inf", "upper": "0", "lowerInclusive": false, "upperInclusive": false },
-  { "lower": "0", "upper": "+inf", "lowerInclusive": true, "upperInclusive": false }
+  { "lower": {"value": "-inf", "inclusive": false}, "upper": {"value": "0", "inclusive": false} },
+  { "lower": {"value": "0", "inclusive": true}, "upper": {"value": "+inf", "inclusive": false} }
 ] }
 { "kind": "mapping", "pairs": [
-  { "input": "1", "output": "2" }
+  ["1", "2"]
 ] }
+{ "kind": "boolean", "value": true }
+{ "kind": "vertex", "h": "3", "k": "2" }
+{ "kind": "point", "x": "1/2", "y": "-2" }
+{ "kind": "asymptote", "orientation": "vertical", "value": "3" }
+{ "kind": "composite", "fields": {"vertice": {"kind": "vertex", "h": "3", "k": "2"}} }
 ```
 
-Las cadenas numéricas representan valores exactos y deben seguir una gramática limitada definida por el validador; no se interpretan como código. Las cadenas `-inf` y `+inf` solo se aceptan como límites de intervalo. Para un tipo nuevo, actualizar primero este contrato y las pruebas de compatibilidad.
+Las cadenas numéricas siguen la gramática exacta de `normalization.yaml`: enteros, decimales finitos o racionales; sin tolerancia ni ejecución de texto. `values: []` y `intervals: []` son vacíos explícitos. Los infinitos son abiertos y solo se aceptan como extremos. Los pares se comparan como conjunto, conservando entradas iguales con distintas salidas. Los campos obligatorios de `composite` se declaran por registro; faltantes y extras producen errores separados. `expression` acepta tokens estructuralmente pero permanece bloqueada con `configuration/GRAMMAR_NOT_APPROVED`; E12 usa campos estructurados en v1.
 
 Respuesta `200 OK`:
 
@@ -83,20 +91,22 @@ Respuesta `200 OK`:
 {
   "requestId": "c1e49b67-8be8-4caf-9ea1-a593d9cdbfc5",
   "exerciseId": "E09",
-  "result": "correct",
-  "feedbackCode": "ANSWER_MATCHES",
-  "message": "La respuesta es correcta.",
+  "result": {
+    "status": "correct",
+    "feedbackCode": "ANSWER_MATCHES",
+    "origin": "api"
+  },
   "apiVersion": "v1"
 }
 ```
 
-Valores permitidos de `result`:
+El sobre HTTP anterior es una propuesta del adaptador. El resultado del núcleo es únicamente `{status, feedbackCode, origin?}`; la correlación se conserva fuera de él. Valores permitidos de `result.status`:
 
 - `correct`: la respuesta cumple completamente el criterio del Ejercicio.
 - `incorrect`: el validador pudo decidir y la respuesta no cumple el criterio.
 - `indeterminate`: el validador no pudo decidir dentro de su alcance; no equivale a incorrecta.
 
-`feedbackCode` es una clave estable para la interfaz. `message` es texto legible y no sustituye la clave estable. Los valores nuevos de `feedbackCode` son aditivos; los consumidores deben tolerar códigos desconocidos mostrando un mensaje genérico.
+`feedbackCode` es una clave estable para la interfaz; `message` y `apiVersion` quedan fuera del resultado del núcleo. Los códigos nuevos son aditivos; el consumidor localiza el mensaje y tolera códigos desconocidos sin inferir el estado.
 
 ## 4. Errores HTTP
 
@@ -105,11 +115,11 @@ Para errores HTTP se usa esta forma:
 ```json
 {
   "error": {
+    "category": "format",
     "code": "INVALID_ANSWER",
-    "message": "La respuesta no tiene el formato esperado.",
-    "requestId": "c1e49b67-8be8-4caf-9ea1-a593d9cdbfc5",
-    "details": []
-  }
+    "message": "La respuesta no tiene el formato esperado."
+  },
+  "requestId": "c1e49b67-8be8-4caf-9ea1-a593d9cdbfc5"
 }
 ```
 
@@ -122,7 +132,7 @@ Para errores HTTP se usa esta forma:
 | `500` | `INTERNAL_ERROR` | Error inesperado del servidor |
 | `503` | `VALIDATOR_UNAVAILABLE` | Servicio de validación no disponible temporalmente |
 
-`details` es una lista opcional de errores de campo; nunca debe contener trazas, código ejecutable ni datos internos del motor. El backend no debe devolver `200` con un objeto de error ni convertir una falla interna en `incorrect`.
+El núcleo devuelve exclusivamente `{category, code, message}`. Las categorías son `format`, `incomplete`, `unsupported`, `configuration`, `transport` y `service`. `incomplete` nunca es un resultado matemático. El catálogo canónico está en `error-codes.yaml` y `normalization.yaml`; el mapeo HTTP anterior sigue siendo una propuesta del adaptador y requiere revisión antes de implementarse. Los metadatos de transporte quedan fuera del error del núcleo. Nunca se devuelven trazas ni se convierte una falla en `incorrect` o `indeterminate`.
 
 ## 5. Paginación
 
@@ -144,7 +154,7 @@ No enviar nombres, correos, credenciales ni progreso personal a la API. `request
 
 ## 8. Tiempos de cálculo y modo estático
 
-La validación debe limitar el tamaño y las familias de expresiones admitidas. Si un cálculo no termina o SymPy no puede decidir, responder `200` con `result: "indeterminate"` solo cuando el servidor haya concluido normalmente que no puede decidir. Si el servicio está indisponible o falla, usar `503` o `500` según corresponda.
+La validación debe limitar el tamaño y las familias de expresiones admitidas según la futura política del adaptador. `result.status: "indeterminate"` solo corresponde a un validador que concluye normalmente que no puede decidir. Un fallo de transporte o servicio produce un error separado; el mapeo HTTP y los límites operativos pertenecen al adaptador.
 
 En el Modo estático, una respuesta local exitosa se identifica en la interfaz como resultado local; no falsifica un `requestId` ni una respuesta de API. Los validadores estáticos se limitan a los Ejercicios publicados y deben tener casos de referencia equivalentes a los usados para el backend.
 

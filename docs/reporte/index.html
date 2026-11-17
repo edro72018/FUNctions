@@ -1,0 +1,1332 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Reporte de avance del proyecto FUNctions, elaborado a partir de los archivos disponibles en dev al 15 de noviembre de 2026.">
+  <title>FUNctions · Reporte de avance</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous">
+</head>
+<body class="bg-body-tertiary">
+
+  <header class="bg-dark text-white">
+    <div class="container py-5">
+      <div class="row g-4 align-items-end">
+        <div class="col-lg-8">
+          <p class="text-uppercase text-warning fw-semibold small mb-2">
+            Universidad de El Salvador · Facultad de Ciencias Naturales y Matemática
+          </p>
+          <h1 class="display-5 fw-bold mb-3">FUNctions · Reporte de avance</h1>
+          <p class="lead mb-0">
+            Proyecto final “Gamifiquemos” · Matemática para Computación I (DMC1109) ·
+            Ciclo II–2026 · Licenciatura en Informática Educativa
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <span class="badge text-bg-warning fs-6 mb-2">Corte de revisión: 15/11/2026</span>
+          <p class="small text-light mb-0">Entrega académica: martes 17/11/2026</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="bg-white border-bottom" aria-label="Secciones del reporte">
+    <div class="container py-2">
+      <ul class="nav nav-pills flex-wrap gap-1 small">
+        <li class="nav-item"><a class="nav-link active" href="#resumen">Resumen</a></li>
+        <li class="nav-item"><a class="nav-link" href="#alcance">Alcance</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cronologia">Línea de tiempo</a></li>
+        <li class="nav-item"><a class="nav-link" href="#estado">Estado frente a la consigna</a></li>
+        <li class="nav-item"><a class="nav-link" href="#componentes">Componentes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tecnologias">Tecnologías</a></li>
+        <li class="nav-item"><a class="nav-link" href="#limites">Verificación</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <section id="resumen" class="py-5">
+      <div class="container">
+        <p class="text-uppercase text-primary-emphasis fw-semibold small mb-1">Resumen ejecutivo</p>
+        <h2 class="display-6 fw-bold mb-3">Documentación y SDD listas para revisión; el juego aún no es software ejecutable</h2>
+
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-body p-4 p-lg-5">
+
+            <p class="lead mb-4">
+              <strong>FUNctions</strong> es el juego educativo del proyecto final “Gamifiquemos”.
+              Al 15 de noviembre de 2026, el trabajo verificable en <code class="text-danger-emphasis">dev/</code> pasó de una
+              planificación dispersa a un <strong>repositorio local con documentación canónica, políticas, una constitución
+              en borrador y una especificación SDD para revisión</strong>. Todavía no existe una versión jugable, código fuente,
+              pruebas ejecutadas, licencia incorporada al repositorio, enlace público ni documento académico final.
+            </p>
+
+            <div class="alert alert-info border-info-subtle mb-4" role="note">
+              <strong>Actualización posterior al corte — 16/11/2026:</strong> el nombre definitivo es
+              <strong>FUNctions</strong>; la representación de <strong>ESAI (El Salvador Aerospace Institute)</strong>
+              dentro del juego es ficticia; y las reglas del GDD v0.1 fueron aprobadas. Se establecen
+              progresión secuencial, reintentos ilimitados, ayudas H1–H3, guardado local y victoria 15/15,
+              sin temporizador, vidas, puntos ni insignias. El resto del reporte conserva el estado histórico
+              observado el 15/11 y no acredita implementación ni pruebas posteriores.
+            </div>
+
+            <div class="row row-cols-2 row-cols-md-4 g-3 mb-4">
+              <div class="col">
+                <div class="border rounded-3 p-3 h-100 bg-body-tertiary">
+                  <div class="small text-secondary-emphasis text-uppercase fw-semibold">Producto</div>
+                  <div class="fw-semibold">FUNctions</div>
+                  <div class="small text-secondary-emphasis">15 ejercicios · 5 zonas</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="border rounded-3 p-3 h-100 bg-body-tertiary">
+                  <div class="small text-secondary-emphasis text-uppercase fw-semibold">Método</div>
+                  <div class="fw-semibold">SDD + Scrum</div>
+                  <div class="small text-secondary-emphasis">Scrum aún no iniciado</div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="border rounded-3 p-3 h-100 bg-body-tertiary">
+                  <div class="small text-secondary-emphasis text-uppercase fw-semibold">Repositorio</div>
+                  <div class="fw-semibold">1 commit</div>
+                  <div class="small text-secondary-emphasis">Rama <code class="text-danger-emphasis">constitution</code></div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="border rounded-3 p-3 h-100 bg-body-tertiary">
+                  <div class="small text-secondary-emphasis text-uppercase fw-semibold">Entrega</div>
+                  <div class="fw-semibold">17/11/2026</div>
+                  <div class="small text-secondary-emphasis">Martes</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning border-warning-subtle mb-4" role="alert">
+              <strong>Hallazgo principal:</strong> <code class="text-danger-emphasis">development/</code> ya no está vacía.
+              Contiene <strong>39 archivos versionados</strong>, un repositorio Git con <strong>un único commit</strong>,
+              el banco canónico, cinco políticas, una constitución en borrador y la especificación 001.
+              Sin embargo, no hay carpetas <code class="text-danger-emphasis">frontend/</code> ni <code class="text-danger-emphasis">backend/</code>, archivos
+              <code class="text-danger-emphasis">.ts</code>, <code class="text-danger-emphasis">.tsx</code> o <code class="text-danger-emphasis">.py</code>, manifiestos de dependencias, pruebas,
+              <code class="text-danger-emphasis">LICENSE</code> ni URL. El avance sigue siendo <strong>documental y de preparación</strong>,
+              no un incremento jugable.
+            </div>
+
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h3 class="h5 fw-bold">Qué cambió desde el corte del 14/11</h3>
+                <ul class="mb-0">
+                  <li class="mb-2">
+                    Se creó el <strong>repositorio local</strong> en <code class="text-danger-emphasis">development/</code> y se
+                    registró un commit de gobernanza documental. La rama existente es <code class="text-danger-emphasis">constitution</code>;
+                    no hay rama <code class="text-danger-emphasis">main</code> ni remoto configurado.
+                  </li>
+                  <li class="mb-2">
+                    El <strong>banco de ejercicios</strong> y la <strong>guía técnica</strong> se trasladaron a
+                    <code class="text-danger-emphasis">development/docs/</code> como fuentes canónicas. Las rutas antiguas en
+                    <code class="text-danger-emphasis">docs/</code> quedaron como enlaces.
+                  </li>
+                  <li class="mb-2">
+                    Se añadieron <strong>cinco políticas</strong>: estructura del proyecto, convenciones de código,
+                    contrato de API, política de versiones y glosario.
+                  </li>
+                  <li class="mb-2">
+                    Se redactó una <strong>constitución 0.1.0</strong> con seis principios y puertas SDD; sigue
+                    <strong>pendiente de ratificación</strong> y no sustituye aprobaciones del equipo.
+                  </li>
+                  <li class="mb-2">
+                    Se preparó la <strong>especificación 001</strong> para un primer recorrido E01/E08: 12 requisitos y
+                    13 criterios de aceptación propuestos, aún no aprobados ni implementados.
+                  </li>
+                  <li>
+                    Se añadió andamiaje de <strong>Spec Kit</strong> (comandos y plantillas) y una revisión documental del
+                    banco en <code class="text-danger-emphasis">docs/testing_AI/</code>.
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h3 class="h5 fw-bold">Estado en una vista</h3>
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex gap-2 mb-2">
+                    <span class="badge text-bg-success align-self-start mt-1">Con base</span>
+                    <span>Decisiones de producto, banco de 15 ejercicios, políticas, constitución borrador y especificación E01/E08.</span>
+                  </li>
+                  <li class="d-flex gap-2 mb-2">
+                    <span class="badge text-bg-warning align-self-start mt-1">En revisión</span>
+                    <span>Especificación 001, criterios C01–C07, fuentes del banco y contrato de API para E01/E08.</span>
+                  </li>
+                  <li class="d-flex gap-2 mb-2">
+                    <span class="badge text-bg-danger align-self-start mt-1">Pendiente</span>
+                    <span>Implementación, pruebas, licencia en el repositorio, despliegue, enlace, documento final y anexos.</span>
+                  </li>
+                  <li class="d-flex gap-2">
+                    <span class="badge text-bg-secondary align-self-start mt-1">No verificable</span>
+                    <span>Aportes individuales, aprobación formal, Sprint, resultados educativos y cronología exacta.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="alcance" class="py-5 bg-white border-top">
+      <div class="container">
+        <p class="text-uppercase text-primary-emphasis fw-semibold small mb-1">Alcance de la revisión</p>
+        <h2 class="h1 fw-bold mb-3">Qué se revisó y cómo se leyó</h2>
+        <p class="lead text-secondary-emphasis mb-4">
+          La revisión se limitó al árbol <code class="text-danger-emphasis">dev/</code>, a los archivos de
+          <code class="text-danger-emphasis">development/</code> y a los metadatos de su repositorio Git local.
+          No se consultaron rutas externas, repositorios remotos ni servicios desplegados.
+        </p>
+
+        <div class="row g-4 mb-4">
+          <div class="col-lg-8">
+            <div class="table-responsive">
+              <table class="table table-sm align-middle bg-white mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">Archivo o carpeta</th>
+                    <th scope="col">Fecha observada</th>
+                    <th scope="col">Uso en este reporte</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="text-danger-emphasis">docs/consigna.md</code></td><td>04/11/2026</td><td>Requisitos, entregables y rúbrica</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/server-stats.md</code></td><td>04/11/2026</td><td>Contexto de infraestructura</td></tr>
+                  <tr><td><code class="text-danger-emphasis">LaTex/</code></td><td>12/11/2026</td><td>Entorno auxiliar de composición</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/respuestas.csv</code></td><td>14/11/2026</td><td>Respuestas iniciales del equipo</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/conclusión_de_respuestas.md</code></td><td>15/11/2026</td><td>Decisiones consolidadas y pendientes</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/actividades.csv</code></td><td>15/11/2026</td><td>Cronograma y estados</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/scrum.md</code></td><td>15/11/2026</td><td>Diagnóstico Scrum y backlog propuesto</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/formulario.html</code></td><td>15/11/2026</td><td>Herramienta local de captura de decisiones</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/constitution_draft.md</code></td><td>15/11/2026</td><td>Borrador de constitución para revisión</td></tr>
+                  <tr><td><code class="text-danger-emphasis">docs/testing_AI/banco_ejercicios_review.md</code></td><td>15/11/2026</td><td>Copia de revisión del banco</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/README.md</code></td><td>15/11/2026</td><td>Estado declarado del producto</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/docs/banco_ejercicios.md</code></td><td>15/11/2026</td><td>Banco canónico de los 15 ejercicios</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/docs/exercises.md</code></td><td>15/11/2026</td><td>Guía técnica derivada por ejercicio</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/docs/politicas/</code></td><td>15/11/2026</td><td>Cinco estándares técnicos propuestos</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/specs/001-primer-recorrido/spec.md</code></td><td>15/11/2026</td><td>Especificación E01/E08 para revisión</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/.specify/memory/constitution.md</code></td><td>15/11/2026</td><td>Constitución 0.1.0, no ratificada</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/.git/</code></td><td>15/11/2026, 12:14</td><td>Un commit; rama <code class="text-danger-emphasis">constitution</code>; sin remoto</td></tr>
+                  <tr><td><code class="text-danger-emphasis">development/</code> (código)</td><td>15/11/2026</td><td>Sin fuentes, dependencias, pruebas ni licencia</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card border-0 bg-body-tertiary h-100">
+              <div class="card-body">
+                <h3 class="h6 text-uppercase text-secondary-emphasis fw-bold">Reglas de lectura</h3>
+                <ul class="mb-0 small">
+                  <li class="mb-2"><strong>“Decidido” no es “implementado”.</strong> Una decisión registrada en Markdown no equivale a código, prueba o despliegue.</li>
+                  <li class="mb-2"><strong>La cronología combina fechas de modificación y un commit.</strong> El commit permite fechar la creación del paquete documental, no atribuir cada cambio a una persona.</li>
+                  <li class="mb-2"><strong>“Parcial”</strong> indica que existe un borrador o insumo, pero no el entregable final.</li>
+                  <li class="mb-2"><strong>“No verificable”</strong> indica que el archivo no permite confirmar el hecho.</li>
+                  <li><strong>No se auditó la exactitud matemática</strong> de las 15 soluciones; se verificó su existencia, estructura y criterios asociados.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-info border-info-subtle mb-0" role="note">
+          <strong>Nota sobre el alcance:</strong> la ausencia de código en <code class="text-danger-emphasis">development/</code>
+          no permite afirmar que el equipo no tenga trabajo en otra ubicación; sí permite afirmar que
+          <strong>no hay evidencia de implementación dentro de <code class="text-danger-emphasis">dev/</code></strong>.
+          Tampoco se verificó el contenido de servicios externos ni la validez de enlaces públicos.
+        </div>
+      </div>
+    </section>
+
+    <section id="cronologia" class="py-5">
+      <div class="container">
+        <p class="text-uppercase text-primary-emphasis fw-semibold small mb-1">Línea de tiempo</p>
+        <h2 class="h1 fw-bold mb-3">Cronología de lo trabajado</h2>
+        <p class="text-secondary-emphasis mb-4">
+          La secuencia se reconstruyó con las fechas de modificación de los archivos, las fechas citadas
+          dentro de ellos y el único commit del repositorio local. No hay historial suficiente para atribuir
+          cada cambio a una persona ni para fijar todas las horas.
+        </p>
+
+        <ol class="list-group list-group-flush">
+
+          <li class="list-group-item bg-transparent px-0 py-4">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <span class="badge text-bg-dark">04/11/2026</span>
+                <div class="small text-secondary-emphasis mt-1">Punto de partida</div>
+              </div>
+              <div class="col-md-9 border-start border-4 border-primary ps-3 ps-md-4">
+                <h3 class="h5 fw-bold mb-2">Consigna y contexto del servidor</h3>
+                <p class="mb-2">
+                  Se incorpora <code class="text-danger-emphasis">consigna.md</code> con las generalidades, los contenidos
+                  sugeridos, los requisitos del documento y la rúbrica. El mismo día se registra
+                  <code class="text-danger-emphasis">server-stats.md</code>, un snapshot del servidor Debian con
+                  Frappe/Education, MariaDB, Redis y Tailscale Funnel. El snapshot documenta infraestructura
+                  existente, no el juego.
+                </p>
+                <p class="small text-secondary-emphasis mb-0">Evidencia: <code class="text-danger-emphasis">docs/consigna.md</code>, <code class="text-danger-emphasis">docs/server-stats.md</code>.</p>
+              </div>
+            </div>
+          </li>
+
+          <li class="list-group-item bg-transparent px-0 py-4">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <span class="badge text-bg-dark">12/11/2026</span>
+                <div class="small text-secondary-emphasis mt-1">Trabajo auxiliar</div>
+              </div>
+              <div class="col-md-9 border-start border-4 border-secondary ps-3 ps-md-4">
+                <h3 class="h5 fw-bold mb-2">Entorno de composición LaTeX</h3>
+                <p class="mb-2">
+                  Se agrega un <code class="text-danger-emphasis">Dockerfile</code> basado en Fedora con TeX Live y
+                  <code class="text-danger-emphasis">latexmk</code>, y se compila <code class="text-danger-emphasis">main.tex</code>,
+                  una clave de examen EP-2 con diagramas TikZ y ejercicios de conjuntos y desigualdades.
+                  Quedan artefactos de compilación en la carpeta.
+                </p>
+                <p class="small text-secondary-emphasis mb-0">
+                  Evidencia: <code class="text-danger-emphasis">LaTex/Dockerfile</code>, <code class="text-danger-emphasis">LaTex/main.tex</code> y artefactos auxiliares.
+                  <strong>No contiene contenido de FUNctions ni forma parte del entregable.</strong>
+                </p>
+              </div>
+            </div>
+          </li>
+
+          <li class="list-group-item bg-transparent px-0 py-4">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <span class="badge text-bg-dark">14/11/2026</span>
+                <div class="small text-secondary-emphasis mt-1">Registro inicial</div>
+              </div>
+              <div class="col-md-9 border-start border-4 border-primary ps-3 ps-md-4">
+                <h3 class="h5 fw-bold mb-2">Primeras respuestas y consolidación de decisiones</h3>
+                <p class="mb-2">
+                  <code class="text-danger-emphasis">respuestas.csv</code> recoge la primera versión: nombre
+                  <strong>FUNctions</strong>, 10 ejercicios, licencia Apache 2.0, aventura narrativa, desarrollo
+                  propio en Python/web, público de bachillerato y una meta del 80 % de participantes. Después,
+                  <code class="text-danger-emphasis">conclusión_de_respuestas.md</code> sustituye esos valores por
+                  <strong>FUNctions</strong>, licencia <strong>MIT</strong>, 15 ejercicios, rompecabezas 2D y arquitectura híbrida.
+                </p>
+                <p class="small text-secondary-emphasis mb-0">
+                  Evidencia: <code class="text-danger-emphasis">docs/respuestas.csv</code> (registro histórico) y
+                  <code class="text-danger-emphasis">docs/conclusión_de_respuestas.md</code>, actualizado el 15/11/2026.
+                </p>
+              </div>
+            </div>
+          </li>
+
+          <li class="list-group-item bg-transparent px-0 py-4">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <span class="badge text-bg-dark">14–15/11/2026</span>
+                <div class="small text-secondary-emphasis mt-1">Planificación</div>
+              </div>
+              <div class="col-md-9 border-start border-4 border-success ps-3 ps-md-4">
+                <h3 class="h5 fw-bold mb-2">Cronograma, formulario y lectura Scrum</h3>
+                <p class="mb-2">
+                  <code class="text-danger-emphasis">actividades.csv</code> desglosa 15 actividades (A01–A14, incluida A02b)
+                  con descripción, requisito de la consigna, entregable, responsables, dependencias, estado y
+                  criterio de evaluación. Las fechas internas están marcadas como <strong>“Supuesta”</strong>.
+                  <code class="text-danger-emphasis">formulario.html</code> materializa 35 preguntas en cinco bloques y exporta
+                  respuestas a CSV localmente. <code class="text-danger-emphasis">scrum.md</code> diagnostica que no hay Sprint
+                  iniciado y propone Product Backlog, roles, eventos y Definition of Done.
+                </p>
+                <p class="small text-secondary-emphasis mb-0">
+                  Evidencia: <code class="text-danger-emphasis">docs/actividades.csv</code>, <code class="text-danger-emphasis">docs/formulario.html</code>, <code class="text-danger-emphasis">docs/scrum.md</code>.
+                  La consigna no exige Scrum; es una herramienta de organización del equipo.
+                </p>
+              </div>
+            </div>
+          </li>
+
+          <li class="list-group-item bg-transparent px-0 py-4">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <span class="badge text-bg-dark">15/11/2026</span>
+                <div class="small text-secondary-emphasis mt-1">Consolidación pedagógica</div>
+              </div>
+              <div class="col-md-9 border-start border-4 border-info ps-3 ps-md-4">
+                <h3 class="h5 fw-bold mb-2">Banco canónico y guía técnica dentro del producto</h3>
+                <p class="mb-2">
+                  El banco consolidado se traslada a <code class="text-danger-emphasis">development/docs/banco_ejercicios.md</code>
+                  y se convierte en la fuente de verdad del contenido. Incluye los 15 ejercicios, tres por zona,
+                  decisiones confirmadas para E01/E05/E06/E08/E15, soluciones formales, casos esperados y los
+                  criterios C01–C07 propuestos. <code class="text-danger-emphasis">development/docs/exercises.md</code> deriva
+                  una guía técnica por ID. Las rutas antiguas en <code class="text-danger-emphasis">docs/</code> quedaron como enlaces.
+                </p>
+                <p class="small text-secondary-emphasis mb-0">
+                  Evidencia: <code class="text-danger-emphasis">development/docs/banco_ejercicios.md</code> (revisión <code class="text-danger-emphasis">0.1-draft</code>) y
+                  <code class="text-danger-emphasis">development/docs/exercises.md</code>. La revisión cruzada, las fuentes y C01–C07 siguen pendientes.
+                </p>
+              </div>
+            </div>
+          </li>
+
+          <li class="list-group-item bg-transparent px-0 py-4">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <span class="badge text-bg-dark">15/11/2026</span>
+                <div class="small text-secondary-emphasis mt-1">Gobernanza SDD</div>
+              </div>
+              <div class="col-md-9 border-start border-4 border-success ps-3 ps-md-4">
+                <h3 class="h5 fw-bold mb-2">Políticas, constitución y commit inicial</h3>
+                <p class="mb-2">
+                  Se añaden la estructura canónica del proyecto, las convenciones de código, el contrato de API
+                  <code class="text-danger-emphasis">/api/v1</code>, la política de versiones y el glosario. Se redacta la constitución
+                  <strong>0.1.0</strong> con seis principios y puertas SDD, pendiente de ratificación. El repositorio
+                  local registra un commit, <code class="text-danger-emphasis">ab9a0f2</code>, de creación de la
+                  Constitución del proyecto, atribuido por Git a Edwin Rodríguez.
+                </p>
+                <p class="small text-secondary-emphasis mb-0">
+                  Evidencia: <code class="text-danger-emphasis">development/docs/politicas/</code>,
+                  <code class="text-danger-emphasis">development/.specify/memory/constitution.md</code> y
+                  <code class="text-danger-emphasis">git log</code>. La rama es <code class="text-danger-emphasis">constitution</code>; no hay remoto.
+                </p>
+              </div>
+            </div>
+          </li>
+
+          <li class="list-group-item bg-transparent px-0 py-4">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <span class="badge text-bg-secondary">15/11/2026</span>
+                <div class="small text-secondary-emphasis mt-1">Comprobación</div>
+              </div>
+              <div class="col-md-9 border-start border-4 border-danger ps-3 ps-md-4">
+                <h3 class="h5 fw-bold mb-2">Especificación 001 en borrador y cierre de la revisión</h3>
+                <p class="mb-2">
+                  Se prepara la especificación del primer recorrido E01/E08 para revisión, con 12 requisitos,
+                  13 criterios de aceptación, ayudas H1–H3, reglas de intentos y persistencia local. El archivo
+                  <code class="text-danger-emphasis">spec.md</code> aparece <strong>modificado después del commit</strong>, por lo que
+                  esa versión no está versionada. No se encontraron fuentes del cliente, API, pruebas, recursos
+                  gráficos, licencia ni URL pública.
+                </p>
+                <p class="small text-secondary-emphasis mb-0">
+                  Evidencia: <code class="text-danger-emphasis">development/specs/001-primer-recorrido/spec.md</code>,
+                  <code class="text-danger-emphasis">development/README.md</code> y <code class="text-danger-emphasis">git status</code>.
+                  El avance verificable sigue siendo documental y de diseño.
+                </p>
+              </div>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <section id="estado" class="py-5 bg-white border-top">
+      <div class="container">
+        <p class="text-uppercase text-primary-emphasis fw-semibold small mb-1">Avance y pendientes</p>
+        <h2 class="h1 fw-bold mb-3">Estado frente a la consigna</h2>
+        <p class="lead text-secondary-emphasis mb-4">
+          La consigna pide un juego educativo original y funcional, un documento con estructura completa,
+          un enlace público y anexos de autoría. La tabla distingue lo que existe como insumo de lo que aún
+          no está entregado.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2 mb-3" aria-label="Leyenda de estados">
+          <span class="badge text-bg-success">Con base documental</span>
+          <span class="badge text-bg-warning">Parcial o en borrador</span>
+          <span class="badge text-bg-danger">Pendiente</span>
+          <span class="badge text-bg-secondary">No verificable</span>
+        </div>
+
+        <div class="table-responsive mb-5">
+          <table class="table table-bordered align-middle bg-white">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Requisito de <code class="text-warning">consigna.md</code></th>
+                <th scope="col">Evidencia disponible en <code class="text-warning">dev/</code></th>
+                <th scope="col">Estado</th>
+                <th scope="col">Trazabilidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Portada con nombres completos</strong></td>
+                <td>Nombres y roles en <code class="text-danger-emphasis">respuestas.csv</code>, <code class="text-danger-emphasis">conclusión_de_respuestas.md</code> y <code class="text-danger-emphasis">formulario.html</code>; no existe portada ni documento final. <code class="text-danger-emphasis">consigna.md</code> solo lista a Edwin y Danny y deja la tutora en blanco.</td>
+                <td><span class="badge text-bg-warning">Parcial</span></td>
+                <td>A01, A10</td>
+              </tr>
+              <tr>
+                <td><strong>Nombre y sinopsis de máximo 100 palabras</strong></td>
+                <td><strong>FUNctions</strong> confirmado. Borrador de sinopsis de 40 palabras en la sección 4 de <code class="text-danger-emphasis">conclusión_de_respuestas.md</code>; no menciona las logarítmicas y no consta aprobación final.</td>
+                <td><span class="badge text-bg-warning">Parcial</span></td>
+                <td>A04</td>
+              </tr>
+              <tr>
+                <td><strong>Objetivo de aprendizaje</strong></td>
+                <td>Objetivo general y objetivos específicos en <code class="text-danger-emphasis">respuestas.csv</code>; análisis en <code class="text-danger-emphasis">conclusión_de_respuestas.md</code>. La definición y medición del 80 % sigue pendiente.</td>
+                <td><span class="badge text-bg-warning">Parcial</span></td>
+                <td>A04</td>
+              </tr>
+              <tr>
+                <td><strong>Reglas y mecánica del juego</strong></td>
+                <td>Cinco zonas, tres ejercicios por zona, rompecabezas 2D, avance con 100 % de precisión, sin temporizador ni vidas, tres mecánicas y ayudas ZDP. Reintentos, puntos e insignias siguen abiertos; la especificación 001 solo detalla E01/E08.</td>
+                <td><span class="badge text-bg-warning">Parcial</span></td>
+                <td>A06</td>
+              </tr>
+              <tr>
+                <td><strong>Entre 10 y 20 ejercicios con sus soluciones</strong></td>
+                <td>15 ejercicios con enunciado, solución y criterios en <code class="text-danger-emphasis">development/docs/banco_ejercicios.md</code> y su guía derivada. Los conflictos anteriores de E05/E06/E15 quedaron resueltos en el banco canónico; faltan C01–C07, contraste de fuentes y revisión cruzada.</td>
+                <td><span class="badge text-bg-warning">Parcial</span></td>
+                <td>A05</td>
+              </tr>
+              <tr>
+                <td><strong>Créditos y roles del equipo</strong></td>
+                <td>Roles declarados: Edwin, coordinación y desarrollo; Danny, pruebas y subcoordinación; María, tester. El único commit está atribuido a Edwin; no hay evidencia de aportes equivalentes de los tres integrantes.</td>
+                <td><span class="badge text-bg-warning">Parcial</span> <span class="badge text-bg-secondary">No verificable</span></td>
+                <td>A01, A03, A10</td>
+              </tr>
+              <tr>
+                <td><strong>Enlace al juego con acceso abierto</strong></td>
+                <td>El formulario registra el enlace como <strong>PENDIENTE</strong>. No hay URL, despliegue ni verificación en ventana de incógnito.</td>
+                <td><span class="badge text-bg-danger">Pendiente</span></td>
+                <td>A08</td>
+              </tr>
+              <tr>
+                <td><strong>Anexos de participación y autoría</strong></td>
+                <td>Se eligieron capturas, historial de commits y otra evidencia por especificar. Existe un commit, pero no hay capturas, bitácora, video ni anexos integrados.</td>
+                <td><span class="badge text-bg-danger">Pendiente</span></td>
+                <td>A03, A11</td>
+              </tr>
+              <tr>
+                <td><strong>Juego original y funcional</strong></td>
+                <td><code class="text-danger-emphasis">development/</code> contiene documentación, no código: sin <code class="text-danger-emphasis">frontend/</code>, <code class="text-danger-emphasis">backend/</code>, fuentes, dependencias, pruebas ni instrucciones de ejecución.</td>
+                <td><span class="badge text-bg-danger">Pendiente</span></td>
+                <td>A07</td>
+              </tr>
+              <tr>
+                <td><strong>Lenguaje claro y accesible para el público meta</strong></td>
+                <td>Estrategia declarada: frases cortas, palabras sencillas y lenguaje matemático adaptado. La especificación 001 propone accesibilidad por teclado y texto alternativo, pero no hay prueba con estudiantes de bachillerato.</td>
+                <td><span class="badge text-bg-warning">Parcial</span> <span class="badge text-bg-secondary">No verificable</span></td>
+                <td>A04, A09</td>
+              </tr>
+              <tr>
+                <td><strong>Herramienta propia y licencia de código abierto</strong></td>
+                <td>Desarrollo propio y licencia MIT decididos. No hay archivo <code class="text-danger-emphasis">LICENSE</code> ni código sobre el cual aplicarla; la constitución exige incorporarla al repositorio.</td>
+                <td><span class="badge text-bg-warning">Parcial</span></td>
+                <td>A02, A07</td>
+              </tr>
+              <tr>
+                <td><strong>Documento final con toda la estructura</strong></td>
+                <td>Solo existen documentos de trabajo. No hay <code class="text-danger-emphasis">.md</code> final con portada, sinopsis, objetivo, reglas, soluciones, créditos, enlace y anexos integrados.</td>
+                <td><span class="badge text-bg-danger">Pendiente</span></td>
+                <td>A10, A13</td>
+              </tr>
+              <tr>
+                <td><strong>Entrega el 17/11/2026 por el coordinador</strong></td>
+                <td>Fecha confirmada en la consigna. La consigna no indica hora ni canal; <code class="text-danger-emphasis">scrum.md</code> registra «Plataforma Moodle Universitaria», dato que no aparece en la consigna y debe confirmarse.</td>
+                <td><span class="badge text-bg-danger">Pendiente</span> <span class="badge text-bg-secondary">No verificable</span></td>
+                <td>A14</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <h3 class="h4 fw-bold mb-3">Tareas pendientes registradas</h3>
+            <div class="table-responsive">
+              <table class="table table-sm align-middle bg-white">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">Bloque</th>
+                    <th scope="col">Pendiente verificable</th>
+                    <th scope="col">ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Especificación</td>
+                    <td>Aprobar o corregir la especificación 001 (E01/E08), sus 12 requisitos, 13 criterios y las propuestas de ayudas, intentos y persistencia.</td>
+                    <td>A02b</td>
+                  </tr>
+                  <tr>
+                    <td>Contenido</td>
+                    <td>Aprobar C01–C07, contrastar fuentes didácticas y completar la revisión cruzada del banco de 15 ejercicios.</td>
+                    <td>A05</td>
+                  </tr>
+                  <tr>
+                    <td>Contrato</td>
+                    <td>Definir en <code class="text-danger-emphasis">/api/v1</code> los tipos de respuesta booleano (E01) y vértice <code class="text-danger-emphasis">h/k</code> (E08) antes de implementar.</td>
+                    <td>A02b</td>
+                  </tr>
+                  <tr>
+                    <td>Planificación SDD</td>
+                    <td>Redactar <code class="text-danger-emphasis">plan.md</code> y <code class="text-danger-emphasis">tasks.md</code> con trazabilidad a REQ/AC; el repositorio aún no los contiene.</td>
+                    <td>A02b, A07</td>
+                  </tr>
+                  <tr>
+                    <td>Autorización</td>
+                    <td>Obtener autorización para instalar dependencias y fijar versiones compatibles; la instrucción vigente es «sin instalaciones».</td>
+                    <td>A07</td>
+                  </tr>
+                  <tr>
+                    <td>Desarrollo</td>
+                    <td>Implementar el recorrido E01/E08 y después el juego de cinco zonas con React/TypeScript, PixiJS, Mafs, FastAPI/SymPy y LocalStorage.</td>
+                    <td>A07</td>
+                  </tr>
+                  <tr>
+                    <td>Publicación</td>
+                    <td>Desplegar en servidor propio, preparar el respaldo estático y verificar el acceso abierto.</td>
+                    <td>A08</td>
+                  </tr>
+                  <tr>
+                    <td>Pruebas</td>
+                    <td>Ejecutar casos correctos, incorrectos y de frontera; comprobar ayudas, progreso, recarga y ausencia de API.</td>
+                    <td>A09</td>
+                  </tr>
+                  <tr>
+                    <td>Evidencias</td>
+                    <td>Registrar commits de los tres integrantes, capturas y la evidencia adicional de autoría.</td>
+                    <td>A03</td>
+                  </tr>
+                  <tr>
+                    <td>Documento</td>
+                    <td>Integrar portada, sinopsis, objetivo, reglas, 15 soluciones, créditos, enlace y anexos en el <code class="text-danger-emphasis">.md</code> final.</td>
+                    <td>A10, A11</td>
+                  </tr>
+                  <tr>
+                    <td>Revisión y entrega</td>
+                    <td>Aplicar la rúbrica, corregir el documento y entregarlo por el coordinador.</td>
+                    <td>A12–A14</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card border-0 bg-body-tertiary h-100">
+              <div class="card-body">
+                <h3 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lectura del cronograma</h3>
+                <p class="mb-2">
+                  En <code class="text-danger-emphasis">actividades.csv</code>, <strong>A01</strong> y <strong>A02</strong> figuran como
+                  completadas; <strong>A02b</strong>, <strong>A04</strong> y <strong>A05</strong> están en curso;
+                  las otras diez aparecen como pendientes.
+                </p>
+                <p class="mb-2">
+                  Esas fechas son una propuesta de planificación marcada como <strong>“Supuesta”</strong>. La única
+                  fecha fija de la consigna es el <strong>17/11/2026</strong>. El cronograma no es un porcentaje de avance
+                  del producto.
+                </p>
+                <p class="mb-2">
+                  <code class="text-danger-emphasis">scrum.md</code> confirma que <strong>no hay Sprint iniciado</strong>,
+                  Sprint Goal acordado, Definition of Done adoptada ni eventos realizados. La tabla de roles
+                  asigna «Product Owner» a las tres personas, aunque el mismo documento pide una responsabilidad única.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  El estado del cronograma no demuestra que el producto esté terminado: una actividad de
+                  planificación completada no equivale a un incremento jugable.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="componentes" class="py-5">
+      <div class="container">
+        <p class="text-uppercase text-primary-emphasis fw-semibold small mb-1">Reporte detallado</p>
+        <h2 class="h1 fw-bold mb-3">Componentes y módulos del trabajo</h2>
+        <p class="lead text-secondary-emphasis mb-4">
+          El trabajo se organiza en componentes documentales, de gobernanza y de preparación técnica. Cada ficha
+          indica su propósito, lo que existe, su relación con la consigna y el límite de lo verificado.
+        </p>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">1. Decisiones y alcance del producto</h3>
+              <span class="badge text-bg-success">Documentación</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> convertir las respuestas dispersas del equipo en un alcance único y
+              trazable para el juego, el documento y la entrega.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2"><code class="text-danger-emphasis">respuestas.csv</code>: registro inicial de 35 campos con nombre, integrantes, tema, objetivo, público, mecánicas, stack, licencia, despliegue, roles y evidencias.</li>
+                  <li class="mb-2"><code class="text-danger-emphasis">conclusión_de_respuestas.md</code>: consolidación actualizada el 15/11/2026 que fija <strong>FUNctions</strong>, <strong>MIT</strong>, 15 ejercicios, cuatro familias de funciones, arquitectura híbrida, LocalStorage, documento <code class="text-danger-emphasis">.md</code> y respaldo estático.</li>
+                  <li class="mb-2">Registro de correcciones técnicas: respuestas estructuradas por tipo, comparación de dominios, límites de SymPy, tolerancias por interacción y restricciones de logaritmos.</li>
+                  <li>Doce secciones que separan decisiones vigentes, antecedentes históricos y pendientes; las secciones 9–11 se declaran expresamente históricas.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Aporta nombre, tema, público, objetivo, licencia, roles y arquitectura, además de la trazabilidad
+                  hacia las tareas A01, A02, A04 y A06.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> una decisión registrada no equivale a producto terminado. Sinopsis,
+                  objetivo medible, reglas, reintentos y puntos/insignias siguen pendientes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">2. Repositorio y gobernanza SDD</h3>
+              <span class="badge text-bg-success">Documentación</span>
+              <span class="badge text-bg-info">Nuevo</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> establecer una fuente de verdad, reglas de trabajo y trazabilidad antes
+              de escribir código, conforme a Spec-Driven Development.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2"><strong>Repositorio Git local</strong> en <code class="text-danger-emphasis">development/</code>: 39 archivos versionados, un commit <code class="text-danger-emphasis">ab9a0f2</code>, rama única <code class="text-danger-emphasis">constitution</code>, sin remoto. <code class="text-danger-emphasis">spec.md</code> tiene cambios posteriores sin commit.</li>
+                  <li class="mb-2"><strong>README del producto</strong> con estado, orden de lectura, stack acordado y declaración expresa de que no hay implementación ejecutable.</li>
+                  <li class="mb-2"><strong>Cinco políticas</strong>: <code class="text-danger-emphasis">estructura-proyecto.md</code>, <code class="text-danger-emphasis">convenciones-codigo.md</code>, <code class="text-danger-emphasis">contrato-api.md</code>, <code class="text-danger-emphasis">politica-versiones.md</code> y <code class="text-danger-emphasis">glosario.md</code>.</li>
+                  <li class="mb-2"><strong>Constitución 0.1.0</strong> con seis principios, restricciones de stack, flujo de calidad y gobierno; incluye <code class="text-danger-emphasis">TODO(RATIFICATION_DATE)</code>.</li>
+                  <li><strong>Andamiaje de Spec Kit</strong>: comandos en <code class="text-danger-emphasis">.opencode/commands/</code> y plantillas, scripts y flujos en <code class="text-danger-emphasis">.specify/</code>, todos incluidos en el commit.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Refuerza el trabajo colaborativo y la organización, y prepara la trazabilidad del documento
+                  y del futuro código. No es un requisito académico explícito, sino un medio para cumplirlo.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> la constitución no está ratificada y el README afirma que el repositorio
+                  «no se ha inicializado con Spec Kit», aunque el andamiaje está presente. No hay evidencia de
+                  ejecución del comando ni de aprobación formal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">3. Especificación 001: primer recorrido E01/E08</h3>
+              <span class="badge text-bg-warning">En revisión</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> definir un corte vertical comprobable antes de ampliar el juego a las
+              cinco zonas: reconocer una función (E01) y construir una parábola desde el vértice (E08).
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2">Documento con problema, propósito, fuentes, decisiones confirmadas y propuestas sujetas a aprobación.</li>
+                  <li class="mb-2"><strong>12 requisitos observables</strong> (REQ-01 a REQ-12) y <strong>13 criterios de aceptación</strong> (AC-01 a AC-13), declarados como casos futuros, no resultados de pruebas.</li>
+                  <li class="mb-2">Alcance explícito: E01 con elección binaria; E08 con parámetros <code class="text-danger-emphasis">h/k</code> y ecuación generada; tres ayudas manuales; reintentos ilimitados; persistencia local; modos conectado y estático.</li>
+                  <li>Exclusiones: los otros 13 ejercicios, cuentas, sincronización, puntos/insignias, parser libre, despliegue y documento final.</li>
+                  <li>Lista de revisión con siete aprobaciones pendientes y registro de responsable/fecha aún vacío.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Prepara el juego funcional y la corrección matemática, pero <strong>no sustituye</strong> la entrega
+                  de cinco zonas y 15 ejercicios. Es el primer entregable técnico propuesto y sigue siendo documental.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> no está aprobada, no existe <code class="text-danger-emphasis">plan.md</code> ni <code class="text-danger-emphasis">tasks.md</code>, y el
+                  contrato de API no define todavía las respuestas booleana y de vértice.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">4. Banco canónico y guía técnica</h3>
+              <span class="badge text-bg-warning">En revisión</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> ser la fuente de verdad del contenido pedagógico: enunciados, soluciones,
+              casos esperados, errores frecuentes y ayudas de los 15 ejercicios.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2"><code class="text-danger-emphasis">development/docs/banco_ejercicios.md</code>: revisión <code class="text-danger-emphasis">0.1-draft</code>, 15 fichas en cinco zonas, tabla de soluciones, matriz de fuentes, distribución de revisión y checklist.</li>
+                  <li class="mb-2">Decisiones confirmadas: E01 reconoce; E05 es <code class="text-danger-emphasis">√(x−2)</code>; E06 es <code class="text-danger-emphasis">5/(x−3)</code>; E08 construye desde el vértice <code class="text-danger-emphasis">(3,2)</code>; E15 usa <code class="text-danger-emphasis">(x−3)²+2</code> para <code class="text-danger-emphasis">x≥0</code>.</li>
+                  <li class="mb-2"><strong>Criterios C01–C07</strong> propuestos para resolver discrepancias editoriales; no son acuerdos nuevos del usuario.</li>
+                  <li class="mb-2"><code class="text-danger-emphasis">development/docs/exercises.md</code>: guía derivada con asignación por zona, respuesta, procedimiento, aceptación, errores y ayudas H1–H3.</li>
+                  <li>Las rutas antiguas <code class="text-danger-emphasis">docs/banco_ejercicios.md</code> y <code class="text-danger-emphasis">docs/exercises.md</code> son enlaces a las fuentes canónicas.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Cubre el requisito de 10–20 ejercicios con soluciones y el 25 % de integración del contenido
+                  matemático. El banco contiene 15 ejercicios, dentro del rango exigido.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> la revisión cruzada, el contraste de páginas/minutos de las fuentes y
+                  la aprobación de C01–C07 siguen pendientes. Los casos descritos son resultados esperados, no
+                  pruebas ejecutadas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">5. Planificación, Scrum y cronograma</h3>
+              <span class="badge text-bg-info">Propuesta</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> ordenar el trabajo, asignar responsabilidades y hacer visible el avance
+              sin confundir planificación con implementación.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2"><code class="text-danger-emphasis">actividades.csv</code>: 15 actividades, requisito de la consigna, entregable, responsables, dependencias, estado y criterio de evaluación; fechas internas marcadas como «Supuesta».</li>
+                  <li class="mb-2"><code class="text-danger-emphasis">scrum.md</code>: diagnóstico, Product Goal, responsabilidades, Product Backlog PB01–PB09, Definition of Done propuesta, eventos, impedimentos y resumen.</li>
+                  <li class="mb-2">Estado declarado: 2 actividades completadas, 3 en curso y 10 pendientes; <strong>ningún Sprint iniciado</strong> ni incremento verificado.</li>
+                  <li>Registro de la entrega por Moodle y de la tutora Martha Beatriz Bran; ambos datos deben contrastarse con la consigna, que no los contiene.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Atiende el 20 % de trabajo colaborativo y organización, y ordena las tareas que producen el
+                  juego, el documento y las evidencias.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> no hay Sprint, eventos ni velocidad medidos. La tabla de roles asigna
+                  «Product Owner» a tres personas aunque el texto exige una responsabilidad única; el documento
+                  contiene además marcas de edición pendiente.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">6. Formulario local de decisiones</h3>
+              <span class="badge text-bg-success">Herramienta</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> recoger y exportar las decisiones del equipo en un cuestionario único,
+              sin enviar datos a un servidor.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2">35 preguntas en cinco bloques: equipo y plazo, contenido, diseño, tecnología y verificación/documento.</li>
+                  <li class="mb-2">Panel de estado con nombre, 15 ejercicios, arquitectura, licencia MIT, despliegue en servidor propio y enlace <strong>PENDIENTE</strong>.</li>
+                  <li>Exportación local a CSV mediante JavaScript del navegador; no requiere backend.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Apoya la organización y la captura de decisiones sobre contenido, mecánica, stack, enlace y
+                  evidencias. Es una herramienta de trabajo, no un entregable académico.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> sus valores no sustituyen aprobaciones ni demuestran que el enlace o las
+                  pruebas existan.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">7. Infraestructura y despliegue</h3>
+              <span class="badge text-bg-secondary">Contexto</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> documentar el servidor disponible y las condiciones para publicar el
+              cliente y la API con acceso abierto.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2"><code class="text-danger-emphasis">server-stats.md</code>: snapshot del 04/11/2026 con Debian, 2 vCPU AMD A6-9225, 7.2 GiB de RAM y unos 4.3 GiB disponibles entonces.</li>
+                  <li class="mb-2">Servicios existentes: Frappe/Education en Docker, MariaDB, Redis y exposición mediante Tailscale Funnel.</li>
+                  <li>La política de versiones y el contrato de API describen publicación, compatibilidad y modo estático, pero no hay configuración de FUNctions.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Proporciona la base para el enlace público y la contingencia estática, pero no cumple por sí
+                  solo el requisito de acceso abierto.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> el snapshot no es capacidad garantizada ni medición del juego. La URL de
+                  Frappe no es la URL de FUNctions; no hay despliegue, proxy, certificado ni prueba en incógnito.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">8. Implementación del juego</h3>
+              <span class="badge text-bg-danger">Pendiente</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> producir el cliente React/TypeScript, las cinco zonas, la API FastAPI/SymPy,
+              la persistencia local y el respaldo estático.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2">Diseño documentado de la arquitectura, la estructura de carpetas, las responsabilidades por capa y el contrato inicial.</li>
+                  <li class="mb-2">Especificación E01/E08 como primer corte vertical, todavía sin aprobar.</li>
+                  <li>Declaración expresa del README: «Todavía no hay implementación ejecutable, dependencias instaladas ni pruebas del juego ejecutadas».</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Es el componente que debe satisfacer el requisito central de «juego original y funcional».
+                  Actualmente no existe como software.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> no hay <code class="text-danger-emphasis">frontend/</code>, <code class="text-danger-emphasis">backend/</code>, archivos <code class="text-danger-emphasis">.ts</code>,
+                  <code class="text-danger-emphasis">.tsx</code> o <code class="text-danger-emphasis">.py</code>, <code class="text-danger-emphasis">package.json</code>, <code class="text-danger-emphasis">requirements.txt</code>, pruebas,
+                  <code class="text-danger-emphasis">LICENSE</code> ni instrucciones de ejecución.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">9. Documento final, enlace y anexos</h3>
+              <span class="badge text-bg-danger">Pendiente</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> integrar el entregable académico con portada, sinopsis, objetivo, reglas,
+              soluciones, créditos, enlace público y evidencias de autoría.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2">Insumos: decisiones consolidadas, banco de 15 ejercicios, guía técnica, cronograma, roles y un commit atribuido a Edwin.</li>
+                  <li class="mb-2">Formato <code class="text-danger-emphasis">.md</code> confirmado; la consigna no impone formato ni exige video o bitácora.</li>
+                  <li>Selección declarada de capturas, historial de commits y otra evidencia por especificar.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  Cubre portada, sinopsis, objetivo, reglas, soluciones, créditos, enlace y anexos. Es el soporte
+                  documental de la entrega del 17/11/2026.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> no existe el documento final, el enlace ni anexos integrados. Un commit
+                  no demuestra por sí solo la participación equitativa de los tres integrantes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white border-bottom py-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h3 class="h4 mb-0">10. Entorno auxiliar de composición LaTeX</h3>
+              <span class="badge text-bg-secondary">Auxiliar</span>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-secondary-emphasis mb-4">
+              <strong>Propósito:</strong> componer material académico con TeX Live, <code class="text-danger-emphasis">latexmk</code> y TikZ.
+            </p>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Lo que existe</h4>
+                <ul class="mb-0">
+                  <li class="mb-2"><code class="text-danger-emphasis">LaTex/Dockerfile</code> basado en Fedora con TeX Live y <code class="text-danger-emphasis">latexmk</code>.</li>
+                  <li class="mb-2"><code class="text-danger-emphasis">LaTex/main.tex</code>: clave de examen EP-2 con diagramas TikZ, conjuntos y desigualdades.</li>
+                  <li>Artefactos de compilación: <code class="text-danger-emphasis">main.aux</code>, <code class="text-danger-emphasis">main.log</code>, <code class="text-danger-emphasis">main.fls</code>, <code class="text-danger-emphasis">main.fdb_latexmk</code>.</li>
+                </ul>
+              </div>
+              <div class="col-lg-5">
+                <h4 class="h6 text-uppercase text-secondary-emphasis fw-bold">Relación con la consigna</h4>
+                <p>
+                  No contiene contenido de FUNctions ni forma parte del juego, del documento final o de los anexos.
+                  Se incluye solo para explicar el árbol revisado.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  <strong>Límite:</strong> es trabajo auxiliar de otra actividad académica; no debe presentarse como
+                  avance del proyecto Gamifiquemos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="tecnologias" class="py-5 bg-white border-top">
+      <div class="container">
+        <p class="text-uppercase text-primary-emphasis fw-semibold small mb-1">Tecnologías y herramientas</p>
+        <h2 class="h1 fw-bold mb-3">Qué se usa realmente y qué está solo decidido</h2>
+        <p class="lead text-secondary-emphasis mb-4">
+          La tabla separa los formatos y herramientas presentes en los archivos revisados del stack acordado
+          para FUNctions, que todavía no se ha instalado ni ejecutado.
+        </p>
+
+        <h3 class="h4 fw-bold mt-4 mb-3">Utilizadas o presentes en los archivos revisados</h3>
+        <div class="table-responsive mb-5">
+          <table class="table table-bordered align-middle bg-white">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Tecnología o formato</th>
+                <th scope="col">Uso verificable</th>
+                <th scope="col">Dónde</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Markdown</strong></td>
+                <td>Documentación de decisiones, banco, guía, Scrum, políticas, especificación y constitución.</td>
+                <td><code class="text-danger-emphasis">docs/</code>, <code class="text-danger-emphasis">development/docs/</code>, <code class="text-danger-emphasis">development/specs/</code></td>
+                <td><span class="badge text-bg-success">En uso</span></td>
+              </tr>
+              <tr>
+                <td><strong>HTML + CSS (Bootstrap 5.3.3)</strong></td>
+                <td>Reporte e interfaz local del formulario; el formulario añade JavaScript para exportar CSV.</td>
+                <td><code class="text-danger-emphasis">docs/reporte/</code>, <code class="text-danger-emphasis">docs/formulario.html</code></td>
+                <td><span class="badge text-bg-success">En uso</span></td>
+              </tr>
+              <tr>
+                <td><strong>CSV</strong></td>
+                <td>Respuestas iniciales y cronograma de actividades.</td>
+                <td><code class="text-danger-emphasis">docs/respuestas.csv</code>, <code class="text-danger-emphasis">docs/actividades.csv</code></td>
+                <td><span class="badge text-bg-success">En uso</span></td>
+              </tr>
+              <tr>
+                <td><strong>Git</strong></td>
+                <td>Control de versiones local; un commit y una rama, sin remoto.</td>
+                <td><code class="text-danger-emphasis">development/.git/</code></td>
+                <td><span class="badge text-bg-success">En uso</span></td>
+              </tr>
+              <tr>
+                <td><strong>Spec Kit</strong></td>
+                <td>Comandos, plantillas, scripts y flujo SDD; no hay evidencia de ejecución ni ratificación.</td>
+                <td><code class="text-danger-emphasis">development/.opencode/</code>, <code class="text-danger-emphasis">development/.specify/</code></td>
+                <td><span class="badge text-bg-warning">Andamiaje</span></td>
+              </tr>
+              <tr>
+                <td><strong>Bash</strong></td>
+                <td>Scripts de apoyo incluidos con el andamiaje SDD.</td>
+                <td><code class="text-danger-emphasis">development/.specify/scripts/bash/</code></td>
+                <td><span class="badge text-bg-warning">Andamiaje</span></td>
+              </tr>
+              <tr>
+                <td><strong>LaTeX + Docker</strong></td>
+                <td>Composición de una clave de examen auxiliar con TeX Live y <code class="text-danger-emphasis">latexmk</code>.</td>
+                <td><code class="text-danger-emphasis">LaTex/</code></td>
+                <td><span class="badge text-bg-secondary">Auxiliar</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="h4 fw-bold mb-3">Stack acordado para FUNctions, aún no implementado</h3>
+        <div class="table-responsive mb-5">
+          <table class="table table-bordered align-middle bg-white">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Capa</th>
+                <th scope="col">Tecnología acordada</th>
+                <th scope="col">Responsabilidad</th>
+                <th scope="col">Estado verificable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cliente</td>
+                <td>React 18 + TypeScript</td>
+                <td>Interfaz, navegación y estado de aplicación.</td>
+                <td>Confirmado; versiones y herramienta de compilación pendientes.</td>
+              </tr>
+              <tr>
+                <td>Zona 1</td>
+                <td>PixiJS</td>
+                <td>Nodos, cables y relaciones de existencia/unicidad.</td>
+                <td>Confirmado; integración y versión pendientes.</td>
+              </tr>
+              <tr>
+                <td>Zonas 2–5</td>
+                <td>Mafs</td>
+                <td>Gráficas, controles matemáticos y proyecciones.</td>
+                <td>Confirmado; versión pendiente.</td>
+              </tr>
+              <tr>
+                <td>API</td>
+                <td>FastAPI + Uvicorn</td>
+                <td>Validación HTTP versionada en <code class="text-danger-emphasis">/api/v1</code>.</td>
+                <td>FastAPI confirmado; configuración y Uvicorn por definir.</td>
+              </tr>
+              <tr>
+                <td>Matemática</td>
+                <td>SymPy</td>
+                <td>Comprobaciones simbólicas acotadas.</td>
+                <td>Confirmado; alcance, límites y tolerancias pendientes.</td>
+              </tr>
+              <tr>
+                <td>Persistencia</td>
+                <td>LocalStorage</td>
+                <td>Progreso local en el navegador; no sincroniza dispositivos.</td>
+                <td>Confirmado; esquema y migraciones pendientes.</td>
+              </tr>
+              <tr>
+                <td>Respaldo</td>
+                <td>Cliente estático</td>
+                <td>Validadores o respuestas precalculadas para los 15 ejercicios.</td>
+                <td>Aprobado como contingencia; implementación pendiente.</td>
+              </tr>
+              <tr>
+                <td>Licencia</td>
+                <td>MIT</td>
+                <td>Licencia del proyecto.</td>
+                <td>Decidida; no hay archivo <code class="text-danger-emphasis">LICENSE</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="h4 fw-bold mb-3">Mencionadas, pero no confirmadas como decisiones canónicas</h3>
+        <div class="table-responsive mb-5">
+          <table class="table table-sm align-middle bg-white">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Herramienta</th>
+                <th scope="col">Dónde aparece</th>
+                <th scope="col">Lectura correcta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Vite</strong></td>
+                <td><code class="text-danger-emphasis">conclusión_de_respuestas.md</code> y el banco</td>
+                <td>Propuesto como posible herramienta de compilación; la constitución dice expresamente que no se fija Vite como decisión.</td>
+              </tr>
+              <tr>
+                <td><strong>Tailwind CSS</strong></td>
+                <td><code class="text-danger-emphasis">conclusión_de_respuestas.md</code> y el formulario</td>
+                <td>Se conserva de la propuesta previa; no figura en la tabla de stack de la constitución.</td>
+              </tr>
+              <tr>
+                <td><strong>Nginx</strong></td>
+                <td><code class="text-danger-emphasis">conclusión_de_respuestas.md</code></td>
+                <td>Integración por definir con los servicios existentes y Tailscale Funnel; no es una decisión cerrada.</td>
+              </tr>
+              <tr>
+                <td><strong>SQLite</strong></td>
+                <td>Documentos históricos de discusión</td>
+                <td>Descartado para esta entrega: el progreso se guarda en LocalStorage, no en el servidor.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="h4 fw-bold mb-3">Contexto del servidor registrado</h3>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle bg-white mb-0">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Dato</th>
+                <th scope="col">Valor registrado</th>
+                <th scope="col">Alcance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Sistema</td><td>Debian</td><td>Snapshot del 04/11/2026</td></tr>
+              <tr><td>CPU / RAM</td><td>2 vCPU AMD A6-9225 · 7.2 GiB</td><td>No es capacidad garantizada para el juego</td></tr>
+              <tr><td>Servicios</td><td>Frappe/Education, MariaDB, Redis</td><td>Infraestructura existente, no FUNctions</td></tr>
+              <tr><td>Exposición</td><td>Tailscale Funnel</td><td>No se verificó una URL de FUNctions</td></tr>
+              <tr><td>Disponibilidad</td><td>≈ 4.3 GiB disponibles entonces</td><td>Dato histórico, no medición actual</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="limites" class="py-5">
+      <div class="container">
+        <p class="text-uppercase text-primary-emphasis fw-semibold small mb-1">Límites de la evidencia</p>
+        <h2 class="h1 fw-bold mb-3">Lo que no puede afirmarse con los archivos disponibles</h2>
+        <p class="lead text-secondary-emphasis mb-4">
+          Esta sección separa hechos comprobables de inferencias. Un documento que describe un comportamiento
+          futuro no demuestra que ese comportamiento exista.
+        </p>
+
+        <div class="table-responsive mb-5">
+          <table class="table table-bordered align-middle bg-white">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Afirmación que no se sostiene</th>
+                <th scope="col">Evidencia disponible</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>«El juego está implementado o es jugable».</td>
+                <td>No hay <code class="text-danger-emphasis">frontend/</code>, <code class="text-danger-emphasis">backend/</code>, fuentes, dependencias ni pruebas; el README lo declara expresamente.</td>
+              </tr>
+              <tr>
+                <td>«Las soluciones fueron probadas».</td>
+                <td>El banco contiene resultados esperados y criterios, pero no registros de ejecución, incidencias ni correcciones verificadas.</td>
+              </tr>
+              <tr>
+                <td>«El juego está publicado con acceso abierto».</td>
+                <td>No hay URL, configuración de despliegue, proxy, certificado ni prueba en ventana de incógnito.</td>
+              </tr>
+              <tr>
+                <td>«Los tres integrantes aportaron por igual».</td>
+                <td>Hay roles declarados y un commit atribuido a Edwin; no hay historial de los otros integrantes, capturas, bitácora o video.</td>
+              </tr>
+              <tr>
+                <td>«La especificación y la constitución están aprobadas».</td>
+                <td>Ambas se declaran borradores. La constitución tiene <code class="text-danger-emphasis">TODO(RATIFICATION_DATE)</code>; la especificación tiene siete aprobaciones pendientes.</td>
+              </tr>
+              <tr>
+                <td>«Hay un Sprint en curso o una Definition of Done adoptada».</td>
+                <td><code class="text-danger-emphasis">scrum.md</code> afirma que no hay Sprint, Sprint Goal, DoD ni eventos registrados.</td>
+              </tr>
+              <tr>
+                <td>«Se alcanzó el 80 % de desempeño».</td>
+                <td>No hay muestra, instrumento, registro de ayudas ni resultados. La meta sigue sin definición operativa.</td>
+              </tr>
+              <tr>
+                <td>«Spec Kit está inicializado y la constitución fue ratificada».</td>
+                <td>El andamiaje y la constitución 0.1.0 existen, pero el README dice que no se inicializó Spec Kit y no hay registro de ratificación.</td>
+              </tr>
+              <tr>
+                <td>«El cronograma demuestra el porcentaje de avance del producto».</td>
+                <td>Las actividades tienen tamaños distintos y no hay velocidad medida; además, las fechas internas son «Supuestas».</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row g-4 mb-5">
+          <div class="col-lg-6">
+            <div class="card border-0 bg-body-tertiary h-100">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Discrepancias documentales detectadas</h3>
+                <ul class="mb-0">
+                  <li class="mb-2"><strong>Spec Kit:</strong> el README afirma que el repositorio no se inicializó con Spec Kit, pero <code class="text-danger-emphasis">.specify/</code> y los comandos están presentes y fueron incluidos en el commit. No hay evidencia de ejecución ni de aprobación.</li>
+                  <li class="mb-2"><strong>Commits:</strong> <code class="text-danger-emphasis">actividades.csv</code> indica «sin commits al revisar el 15/11», pero Git registra un commit <code class="text-danger-emphasis">ab9a0f2</code> del 15/11 a las 12:14, atribuido a Edwin.</li>
+                  <li class="mb-2"><strong>Roles Scrum:</strong> la tabla asigna «Product Owner» a Edwin, Danny y María, mientras el texto exige una responsabilidad única.</li>
+                  <li class="mb-2"><strong>Estado de la especificación:</strong> <code class="text-danger-emphasis">spec.md</code> está modificado después del commit; la versión de trabajo no está versionada.</li>
+                  <li><strong>Canal de entrega:</strong> <code class="text-danger-emphasis">scrum.md</code> registra Moodle, pero <code class="text-danger-emphasis">consigna.md</code> no indica hora ni canal; debe confirmarse.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card border-0 bg-body-tertiary h-100">
+              <div class="card-body">
+                <h3 class="h5 fw-bold">Contenido resuelto y contenido aún abierto</h3>
+                <p class="mb-2">
+                  <strong>Resuelto en el banco canónico:</strong> los conflictos anteriores de E05/E06 (radical y
+                  racional) y E15 (rama <code class="text-danger-emphasis">(x−3)²+2</code>) ya tienen una versión única. E01 es de reconocimiento
+                  y E08 de construcción desde el vértice.
+                </p>
+                <p class="mb-2">
+                  <strong>Abierto:</strong> aprobación de C01–C07, contraste de las fuentes didácticas, revisión
+                  cruzada de Danny y María, criterios de aceptación por ejercicio, tolerancias, activación de
+                  ayudas, reintentos, puntos/insignias y definición del 80 %.
+                </p>
+                <p class="mb-0 small text-secondary-emphasis">
+                  El banco es una fuente de contenido consolidada, no un conjunto de validadores implementados ni
+                  una prueba de que las soluciones sean correctas en el juego.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-warning border-warning-subtle mb-0" role="note">
+          <h3 class="h5 fw-bold">Conclusión de la revisión</h3>
+          <p class="mb-0">
+            El avance más importante del 15/11/2026 es real y verificable: FUNctions ya tiene un repositorio local,
+            documentación canónica, políticas, una constitución en borrador y una especificación SDD para revisar.
+            También es verificable que <strong>el producto jugable todavía no existe</strong>: no hay código, dependencias,
+            pruebas, licencia incorporada, enlace ni documento final. La entrega del 17/11/2026 sigue siendo un
+            objetivo de planificación, no un resultado comprobado.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-dark text-light py-4">
+    <div class="container">
+      <p class="small mb-1">
+        Reporte elaborado a partir de los archivos de <code class="text-warning">dev/</code> con corte al 15/11/2026.
+        No se consultaron servicios externos ni se ejecutó el juego.
+      </p>
+      <p class="small mb-0">
+        FUNctions · Matemática para Computación I (DMC1109) · Ciclo II–2026 · Universidad de El Salvador.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

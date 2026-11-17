@@ -1,0 +1,38 @@
+# Dependencias instaladas (no se versionan)
+node_modules/
+
+# Artefactos de compilación y cobertura
+dist/
+coverage/
+*.tsbuildinfo
+
+# Entornos locales
+.env
+.env.local
+.env.*
+build/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# LaTeX (artefactos de compilación; los PDF finales sí se versionan)
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.synctex.gz
+
+# Archivos locales del editor y sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/

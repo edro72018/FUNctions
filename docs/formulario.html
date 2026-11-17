@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulario de decisiones · Proyecto final Gamifiquemos</title>
+<style>
+  :root {
+    --azul: #0b3d6b;
+    --azul-claro: #155e9e;
+    --dorado: #c9a227;
+    --fondo: #eef3f8;
+    --tarjeta: #ffffff;
+    --texto: #172433;
+    --muted: #5c6b7a;
+    --borde: #d5e0ea;
+    --error: #b42318;
+    --ok: #0f7b4f;
+    --sombra: 0 10px 30px rgba(11, 61, 107, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.55;
+  }
+
+  .wrap { width: min(1080px, calc(100% - 2rem)); margin: 0 auto; }
+
+  .hero {
+    background:
+      radial-gradient(circle at 85% 0%, #1d6fae 0%, transparent 45%),
+      linear-gradient(135deg, #082c4f 0%, #0b3d6b 55%, #0f4f84 100%);
+    color: #fff;
+    padding: 3rem 0 2.5rem;
+    border-bottom: 6px solid var(--dorado);
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .78rem;
+    font-weight: 700;
+    color: #d9e8f5;
+    margin: 0 0 .6rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin: 0 0 .8rem;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: #e8f2fa;
+    margin: 0 0 1.2rem;
+    max-width: 850px;
+  }
+
+  .badges { display: flex; flex-wrap: wrap; gap: .5rem; }
+
+  .badge {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: .35rem .8rem;
+    font-size: .85rem;
+  }
+
+  main { padding: 2rem 0 3rem; }
+
+  .card {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .card h2 { margin-top: 0; color: var(--azul); }
+
+  .intro p { margin: .4rem 0; }
+  .intro details { margin-top: .8rem; border-top: 1px solid var(--borde); padding-top: .8rem; }
+  .intro summary { cursor: pointer; font-weight: 700; color: var(--azul); }
+  .intro ul { margin: .6rem 0 0; padding-left: 1.2rem; }
+  .intro li { margin: .3rem 0; }
+
+  .note {
+    background: #fff8e1;
+    border: 1px solid #f0d98a;
+    border-radius: 12px;
+    padding: .8rem 1rem;
+    color: #5c4a00;
+    font-size: .9rem;
+    margin-top: 1rem;
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: .7rem;
+    margin: 1rem 0;
+  }
+
+  .status-item {
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: .7rem .8rem;
+    background: #fbfdff;
+  }
+
+  .status-label {
+    display: block;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .status-item strong {
+    display: block;
+    margin-top: .15rem;
+    color: var(--azul);
+  }
+
+  .section-head {
+    display: flex;
+    gap: .8rem;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-number {
+    flex: 0 0 auto;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: var(--azul);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+  }
+
+  .section-head h2 { margin: .1rem 0 .2rem; font-size: 1.35rem; }
+  .section-head p { margin: 0; color: var(--muted); }
+
+  .field { margin: 0 0 1.15rem; }
+
+  .field > label:not(.option),
+  .field > legend,
+  .group > legend {
+    display: block;
+    font-weight: 700;
+    margin-bottom: .35rem;
+    color: #24384b;
+  }
+
+  .req { color: var(--error); }
+
+  .help {
+    margin: .35rem 0 0;
+    color: var(--muted);
+    font-size: .86rem;
+  }
+
+  .field input[type="text"],
+  .field input[type="url"],
+  .field input[type="number"],
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 1px solid #b9c9d8;
+    border-radius: 10px;
+    padding: .7rem .8rem;
+    font: inherit;
+    color: var(--texto);
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 4px rgba(21,94,158,.14);
+  }
+
+  .field textarea { resize: vertical; min-height: 100px; }
+
+  .field input[aria-invalid="true"],
+  .field textarea[aria-invalid="true"] {
+    border-color: var(--error);
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder { color: #8a9aaa; }
+
+  .group { border: 0; padding: 0; margin: 0 0 1.15rem; }
+  .options { display: grid; gap: .5rem; }
+  .options.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .option {
+    display: flex;
+    gap: .55rem;
+    align-items: flex-start;
+    padding: .55rem .7rem;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: #fbfdff;
+    cursor: pointer;
+  }
+
+  .option:hover { border-color: #9fc0da; background: #f4f9fd; }
+  .option input { margin-top: .25rem; accent-color: var(--azul); }
+
+  .group-error {
+    color: var(--error);
+    font-size: .88rem;
+    font-weight: 600;
+    margin: .4rem 0 0;
+    min-height: 1.2em;
+  }
+
+  .has-error .options {
+    outline: 2px solid rgba(180,35,24,.2);
+    outline-offset: 4px;
+    border-radius: 12px;
+  }
+
+  .counter {
+    display: block;
+    margin-top: .3rem;
+    font-size: .82rem;
+    color: var(--muted);
+  }
+  .counter.over { color: var(--error); font-weight: 700; }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .8rem;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--borde);
+  }
+
+  .button {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    padding: .8rem 1.1rem;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: transform .1s, box-shadow .15s, background .15s;
+  }
+
+  .button:active { transform: translateY(1px); }
+
+  .button-primary {
+    background: var(--azul);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(11,61,107,.22);
+  }
+  .button-primary:hover { background: #092f54; }
+
+  .button-secondary {
+    background: #e8f0f7;
+    color: var(--azul);
+    border: 1px solid #c8d8e6;
+  }
+  .button-secondary:hover { background: #dce9f4; }
+
+  .result { border-left: 6px solid var(--ok); }
+  .result h2 { margin-top: 0; }
+
+  .result pre {
+    background: #0f1c29;
+    color: #e8f2fa;
+    padding: 1rem;
+    border-radius: 12px;
+    overflow: auto;
+    max-height: 320px;
+    font-size: .82rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .8rem;
+    align-items: center;
+    margin-top: .8rem;
+  }
+
+  footer {
+    color: var(--muted);
+    text-align: center;
+    padding: 1.5rem 0 2.5rem;
+    font-size: .85rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 2.2rem 0 2rem; }
+    .card { padding: 1.1rem; }
+    .actions { flex-direction: column; align-items: stretch; }
+    .button { width: 100%; }
+    .options.two-col { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .hero { background: #fff; color: #000; border-bottom: 2px solid #000; }
+    .card { box-shadow: none; }
+    .actions, .result { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Universidad de El Salvador · Facultad de Ciencias Naturales y Matemática</p>
+    <h1>Formulario de decisiones del proyecto final</h1>
+    <p class="subtitle">
+      <strong>Matemática para Computación I (DMC1109)</strong> · Proyecto “Gamifiquemos” · 15% de la asignatura.
+      Responde las decisiones clave y descarga tus respuestas en <strong>respuestas.csv</strong>.
+    </p>
+    <div class="badges">
+      <span class="badge">Entrega: martes 17/11/2026</span>
+      <span class="badge">Equipos de 2 o 3 estudiantes</span>
+      <span class="badge">Producto: documento + enlace + anexos</span>
+      <span class="badge">Sin servidor: todo ocurre en tu navegador</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="card intro" aria-labelledby="intro-title">
+    <h2 id="intro-title">Antes de empezar</h2>
+    <p>Este formulario organiza las decisiones que el equipo debe tomar para cumplir la consigna. No envía datos a internet: al pulsar el botón final, JavaScript construye el CSV y el navegador lo descarga como <code>respuestas.csv</code>.</p>
+    <ol>
+      <li>Lean la consigna y respondan en equipo.</li>
+      <li>Completen los campos obligatorios marcados con <span class="req">*</span>.</li>
+      <li>Pulsen <strong>“Generar y descargar respuestas.csv”</strong>.</li>
+      <li>Guarden el archivo y compártanlo con el equipo y la tutora.</li>
+    </ol>
+
+    <details>
+      <summary>Resumen de la consigna que este formulario ayuda a decidir</summary>
+      <ul>
+        <li><strong>Producto final:</strong> documento con portada, enlace al juego creado y anexos que evidencien la originalidad del trabajo.</li>
+        <li><strong>Documento:</strong> portada con nombres completos; nombre y sinopsis (máx. 100 palabras); objetivo de aprendizaje; reglas y mecánica; entre 10 y 20 ejercicios con soluciones; créditos y roles; enlace al juego con acceso abierto; anexos con evidencia de autoría (por ejemplo, video de 1-2 minutos, bitácora y capturas).</li>
+        <li><strong>Contenidos posibles:</strong> potencias y radicales, factorización de polinomios, ecuaciones lineales, ecuaciones cuadráticas, operaciones entre conjuntos, funciones (tema seleccionado en la consigna) u otro tema de la asignatura.</li>
+        <li><strong>Herramientas posibles:</strong> Wordwall, Genially, Kahoot, Quizizz, Educaplay, Scratch o cualquier otra; la consigna registra la decisión del equipo de desarrollar en Python u otro lenguaje y desplegarlo en web con licencia de código abierto.</li>
+        <li><strong>Criterios (calificación grupal):</strong> integración del contenido matemático 25%; diseño y mecánica 20%; enfoque educativo 20%; documento presentado 15%; trabajo colaborativo y organización 20%.</li>
+        <li><strong>Fecha:</strong> martes 17 de noviembre de 2026. La consigna no fija hora ni fecha de inicio.</li>
+      </ul>
+    </details>
+
+    <div class="note">
+      <strong>Importante:</strong> si recargas o cierras esta página antes de descargar el CSV, perderás las respuestas escritas. Descarga el archivo al terminar.
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="estado-title">
+    <h2 id="estado-title">Estado actual: respuestas y aclaraciones del equipo</h2>
+    <p>Actualización: <strong>16/11/2026</strong>. Decisiones consolidadas en <code>conclusión_de_respuestas.md</code>; reglas aprobadas en <code>workspace/GDD_FUNctions_v0.1.md</code>; banco canónico en <code>../development/docs/banco_ejercicios.md</code>. El CSV original conserva las respuestas iniciales; las aclaraciones posteriores tienen prioridad.</p>
+
+    <div class="status-grid">
+      <div class="status-item"><span class="status-label">Juego</span><strong>FUNctions (nombre definitivo)</strong></div>
+      <div class="status-item"><span class="status-label">Institución (representación ficticia)</span><strong>El Salvador Aerospace Institute (ESAI)</strong></div>
+      <div class="status-item"><span class="status-label">Equipo</span><strong>3 integrantes: Edwin, Danny y María</strong></div>
+      <div class="status-item"><span class="status-label">Tema</span><strong>Funciones lineales, cuadráticas, exponenciales, logarítmicas, radicales y racionales; dominio, rango y gráficas</strong></div>
+      <div class="status-item"><span class="status-label">Público y nivel</span><strong>Bachillerato; dificultad mixta con progresión</strong></div>
+      <div class="status-item"><span class="status-label">Ejercicios</span><strong>15 confirmados: 3 por zona; E05 radical y E06 racional incluidas definitivamente</strong></div>
+      <div class="status-item"><span class="status-label">Arquitectura y licencia</span><strong>React + TypeScript; PixiJS zona 1; Mafs zonas 2–5; FastAPI + SymPy; MIT</strong></div>
+      <div class="status-item"><span class="status-label">Persistencia confirmada</span><strong>LocalStorage: progreso en el mismo navegador</strong></div>
+      <div class="status-item"><span class="status-label">Contingencia</span><strong>Respaldo estático con respuestas precalculadas aprobado; hosting pendiente</strong></div>
+      <div class="status-item"><span class="status-label">Documento</span><strong>Markdown (.md), confirmado</strong></div>
+      <div class="status-item"><span class="status-label">Diseño aprobado</span><strong>Rompecabezas 2D; cinco zonas secuenciales; H1–H3; reintentos ilimitados; sin temporizador, vidas, puntos ni insignias</strong></div>
+      <div class="status-item"><span class="status-label">Despliegue</span><strong>Servidor propio; enlace PENDIENTE</strong></div>
+      <div class="status-item"><span class="status-label">Coordinador</span><strong>Edwin Ernesto Rodríguez Pérez</strong></div>
+      <div class="status-item"><span class="status-label">Roles</span><strong>Edwin: coordinador y desarrollador · Danny: pruebas y subcoordinación · María: tester</strong></div>
+      <div class="status-item"><span class="status-label">Anexos marcados</span><strong>Capturas, historial de commits y otra evidencia; video y bitácora no marcados</strong></div>
+    </div>
+
+    <div class="note">
+      <strong>Pendientes:</strong> procedimientos completos en el documento, revisión de C01–C07, versiones compatibles, contratos por ejercicio, validadores, implementación, pruebas, evidencias, repositorio y enlace público. Confirmados: FUNctions, ESAI, reglas del GDD, E01 de reconocimiento, E08 desde el vértice y E15 con (x−3)²+2 en la rama no negativa. Hora y canal de entrega no indicados en la consigna.
+    </div>
+  </section>
+
+  <form id="decisionForm" novalidate>
+
+    <section class="card" aria-labelledby="s1-title">
+      <div class="section-head">
+        <span class="section-number">1</span>
+        <div>
+          <h2 id="s1-title">Equipo y plazo</h2>
+          <p>Identificación del juego, integrantes y responsable de la entrega.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="nombre_juego">1. Nombre del juego <span class="req">*</span></label>
+        <input id="nombre_juego" name="nombre_juego" data-label="Nombre del juego" type="text" required value="FUNctions">
+        <p class="help">Nombre definitivo confirmado. El subtítulo “El Código de las Curvas” procede de la propuesta; su uso final queda por confirmar.</p>
+      </div>
+
+      <div class="field">
+        <label for="integrantes">2. Integrantes del equipo <span class="req">*</span></label>
+        <input id="integrantes" name="integrantes" data-label="Integrantes del equipo" type="text" required value="Edwin Ernesto Rodríguez Pérez; Danny Mauricio Trujillo; María Erika González Ortez">
+        <p class="help">La consigna permite equipos de 2 o 3 estudiantes. El equipo actual tiene 3 integrantes; ajusta la lista si cambia la composición.</p>
+      </div>
+
+      <div class="field">
+        <label for="coordinador">3. ¿Quién será el coordinador que entregará el documento? <span class="req">*</span></label>
+        <select id="coordinador" name="coordinador" data-label="Coordinador que entregará el documento" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="Edwin Ernesto Rodríguez Pérez" selected>Edwin Ernesto Rodríguez Pérez</option>
+          <option value="Danny Mauricio Trujillo">Danny Mauricio Trujillo</option>
+          <option value="María Erika González Ortez">María Erika González Ortez</option>
+          <option value="Otro (indicar en observaciones)">Otro (indicar en observaciones)</option>
+        </select>
+        <p class="help">La consigna indica que “el coordinador de cada equipo deberá entregar un documento”.</p>
+      </div>
+
+      <div class="field">
+        <label class="option" for="confirmacion_fecha">
+          <input id="confirmacion_fecha" name="confirmacion_fecha" data-label="Confirmación del plazo de entrega" data-csv-value="Confirmado" type="checkbox" required>
+          <span>4. Confirmo que la entrega se realizará a más tardar el <strong>martes 17 de noviembre de 2026</strong>. <span class="req">*</span></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="s2-title">
+      <div class="section-head">
+        <span class="section-number">2</span>
+        <div>
+          <h2 id="s2-title">Contenido matemático y enfoque educativo</h2>
+          <p>Tema, subtemas, objetivo de aprendizaje, público y ejercicios.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="tema_matematico">5. Tema matemático que integrará el juego <span class="req">*</span></label>
+        <select id="tema_matematico" name="tema_matematico" data-label="Tema matemático elegido" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="Funciones" selected>Funciones (tema seleccionado en la consigna)</option>
+          <option value="Potencias y radicales">Potencias y radicales</option>
+          <option value="Factorización de polinomios">Factorización de polinomios</option>
+          <option value="Ecuaciones lineales">Ecuaciones lineales</option>
+          <option value="Ecuaciones cuadráticas">Ecuaciones cuadráticas</option>
+          <option value="Operaciones entre conjuntos">Operaciones entre conjuntos</option>
+          <option value="Otro tema de la asignatura">Otro tema de la asignatura</option>
+        </select>
+        <p class="help">La consigna marca “Funciones” como tema seleccionado, pero permite elegir otro tema cubierto en la asignatura.</p>
+      </div>
+
+      <div class="field">
+        <label for="subtemas">6. Subtemas o conceptos específicos <span class="req">*</span></label>
+        <textarea id="subtemas" name="subtemas" data-label="Subtemas o conceptos específicos" required rows="3">Funciones lineales, cuadráticas, exponenciales, logarítmicas, radicales y racionales. Dominio, rango y gráficas.</textarea>
+        <p class="help">Inclusión de radicales y racionales confirmada en E05/E06. E15 combina x+2 para x&lt;0 y (x−3)²+2 para x≥0. El banco consolidado mantiene 15 ejercicios.</p>
+      </div>
+
+      <div class="field">
+        <label for="objetivo_aprendizaje">7. Objetivo de aprendizaje: ¿qué aprenderá el jugador? <span class="req">*</span></label>
+        <textarea id="objetivo_aprendizaje" name="objetivo_aprendizaje" data-label="Objetivo de aprendizaje" required rows="3">Al finalizar FUNctions, el jugador será capaz de reconocer relaciones que cumplen la definición de función, determinar dominio y rango, interpretar representaciones algebraicas y gráficas, construir funciones lineales y cuadráticas, calcular preimágenes, relacionar funciones exponenciales y logarítmicas, y evaluar funciones por tramos mediante quince desafíos progresivos.</textarea>
+        <p class="help">Debe ser observable y coherente con los ejercicios y la mecánica.</p>
+      </div>
+
+      <div class="field">
+        <label for="publico_meta">8. Público meta <span class="req">*</span></label>
+        <select id="publico_meta" name="publico_meta" data-label="Público meta" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="Estudiantes de Matemática para Computación I (DMC1109)">Estudiantes de Matemática para Computación I (DMC1109)</option>
+          <option value="Estudiantes de bachillerato" selected>Estudiantes de bachillerato</option>
+          <option value="Estudiantes universitarios de áreas afines">Estudiantes universitarios de áreas afines</option>
+          <option value="Público general">Público general</option>
+          <option value="Otro (indicar en observaciones)">Otro (indicar en observaciones)</option>
+        </select>
+        <p class="help">La consigna pide lenguaje claro y accesible para el público meta.</p>
+      </div>
+
+      <div class="field">
+        <label for="nivel_dificultad">9. Nivel de dificultad <span class="req">*</span></label>
+        <select id="nivel_dificultad" name="nivel_dificultad" data-label="Nivel de dificultad" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="Básico">Básico</option>
+          <option value="Intermedio">Intermedio</option>
+          <option value="Avanzado">Avanzado</option>
+          <option value="Mixto con progresión" selected>Mixto con progresión</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cantidad_ejercicios">10. Cantidad de ejercicios que incluirá el juego <span class="req">*</span></label>
+        <input id="cantidad_ejercicios" name="cantidad_ejercicios" data-label="Cantidad de ejercicios" type="number" min="10" max="20" step="1" required value="15">
+        <p class="help">Confirmado: 15 ejercicios, tres por cada una de cinco zonas. Cumple los 10–20 exigidos; todos deben incluir solución en el documento.</p>
+      </div>
+
+      <fieldset class="group" data-required-group="formato_soluciones">
+        <legend>11. Además del documento obligatorio, ¿cómo se mostrarán las soluciones? <span class="req">*</span></legend>
+        <div class="options">
+          <label class="option"><input type="radio" name="formato_soluciones" value="Documento y retroalimentación dentro del juego" data-label="Formato de las soluciones" checked> En el documento y dentro del juego como retroalimentación (elección inicial)</label>
+          <label class="option"><input type="radio" name="formato_soluciones" value="Solo en el documento" data-label="Formato de las soluciones"> Solo en el documento</label>
+        </div>
+        <p class="group-error" data-error-for="formato_soluciones" role="alert"></p>
+        <p class="help">La consigna exige que el documento incluya los ejercicios con sus respectivas soluciones, aunque la retroalimentación esté dentro del juego.</p>
+      </fieldset>
+    </section>
+
+    <section class="card" aria-labelledby="s3-title">
+      <div class="section-head">
+        <span class="section-number">3</span>
+        <div>
+          <h2 id="s3-title">Diseño, mecánica y originalidad</h2>
+          <p>Nombre, sinopsis, reglas, gamificación y lenguaje accesible.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="sinopsis">12. Sinopsis breve del juego (máximo 100 palabras) <span class="req">*</span></label>
+        <textarea id="sinopsis" name="sinopsis" data-label="Sinopsis breve (máximo 100 palabras)" required rows="4" aria-describedby="sinopsis-help sinopsis-counter">En una línea temporal alternativa donde la carrera espacial nunca terminó y los viajes al espacio son cotidianos, el jugador forma parte del equipo de ingeniería de ESAI. Un satélite de exploración ha sufrido una falla y sus cinco sistemas deben repararse mediante quince retos sobre funciones. Al reconocer relaciones, analizar dominios y rangos, ajustar trayectorias y resolver modelos exponenciales, logarítmicos y por tramos, el jugador restaura el satélite mientras recibe retroalimentación y ayudas progresivas.</textarea>
+        <span id="sinopsis-counter" class="counter" aria-live="polite">0 / 100 palabras</span>
+        <p id="sinopsis-help" class="help">Sinopsis aprobada, con menos de 100 palabras e inclusión de funciones logarítmicas.</p>
+      </div>
+
+      <div class="field">
+        <label for="tipo_juego">13. Tipo de juego <span class="req">*</span></label>
+        <select id="tipo_juego" name="tipo_juego" data-label="Tipo de juego" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="Quiz interactivo">Quiz interactivo</option>
+          <option value="Aventura narrativa">Aventura narrativa</option>
+          <option value="Juego de memoria">Juego de memoria</option>
+          <option value="Rompecabezas" selected>Rompecabezas 2D (diseño aprobado)</option>
+          <option value="Simulación">Simulación</option>
+          <option value="Juego de plataformas">Juego de plataformas</option>
+          <option value="Escape room educativo">Escape room educativo</option>
+          <option value="Otro (indicar en observaciones)">Otro (indicar en observaciones)</option>
+        </select>
+      </div>
+
+      <fieldset class="group" data-required-group="mecanicas">
+        <legend>14. Mecánicas de gamificación que usarás <span class="req">*</span></legend>
+        <div class="options two-col">
+          <label class="option"><input type="checkbox" name="mecanicas" value="Puntos" data-label="Mecánicas de gamificación"> Puntos</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Niveles" data-label="Mecánicas de gamificación" checked> Niveles / zonas</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Insignias o logros" data-label="Mecánicas de gamificación"> Insignias o logros</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Ranking" data-label="Mecánicas de gamificación"> Ranking</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Vidas" data-label="Mecánicas de gamificación"> Vidas</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Temporizador" data-label="Mecánicas de gamificación"> Temporizador</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Retroalimentación inmediata" data-label="Mecánicas de gamificación" checked> Retroalimentación inmediata</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Narrativa o progresión" data-label="Mecánicas de gamificación" checked> Narrativa o progresión</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Andamiaje progresivo ZDP" data-label="Mecánicas de gamificación" checked> Andamiaje progresivo ZDP</label>
+          <label class="option"><input type="checkbox" name="mecanicas" value="Monedas o recompensas" data-label="Mecánicas de gamificación"> Monedas o recompensas</label>
+        </div>
+        <p class="group-error" data-error-for="mecanicas" role="alert"></p>
+        <p class="help">Reglas aprobadas: niveles, retroalimentación, narrativa y ZDP. No se utilizan puntos, insignias, ranking, vidas, temporizador ni monedas.</p>
+      </fieldset>
+
+      <div class="field">
+        <label for="reglas_mecanica">15. Reglas y mecánica del juego <span class="req">*</span></label>
+        <textarea id="reglas_mecanica" name="reglas_mecanica" data-label="Reglas y mecánica del juego" required rows="4">Las cinco zonas y sus quince ejercicios se habilitan en orden. Cada respuesta se envía con Probar y el ejercicio solo se completa cuando todos sus campos son correctos. Hay reintentos ilimitados, retroalimentación específica y ayudas voluntarias H1–H3. No existen temporizador, vidas, puntos ni insignias. El progreso se guarda localmente, los niveles resueltos pueden repetirse y la misión termina al restaurar los cinco sistemas con 15/15 ejercicios.</textarea>
+        <p class="help">Deben ser claras, coherentes y comprensibles para el público meta.</p>
+      </div>
+
+      <div class="field">
+        <label for="originalidad">16. Elementos originales y diferenciación <span class="req">*</span></label>
+        <textarea id="originalidad" name="originalidad" data-label="Elementos originales y diferenciación" required rows="3" placeholder="¿Qué hace original este juego frente a un quiz genérico? ¿Qué creado por el equipo se evidencia?"></textarea>
+        <p class="help">La consigna exige juegos originales, creados por los estudiantes, y anexos que evidencien la originalidad.</p>
+      </div>
+
+      <div class="field">
+        <label for="lenguaje_accesible">17. ¿Cómo asegurarán un lenguaje claro y accesible? <span class="req">*</span></label>
+        <textarea id="lenguaje_accesible" name="lenguaje_accesible" data-label="Estrategia de lenguaje claro y accesible" required rows="3" placeholder="Ej. frases cortas, vocabulario del curso, ejemplos contextualizados, revisión con una persona del público meta"></textarea>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="s4-title">
+      <div class="section-head">
+        <span class="section-number">4</span>
+        <div>
+          <h2 id="s4-title">Herramientas, desarrollo y publicación</h2>
+          <p>Stack, licencia, despliegue, enlace, pruebas y riesgos.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="herramienta_principal">18. Herramienta principal <span class="req">*</span></label>
+        <select id="herramienta_principal" name="herramienta_principal" data-label="Herramienta principal" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="Wordwall">Wordwall</option>
+          <option value="Genially">Genially</option>
+          <option value="Kahoot">Kahoot</option>
+          <option value="Quizizz">Quizizz</option>
+          <option value="Educaplay">Educaplay</option>
+          <option value="Scratch">Scratch</option>
+          <option value="Desarrollo propio en Python/web" selected>Desarrollo propio en Python/web</option>
+          <option value="Otra (indicar en observaciones)">Otra (indicar en observaciones)</option>
+        </select>
+        <p class="help">La consigna sugiere esas herramientas o cualquier otra; también registra la decisión del equipo de desarrollar en Python u otro lenguaje y desplegarlo en web con licencia abierta.</p>
+      </div>
+
+      <div class="field">
+        <label for="stack_tecnologico">19. Lenguaje, framework o stack tecnológico</label>
+        <input id="stack_tecnologico" name="stack_tecnologico" data-label="Lenguaje, framework o stack tecnológico" type="text" value="React 18 + TypeScript; PixiJS zona 1; Mafs zonas 2–5; FastAPI + SymPy; LocalStorage">
+        <p class="help">Stack confirmado; reemplaza la alternativa sin React/SVG. Tailwind y Uvicorn/Nginx se conservan de la propuesta previa. Fijar versiones compatibles, adaptador o canvas para PixiJS y configuración de despliegue.</p>
+      </div>
+
+      <div class="field">
+        <label for="licencia">20. Licencia de código abierto <span class="req">*</span></label>
+        <select id="licencia" name="licencia" data-label="Licencia de código abierto" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="MIT" selected>MIT (confirmada)</option>
+          <option value="GNU GPL v3">GNU GPL v3</option>
+          <option value="Apache 2.0">Apache 2.0</option>
+          <option value="Creative Commons BY-SA 4.0">Creative Commons BY-SA 4.0</option>
+          <option value="Otra (indicar en observaciones)">Otra (indicar en observaciones)</option>
+          <option value="No aplica (plataforma lista)">No aplica (plataforma lista)</option>
+        </select>
+        <p class="help">La consigna menciona el desarrollo propio con licenciamiento de código abierto; define la licencia si esa es la ruta elegida.</p>
+      </div>
+
+      <div class="field">
+        <label for="repositorio">21. Repositorio del código</label>
+        <input id="repositorio" name="repositorio" data-label="Repositorio del código" type="text" placeholder="https://github.com/… (opcional)">
+        <p class="help">Opcional. Puede usarse como evidencia de autoría y de avances.</p>
+      </div>
+
+      <div class="field">
+        <label for="plataforma_despliegue">22. Plataforma de despliegue <span class="req">*</span></label>
+        <select id="plataforma_despliegue" name="plataforma_despliegue" data-label="Plataforma de despliegue" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="GitHub Pages">GitHub Pages</option>
+          <option value="Netlify">Netlify</option>
+          <option value="Vercel">Vercel</option>
+          <option value="Servidor propio" selected>Servidor propio</option>
+          <option value="Plataforma educativa lista (Wordwall, Genially, Kahoot, Quizizz, Educaplay, Scratch)">Plataforma educativa lista (Wordwall, Genially, Kahoot, Quizizz, Educaplay, Scratch)</option>
+          <option value="Otra (indicar en observaciones)">Otra (indicar en observaciones)</option>
+        </select>
+        <p class="help">La consigna no especifica plataforma; solo exige que el enlace tenga acceso abierto.</p>
+      </div>
+
+      <div class="field">
+        <label for="enlace_juego">23. Enlace al juego <span class="req">*</span></label>
+        <input id="enlace_juego" name="enlace_juego" data-label="Enlace al juego" type="text" required value="PENDIENTE" placeholder="https://… o PENDIENTE">
+        <p class="help">Si aún no está publicado, escribe <strong>PENDIENTE</strong> y actualízalo antes del 17/11/2026. La consigna exige verificar que se tenga acceso abierto.</p>
+      </div>
+
+      <div class="field">
+        <label class="option" for="acceso_abierto">
+          <input id="acceso_abierto" name="acceso_abierto" data-label="Confirmación de acceso abierto" data-csv-value="Confirmado" type="checkbox" required>
+          <span>24. Confirmo que el enlace será público, sin inicio de sesión, y que lo probaré en una ventana de incógnito. <span class="req">*</span></span>
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="plan_pruebas">25. Plan de pruebas <span class="req">*</span></label>
+        <textarea id="plan_pruebas" name="plan_pruebas" data-label="Plan de pruebas" required rows="3" placeholder="Ej. probar los 10-20 ejercicios, respuestas correctas e incorrectas, navegación, carga en móvil, enlace en incógnito y claridad con una persona del público meta"></textarea>
+        <p class="help">El juego debe ser funcional y los conceptos matemáticos deben ser correctos.</p>
+      </div>
+
+      <div class="field">
+        <label for="riesgos">26. Riesgos y plan de contingencia <span class="req">*</span></label>
+        <textarea id="riesgos" name="riesgos" data-label="Riesgos y plan de contingencia" required rows="3">Si falla la publicación de la API, se aprueba un respaldo estático jugable con los 15 ejercicios y validaciones precalculadas verificadas. Hosting alternativo pendiente. Documentar qué versión se entrega; el respaldo no ejecuta la API Python. Resto del plan de riesgos pendiente.</textarea>
+        <p class="help">La consigna valora el buen uso del tiempo y la organización del equipo.</p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="s5-title">
+      <div class="section-head">
+        <span class="section-number">5</span>
+        <div>
+          <h2 id="s5-title">Documento, evidencias y rúbrica</h2>
+          <p>Formato, roles, anexos, autoría y plan de evaluación.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="formato_documento">27. Formato del documento final <span class="req">*</span></label>
+        <select id="formato_documento" name="formato_documento" data-label="Formato del documento final" required>
+          <option value="">Selecciona una opción…</option>
+          <option value="Markdown (.md)" selected>Markdown (.md), confirmado</option>
+          <option value="PDF">PDF</option>
+          <option value="DOCX">DOCX</option>
+          <option value="PDF + fuente editable (DOCX/LaTeX)">PDF + fuente editable (DOCX/LaTeX)</option>
+          <option value="Otro (indicar en observaciones)">Otro (indicar en observaciones)</option>
+        </select>
+        <p class="help">El equipo confirmó .md. La consigna no especifica formato; deben incluirse portada, ejercicios con soluciones, enlace y anexos.</p>
+      </div>
+
+      <div class="field">
+        <label for="rol_edwin">28. Rol o aporte de Edwin <span class="req">*</span></label>
+        <input id="rol_edwin" name="rol_edwin" data-label="Rol o aporte de Edwin" type="text" required value="Coordinador y desarrollador">
+      </div>
+
+      <div class="field">
+        <label for="rol_danny">29. Rol o aporte de Danny <span class="req">*</span></label>
+        <input id="rol_danny" name="rol_danny" data-label="Rol o aporte de Danny" type="text" required value="Pruebas y subcoordinación">
+        <p class="help">La consigna pide créditos y roles del equipo: qué realizó cada integrante.</p>
+      </div>
+
+      <div class="field">
+        <label for="rol_maria">30. Rol o aporte de María Erika <span class="req">*</span></label>
+        <input id="rol_maria" name="rol_maria" data-label="Rol o aporte de María Erika" type="text" required value="Tester">
+        <p class="help">Rol confirmado. Acordar el reparto de pruebas con Danny y registrar los aportes efectivamente realizados.</p>
+      </div>
+
+      <fieldset class="group" data-required-group="anexos">
+        <legend>31. Evidencias y anexos que incluirán <span class="req">*</span></legend>
+        <div class="options two-col">
+          <label class="option"><input type="checkbox" name="anexos" value="Video corto de 1-2 minutos" data-label="Evidencias y anexos"> Video corto de 1-2 minutos</label>
+          <label class="option"><input type="checkbox" name="anexos" value="Bitácora de avances" data-label="Evidencias y anexos"> Bitácora de avances</label>
+          <label class="option"><input type="checkbox" name="anexos" value="Capturas del entorno de trabajo" data-label="Evidencias y anexos" checked> Capturas del entorno de trabajo</label>
+          <label class="option"><input type="checkbox" name="anexos" value="Historial de commits o repositorio" data-label="Evidencias y anexos" checked> Historial de commits o repositorio</label>
+          <label class="option"><input type="checkbox" name="anexos" value="Otra evidencia (describir en observaciones)" data-label="Evidencias y anexos" checked> Otra evidencia (describir en observaciones)</label>
+        </div>
+        <p class="group-error" data-error-for="anexos" role="alert"></p>
+      </fieldset>
+
+      <div class="field">
+        <label for="enlace_video">32. Enlace del video de presentación</label>
+        <input id="enlace_video" name="enlace_video" data-label="Enlace del video de presentación" type="text" placeholder="https://… (opcional)">
+        <p class="help">Si se elige video, la consigna propone 1–2 minutos explicando juego, reglas y aportes. No está seleccionado como evidencia.</p>
+      </div>
+
+      <div class="field">
+        <label for="verificacion_autoria">33. ¿Cómo verificarán la autoría y la participación? <span class="req">*</span></label>
+        <textarea id="verificacion_autoria" name="verificacion_autoria" data-label="Verificación de autoría y participación" required rows="3" placeholder="Ej. video con ambos integrantes, bitácora fechada, capturas del entorno, historial de commits, borradores con comentarios"></textarea>
+        <p class="help">La consigna pide anexos que comprueben la participación y autoría del trabajo.</p>
+      </div>
+
+      <div class="field">
+        <label for="plan_rubrica">34. Plan para cumplir los criterios de la rúbrica <span class="req">*</span></label>
+        <textarea id="plan_rubrica" name="plan_rubrica" data-label="Plan para cumplir los criterios de la rúbrica" required rows="4" placeholder="Ej. contenido 25%: revisión cruzada de soluciones; diseño 20%: reglas y prototipo; enfoque 20%: objetivo y retroalimentación; documento 15%: checklist; colaboración 20%: bitácora y roles"></textarea>
+        <p class="help">Pesos: integración del contenido 25%, diseño y mecánica 20%, enfoque educativo 20%, documento 15%, trabajo colaborativo y organización 20%.</p>
+      </div>
+
+      <div class="field">
+        <label for="observaciones">35. Observaciones adicionales</label>
+        <textarea id="observaciones" name="observaciones" data-label="Observaciones adicionales" rows="3" placeholder="Cualquier decisión, pendiente o aclaración que no encaje en las preguntas anteriores."></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="button button-primary">Generar y descargar respuestas.csv</button>
+        <button type="reset" class="button button-secondary">Restaurar valores iniciales</button>
+      </div>
+    </section>
+  </form>
+
+  <section id="resultPanel" class="card result" aria-labelledby="result-title" hidden>
+    <h2 id="result-title">respuestas.csv generado</h2>
+    <p id="resultStatus" role="status" aria-live="polite"></p>
+    <div class="result-actions">
+      <a id="downloadLink" class="button button-primary" href="#" download="respuestas.csv" hidden>Descargar respuestas.csv</a>
+    </div>
+    <p class="help">Si el navegador bloqueó la descarga automática, usa el botón anterior. El archivo incluye una cabecera con el nombre de cada pregunta.</p>
+    <details>
+      <summary>Ver vista previa del CSV</summary>
+      <pre id="csvPreview"></pre>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Formulario local · No requiere servidor · Proyecto final “Gamifiquemos” · Matemática para Computación I (DMC1109) · UES
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var form = document.getElementById('decisionForm');
+  var resultPanel = document.getElementById('resultPanel');
+  var resultStatus = document.getElementById('resultStatus');
+  var downloadLink = document.getElementById('downloadLink');
+  var csvPreview = document.getElementById('csvPreview');
+  var synopsis = document.getElementById('sinopsis');
+  var synopsisCounter = document.getElementById('sinopsis-counter');
+  var MAX_SYNOPSIS_WORDS = 100;
+  var currentObjectUrl = null;
+
+  function countWords(text) {
+    var clean = String(text || '').trim().replace(/\s+/g, ' ');
+    return clean ? clean.split(' ').length : 0;
+  }
+
+  function updateSynopsisCounter() {
+    var words = countWords(synopsis.value);
+    synopsisCounter.textContent = words + ' / ' + MAX_SYNOPSIS_WORDS + ' palabras';
+    var over = words > MAX_SYNOPSIS_WORDS;
+    synopsisCounter.classList.toggle('over', over);
+    synopsis.setAttribute('aria-invalid', over ? 'true' : 'false');
+    synopsis.setCustomValidity(over ? 'La sinopsis tiene ' + words + ' palabras; el máximo es ' + MAX_SYNOPSIS_WORDS + '.' : '');
+  }
+
+  synopsis.addEventListener('input', updateSynopsisCounter);
+  updateSynopsisCounter();
+
+  var urlFields = ['enlace_juego', 'repositorio', 'enlace_video'];
+
+  function isValidHttpUrl(value) {
+    try {
+      var url = new URL(value);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function validateUrlField(field) {
+    var value = field.value.trim();
+    var pending = value === '' || value.toUpperCase() === 'PENDIENTE';
+    var message = '';
+
+    if (!pending && !isValidHttpUrl(value)) {
+      message = 'Escribe una URL válida que empiece con http:// o https://, o deja el campo vacío o escribe PENDIENTE.';
+    }
+
+    field.setCustomValidity(message);
+    field.setAttribute('aria-invalid', message ? 'true' : 'false');
+  }
+
+  urlFields.forEach(function (id) {
+    var field = document.getElementById(id);
+    if (field) {
+      field.addEventListener('input', function () { validateUrlField(field); });
+      validateUrlField(field);
+    }
+  });
+
+  function validateRequiredGroups() {
+    var firstInvalid = null;
+
+    form.querySelectorAll('[data-required-group]').forEach(function (group) {
+      var name = group.getAttribute('data-required-group');
+      var inputs = Array.prototype.slice.call(group.querySelectorAll('input, select'));
+      var checked = inputs.some(function (input) {
+        if (input.type === 'checkbox' || input.type === 'radio') return input.checked;
+        if (input.tagName === 'SELECT' && input.multiple) return input.selectedOptions.length > 0;
+        return false;
+      });
+      var error = group.querySelector('[data-error-for="' + name + '"]');
+
+      if (!checked) {
+        group.classList.add('has-error');
+        if (error) error.textContent = 'Selecciona al menos una opción.';
+        if (!firstInvalid) firstInvalid = inputs[0];
+      } else {
+        group.classList.remove('has-error');
+        if (error) error.textContent = '';
+      }
+    });
+
+    if (firstInvalid) {
+      firstInvalid.focus();
+      firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return false;
+    }
+
+    return true;
+  }
+
+  function clearValidationState() {
+    form.querySelectorAll('.has-error').forEach(function (element) {
+      element.classList.remove('has-error');
+    });
+    form.querySelectorAll('[data-error-for]').forEach(function (element) {
+      element.textContent = '';
+    });
+    form.querySelectorAll('[aria-invalid="true"]').forEach(function (element) {
+      element.setAttribute('aria-invalid', 'false');
+    });
+  }
+
+  function csvEscape(value) {
+    var text = value === null || value === undefined ? '' : String(value);
+    return '"' + text.replace(/"/g, '""') + '"';
+  }
+
+  function collectAnswers() {
+    var fields = Array.prototype.slice.call(form.elements).filter(function (element) {
+      return element.name && !element.disabled;
+    });
+    var names = [];
+    var labels = {};
+
+    fields.forEach(function (element) {
+      if (names.indexOf(element.name) === -1) {
+        names.push(element.name);
+        labels[element.name] = element.getAttribute('data-label') || element.name;
+      }
+    });
+
+    return names.map(function (name) {
+      var group = fields.filter(function (element) { return element.name === name; });
+      var first = group[0];
+      var value = '';
+
+      if (group.length > 1 && group.some(function (element) { return element.type === 'checkbox'; })) {
+        value = group.filter(function (element) { return element.checked; }).map(function (element) {
+          return element.value;
+        }).join('; ');
+      } else if (first.type === 'checkbox') {
+        value = first.checked ? (first.getAttribute('data-csv-value') || 'Sí') : 'No';
+      } else if (first.type === 'radio') {
+        var selected = group.filter(function (element) { return element.checked; })[0];
+        value = selected ? selected.value : '';
+      } else if (first.tagName === 'SELECT' && first.multiple) {
+        value = Array.prototype.slice.call(first.selectedOptions).map(function (option) {
+          return option.value;
+        }).join('; ');
+      } else {
+        value = first.value;
+      }
+
+      return { header: labels[name], value: value };
+    });
+  }
+
+  function buildCSV() {
+    var answers = collectAnswers();
+    var generatedAt = new Date().toISOString();
+    var header = ['Fecha de generación'].concat(answers.map(function (answer) { return answer.header; }));
+    var row = [generatedAt].concat(answers.map(function (answer) { return answer.value; }));
+    var lines = [header, row].map(function (line) {
+      return line.map(csvEscape).join(',');
+    });
+
+    return { csv: lines.join('\r\n'), columnCount: header.length };
+  }
+
+  function showResult(csv, columnCount) {
+    if (currentObjectUrl) {
+      URL.revokeObjectURL(currentObjectUrl);
+    }
+
+    var blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    currentObjectUrl = URL.createObjectURL(blob);
+
+    downloadLink.href = currentObjectUrl;
+    downloadLink.download = 'respuestas.csv';
+    downloadLink.hidden = false;
+
+    csvPreview.textContent = csv;
+    resultStatus.textContent = 'Listo. Se generó respuestas.csv con ' + columnCount + ' columnas y una fila de respuestas.';
+    resultPanel.hidden = false;
+    resultPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    clearValidationState();
+    updateSynopsisCounter();
+    urlFields.forEach(function (id) {
+      var field = document.getElementById(id);
+      if (field) validateUrlField(field);
+    });
+
+    if (!validateRequiredGroups()) {
+      return;
+    }
+
+    if (!form.reportValidity()) {
+      var firstInvalid = form.querySelector(':invalid');
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    var result = buildCSV();
+    showResult(result.csv, result.columnCount);
+
+    var autoLink = document.createElement('a');
+    autoLink.href = currentObjectUrl;
+    autoLink.download = 'respuestas.csv';
+    document.body.appendChild(autoLink);
+    autoLink.click();
+    autoLink.remove();
+  });
+
+  form.addEventListener('input', function () {
+    if (!resultPanel.hidden) {
+      resultStatus.textContent = 'El formulario cambió. Vuelve a enviarlo para regenerar respuestas.csv.';
+      downloadLink.hidden = true;
+    }
+  });
+
+  form.addEventListener('reset', function () {
+    window.setTimeout(function () {
+      clearValidationState();
+      updateSynopsisCounter();
+      urlFields.forEach(function (id) {
+        var field = document.getElementById(id);
+        if (field) validateUrlField(field);
+      });
+      resultPanel.hidden = true;
+      csvPreview.textContent = '';
+      if (currentObjectUrl) {
+        URL.revokeObjectURL(currentObjectUrl);
+        currentObjectUrl = null;
+      }
+    }, 0);
+  });
+})();
+</script>
+</body>
+</html>

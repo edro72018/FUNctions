@@ -1,0 +1,8 @@
+{
+  "cases": [
+    {"answer":{"kind":"boolean","value":true},"normalized":{"kind":"boolean","value":true},"result":{"status":"correct","feedbackCode":"CORRECT_DEFAULT"}},
+    {"answer":{"kind":"number","value":"1.50"},"normalized":{"kind":"number","value":"3/2"},"result":{"status":"incorrect","feedbackCode":"INCORRECT_DEFAULT"}},
+    {"answer":{"kind":"vertex","h":"6/2","k":"2.0"},"normalized":{"kind":"vertex","h":"3","k":"2"},"result":{"status":"indeterminate","feedbackCode":"INDETERMINATE_DEFAULT"}}
+  ],
+  "mechanisms": ["local", "api"]
+}

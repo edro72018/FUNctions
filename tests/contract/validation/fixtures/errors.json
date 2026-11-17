@@ -1,0 +1,17 @@
+{
+  "cases": [
+    {"patch":{"requestId":"bad"},"category":"format","code":"INVALID_REQUEST"},
+    {"patch":{"answer":{"kind":"matrix"}},"category":"format","code":"INVALID_ANSWER"},
+    {"patch":{"answer":{"kind":"number","value":"1/0"}},"category":"format","code":"NUMBER_GRAMMAR_INVALID"},
+    {"patch":{"answer":{"kind":"expression","tokens":["eval"]}},"category":"format","code":"EXPRESSION_TOKEN_INVALID"},
+    {"patch":{"answer":{"kind":"intervalUnion","intervals":[{"lower":{"value":"-inf","inclusive":true},"upper":{"value":"0","inclusive":true}}]}},"category":"format","code":"INTERVAL_INVALID"},
+    {"patch":{"answer":{"kind":"finiteSet"}},"category":"incomplete","code":"MISSING_ANSWER_FIELD"},
+    {"patch":{"answer":{"kind":"composite","fields":{"a":{"kind":"boolean","value":true}}}},"requiredFields":["a","b"],"category":"incomplete","code":"MISSING_COMPOSITE_FIELD"},
+    {"patch":{"answer":{"kind":"composite","fields":{"a":{"kind":"boolean","value":true},"extra":{"kind":"number","value":"1"}}}},"requiredFields":["a"],"category":"format","code":"EXTRA_COMPOSITE_FIELD"},
+    {"patch":{"exerciseId":"E15"},"category":"unsupported","code":"EXERCISE_NOT_REGISTERED"},
+    {"patch":{"answer":{"kind":"number","value":"1"}},"allowedKinds":["boolean"],"category":"unsupported","code":"TYPE_NOT_ALLOWED"},
+    {"patch":{"mechanism":"api"},"mechanisms":["local"],"category":"configuration","code":"MECHANISM_NOT_CONFIGURED"},
+    {"patch":{"answer":{"kind":"expression","tokens":["x","+","2"]}},"category":"configuration","code":"GRAMMAR_NOT_APPROVED"},
+    {"patch":{"answer":{"kind":"composite","fields":{"a":{"kind":"expression","tokens":["x"]}}}},"requiredFields":["a"],"category":"configuration","code":"GRAMMAR_NOT_APPROVED"}
+  ]
+}

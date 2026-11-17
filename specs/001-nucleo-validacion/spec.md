@@ -16,7 +16,7 @@
 
 **Fuente de contenido:** [Banco canónico de ejercicios](../../docs/banco_ejercicios.md).
 
-**Diseño relacionado:** [GDD v0.1 aprobado](../../../docs/workspace/GDD_FUNctions_v0.1.md).
+**Diseño relacionado:** [GDD v0.1 aprobado]](../../docs/workspace/GDD_FUNctions_v0.1.md).
 El futuro primer recorrido E01/E08 tiene reservado el identificador `002` y todavía no existe como
 spec.
 
@@ -279,7 +279,7 @@ consumidor puede solicitar la validación local de forma explícita, etiquetando
 
 **Pendiente:** definición de API disponible, reintentos técnicos de solicitudes, cancelación,
 concurrencia y la regla de interfaz para autorizar el cambio a Modo estático. El
-[GDD aprobado](../../../docs/workspace/GDD_FUNctions_v0.1.md) define los reintentos del jugador; la
+[GDD aprobado]](../../docs/workspace/GDD_FUNctions_v0.1.md) define los reintentos del jugador; la
 futura spec del recorrido deberá concretar el fallback sin duplicar reglas de interfaz.
 
 ### Manejo de errores
@@ -578,7 +578,7 @@ Estos contratos se crearán en `contracts/` durante `/speckit.plan`; no se escri
 
 | Fuente | Información usada | Estado |
 |---|---|---|
-| [GDD v0.1](../../../docs/workspace/GDD_FUNctions_v0.1.md) | Reglas generales de progreso, ayudas y experiencia; interacción de E01/E08; plataforma web | Diseño aprobado; no equivale a spec ni implementación |
+| [GDD v0.1]](../../docs/workspace/GDD_FUNctions_v0.1.md) | Reglas generales de progreso, ayudas y experiencia; interacción de E01/E08; plataforma web | Diseño aprobado; no equivale a spec ni implementación |
 | [Contrato de API](../../docs/politicas/contrato-api.md) | Sobre `requestId`/`exerciseId`/`answer`; resultados `correct`/`incorrect`/`indeterminate`; cinco tipos iniciales; error API | Contrato inicial propuesto y aún no alineado; se actualizará para reflejar las decisiones aprobadas de esta Spec |
 | [Banco canónico](../../docs/banco_ejercicios.md) | Respuestas matemáticas y campos solicitados para E01–E15 | Contenido leído; revisión cruzada y criterios C01–C07 pendientes |
 | [Guía técnica de ejercicios](../../docs/exercises.md) | Detalle técnico derivado por ejercicio | Guía leída; derivada y pendiente de revisión cruzada |

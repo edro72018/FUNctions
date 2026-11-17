@@ -1,0 +1,20 @@
+{
+  "name": "@functions/frontend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Adaptador local del navegador del núcleo de validación (FUNctions). Solo dependencias de desarrollo; el núcleo no tiene dependencias de ejecución.",
+  "engines": {
+    "node": ">=20.20.0 <21"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "typescript": "5.6.3",
+    "vitest": "2.1.1"
+  }
+}

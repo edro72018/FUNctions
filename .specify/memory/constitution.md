@@ -3,13 +3,13 @@
 **Estado:** Constitución ratificada, versión 1.0.0, desde 2026-11-16. El Principio VII entra en
 vigor desde esta ratificación; no se afirma que rigiera retroactivamente. Las decisiones de esta
 redacción se apoyan en el
-[cuestionario de Constitución](../../../docs/cuestionario_constitucion.md) y en las instrucciones
+[cuestionario de Constitución]](../../docs/cuestionario_constitucion.md) y en las instrucciones
 del Aprobador; la ratificación consta en el
 [Registro de ratificación](#registro-de-ratificación).
 
 **Ámbito:** producto, implementación y trabajo asistido por IA. La única fuente de verdad de la
 Constitución es `development/.specify/memory/constitution.md`, el archivo que consume Spec Kit.
-El [borrador de trabajo](../../../docs/constitution_draft.md), ubicado en `docs/constitution_draft.md`
+El [borrador de trabajo]](../../docs/constitution_draft.md), ubicado en `docs/constitution_draft.md`
 fuera del repositorio del producto, se conserva para preparar enmiendas y no es normativo.
 No DEBE sustituir, contradecir ni presentarse como copia vigente de esta Constitución.
 
@@ -329,7 +329,7 @@ interfaces sin trasladar decisiones técnicas innecesarias a la spec.
 
 ### Obligaciones académicas y entregable final
 
-La [consigna académica](../../../docs/consigna.md) tiene prioridad conforme a Governance. FUNctions
+La [consigna académica]](../../docs/consigna.md) tiene prioridad conforme a Governance. FUNctions
 DEBE entregarse como juego educativo digital, gamificado, original y funcional. La creatividad
 DEBE mantenerse dentro de un alcance realista y el contenido matemático DEBE ser correcto y
 adecuado al nivel del curso.

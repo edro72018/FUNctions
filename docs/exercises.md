@@ -12,7 +12,7 @@ Las referencias didácticas del banco recibido siguen pendientes de contraste. N
 
 La consigna requiere entre 10 y 20 ejercicios empleados con soluciones en el documento. El equipo eligió 15. La consolidación inicia la revisión de A05; su cierre requiere revisión cruzada. Definir una ficha no implementa A07.
 
-**Alcance confirmado:** E05 usa $\sqrt{x-2}$ y E06 usa $5/(x-3)$. La inclusión de radicales y racionales sustituye la exclusión anterior; no añade IDs ni modifica el total de ejercicios. Los HTML trasladados a `../../docs/reporte/` son reportes y no condicionan la interacción del juego.
+**Alcance confirmado:** E05 usa $\sqrt{x-2}$ y E06 usa $5/(x-3)$. La inclusión de radicales y racionales sustituye la exclusión anterior; no añade IDs ni modifica el total de ejercicios. Los HTML trasladados a `reporte/` son reportes y no condicionan la interacción del juego.
 
 ## 2. Recomendación de diseño
 

@@ -1,23 +1,81 @@
 # Quickstart: validación de contratos del núcleo
 
-**Feature**: `001-nucleo-validacion` | **Fecha**: 2026-11-16 | **Estado**: guía de validación para revisión
+**Feature**: `001-nucleo-validacion` | **Fecha**: 2026-11-16 | **Estado**: núcleo implementado y verificado; cierre para revisión humana
 
-Esta guía comprueba los contratos generados en Phase 1. **No implementa el núcleo, no ejecuta
-validadores matemáticos y no acredita que la funcionalidad esté terminada.** La verificación de
-despacho, normalización y paridad local/API se implementará y ejecutará en la etapa de tareas, una
-vez aprobado este plan.
+Esta guía verifica los contratos, la normalización exacta y la orquestación del núcleo en TypeScript
+y Python. Los adaptadores y validadores usados son dobles de prueba; los resultados no acreditan la
+matemática de E01–E15, una API HTTP desplegada ni una interfaz jugable.
 
 ## Prerequisites
 
 - Python 3.11 o superior (el entorno de verificación usa 3.15.2).
-- `check-jsonschema` 0.39.0, `jsonschema` 4.26.0 y `PyYAML` para validar esquemas y YAML.
-- Opcional: Node.js 20 para las pruebas TypeScript posteriores; no se necesita para esta guía.
+- Node.js 20 (verificado con 20.20.2), npm y las versiones fijadas en `frontend/package-lock.json`.
+- pytest 8.3.3 y jsonschema 4.26.0 para las pruebas Python.
+- Opcionales para los comandos documentales de las secciones 1–4: `check-jsonschema` 0.39.0 y `PyYAML`.
 
 Instalación de las herramientas de contrato (solo desarrollo):
 
 ```bash
 python3 -m pip install --user check-jsonschema==0.39.0 jsonschema==4.26.0 PyYAML
 ```
+
+## Ejecutar las baterías del núcleo
+
+Desde la raíz del repositorio:
+
+```bash
+npm ci --prefix frontend
+npm --prefix frontend run typecheck
+npm --prefix frontend test
+python3 -m venv backend/.venv
+backend/.venv/bin/python -m pip install pytest==8.3.3 jsonschema==4.26.0
+backend/.venv/bin/python -m pytest -c backend/pyproject.toml backend/tests
+```
+
+Ajv/jsonschema son oráculos de desarrollo. La validación de ejecución es manual y se contrasta con
+los cuatro esquemas canónicos; el núcleo TypeScript no importa paquetes externos y Python usa la
+biblioteca estándar. No se genera código. El catálogo manual incorpora `EXTRA_COMPOSITE_FIELD` desde
+`normalization.yaml`; `MISSING_ANSWER_FIELD` identifica campos obligatorios ausentes de una respuesta
+con categoría `incomplete`, conforme a REQ-02/REQ-08. Los códigos siguen el esquema aditivo aprobado.
+
+### API pública
+
+- TypeScript: `frontend/src/shared/validation/index.ts`; `dispatch` devuelve una promesa de
+  `ValidationResult | ValidationError`.
+- Python: `app.validation` con `backend/` en la ruta de importación; `dispatch` devuelve
+  `ValidationResult | ValidationError` de forma síncrona.
+- `validateAnswer`/`validate_answer` comprueban la estructura, incluidos los tokens de `expression`.
+  `normalize` bloquea siempre `expression` con `GRAMMAR_NOT_APPROVED`, también si está anidada.
+- `normalize` devuelve una copia canónica serializable. Los racionales internos usan `bigint` o
+  `Fraction`; se serializan como enteros o fracciones reducidas. Los intervalos de extremos iguales
+  contienen un punto solo si ambos extremos son cerrados; en otro caso no aportan puntos a la unión.
+- El registro comienza vacío. `requiredFields`/`required_fields` declara los nombres del compuesto
+  de nivel superior; todos son obligatorios y los nombres extra se rechazan. Los componentes anidados
+  conservan su estructura tipada sin inferir requisitos específicos de un Ejercicio.
+- `createLocalAdapter`/`create_local_adapter` recibe un mapa de `validatorId` a funciones consumidoras.
+  `createApiAdapter`/`create_api_adapter` recibe una función de transporte inyectada. Una excepción
+  genérica local produce `VALIDATOR_ERROR`; una excepción de transporte produce `TRANSPORT_ERROR`.
+  Se pueden devolver errores tipados o lanzar `CoreError` para conservar la categoría conocida.
+- `requestId` y `exerciseId` llegan intactos al adaptador. El consumidor correlaciona el retorno con
+  esa invocación; no se añaden campos al resultado ni se deduplican solicitudes.
+- El mecanismo indicado en la solicitud prevalece sobre la configuración explícita. El despachador
+  etiqueta el origen real y nunca invoca automáticamente otro mecanismo.
+
+### Evidencia de ejecución (2026-11-16)
+
+| Etapa | Evidencia observada |
+|---|---|
+| T013–T018, fase roja | Tres suites por lenguaje fallaron al cargar validación, normalización y registro todavía inexistentes. |
+| US1, fase verde | 84 pruebas TypeScript y 84 Python pasaron; `tsc --noEmit` terminó con código 0. |
+| T030–T031, fase roja | Las suites de paridad fallaron por ausencia del módulo de adaptadores. |
+| US2, fase verde | Cinco pruebas de paridad por lenguaje pasaron. |
+| T035–T036, fase roja | Tres fallos por lenguaje: compuesto faltante, campo extra y error de servicio devuelto por el adaptador. |
+| Verificación final | 114 pruebas TypeScript y 114 Python pasaron; seis archivos de pruebas por lenguaje. TypeScript estricto: código 0. |
+
+Los dos lenguajes consumen los mismos fixtures `contracts.json`, `normalization.json`, `parity.json`
+y `errors.json` en `tests/contract/validation/fixtures/`. Comparan sus salidas con los mismos valores
+esperados; los oráculos de esquema comprueban aceptación/rechazo. No se declara cobertura porcentual:
+la spec no fija un umbral ni se instaló un medidor adicional.
 
 ## 1. Validar la sintaxis de los contratos
 
@@ -129,8 +187,8 @@ check-jsonschema \
 
 ## 5. Escenarios de contrato
 
-Estos escenarios describen el comportamiento que las pruebas de la etapa de tareas deben verificar.
-No se presentan como ejecutados.
+Estos escenarios se cubren con las baterías del núcleo indicadas en la trazabilidad final. Los
+controles visuales y validadores matemáticos específicos requieren verificación en sus consumidores.
 
 | Escenario | Entrada / condición | Resultado esperado | Cobertura |
 |---|---|---|---|
@@ -163,10 +221,10 @@ No se presentan como ejecutados.
 
 ## 6. Verificación de arquitectura
 
-Cuando exista la implementación, la prueba de arquitectura debe comprobar que el paquete del núcleo
-no importa React, PixiJS, Mafs, LocalStorage, FastAPI ni SymPy (AC-08). En esta etapa la verificación
-es de diseño: el árbol de `plan.md` separa `frontend/src/shared/validation/` y
-`backend/app/validation/` de los adaptadores y validadores.
+`architecture.spec.ts` analiza el AST TypeScript, las importaciones/exportaciones y los accesos a
+servicios globales. `test_architecture.py` analiza el AST Python y los límites de importación. Ambas
+baterías incluyen controles negativos que detectan dependencias prohibidas; los módulos del núcleo
+pasan la comprobación de independencia (AC-08).
 
 ## 7. UI y REQ-13/AC-12
 
@@ -180,8 +238,31 @@ con evidencia manual, que:
 
 ## 8. Qué no demuestra esta guía
 
-- No demuestra que el despachador, la normalización o los adaptadores estén implementados.
 - No demuestra equivalencia matemática de E01–E15.
-- No demuestra paridad local/API en ejecución.
+- La paridad comprobada usa adaptadores de prueba; no acredita un servidor HTTP real.
 - No demuestra que la UI cumpla REQ-13.
 - No sustituye las pruebas de contrato, las pruebas manuales de UI ni la aprobación del plan.
+
+## 9. Trazabilidad final
+
+Las rutas TS de la tabla son relativas a `frontend/tests/validation/`; las rutas Python, a
+`backend/tests/validation/`.
+
+| Requisitos | Criterios | Evidencia concreta | Resultado / límite |
+|---|---|---|---|
+| REQ-01, REQ-02 | AC-01 | `contracts.spec.ts`, `test_contracts.py` | Diez tipos, discriminante desconocido y formas inválidas verificados contra esquema. |
+| REQ-02, REQ-03 | AC-02 | `contracts.spec.ts`, `dispatch.spec.ts`, `test_contracts.py`, `test_dispatch.py` | UUID obligatorio, identificador y correlación preservados; sin deduplicación. |
+| REQ-04 | AC-03 | `contracts.spec.ts`, `test_contracts.py` | Tres estados, códigos y campos prohibidos comprobados. |
+| REQ-04, REQ-08 | AC-04 | `dispatch.spec.ts`, `errors.spec.ts`, `test_dispatch.py`, `test_errors.py` | Incorrecto/indeterminado separados de errores de transporte y servicio. |
+| REQ-02, REQ-05 | AC-05 | `dispatch.spec.ts`, `parity.spec.ts`, `errors.spec.ts` y sus equivalentes `test_dispatch.py`, `test_parity.py`, `test_errors.py` | Registro vacío, tipo incompatible y mecanismo ausente comprobados. |
+| REQ-06, REQ-07 | AC-06 | `parity.spec.ts`, `test_parity.py` | Tres casos compartidos, mismos tipos/resultados y origen correcto en ambos mecanismos de prueba. |
+| REQ-07, REQ-08 | AC-07 | `normalization.spec.ts`, `test_normalization.py` | Exactitud, canonicalización, determinismo, duplicados, orden, unión de intervalos e inmutabilidad. |
+| REQ-09, REQ-10 | AC-08 | `architecture.spec.ts`, `test_architecture.py` | Análisis estático y controles negativos; interfaces públicas inyectables. |
+| REQ-01, REQ-11 | AC-09 | `contracts.spec.ts`, `test_contracts.py`; tabla de asociaciones de `spec.md` y `data-model.md` | Formas `boolean`/`vertex` verificadas; asociaciones E01/E08 ratificadas documentalmente. Referencias desde futuras specs consumidoras pendientes. |
+| REQ-11 | AC-10 | `dispatch.spec.ts`, `test_dispatch.py`; tabla de asociaciones de `spec.md` | E01–E15 sin registros automáticos; asociaciones restantes pendientes. |
+| REQ-12 | AC-11 | `errors.spec.ts`, `test_errors.py`, pruebas de normalización | Campos y discriminantes preservados; faltante `incomplete`, extra `format`. |
+| REQ-02, REQ-13 | AC-12 | `contracts.spec.ts`, `errors.spec.ts`, `test_contracts.py`, `test_errors.py` | Tokens inválidos y bloqueo de gramática verificados. Captura gráfica/teclado y pruebas manuales de UI pendientes en las specs consumidoras. |
+
+Las tareas T001–T044 están implementadas y verificadas dentro del alcance del núcleo. El cierre
+humano de la etapa permanece para revisión del Aprobador; estas comprobaciones no registran su
+aceptación final.

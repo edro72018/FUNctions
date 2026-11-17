@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cuestionario sencillo para entender FUNctions, sus herramientas y las decisiones necesarias para crear un juego web educativo.">
+  <title>Entendamos FUNctions · Cuestionario sobre juegos web</title>
+  <style>
+    /* Todo está en este archivo: no necesita instalaciones ni conexión. */
+    :root {
+      color-scheme: light;
+      font-family: system-ui, sans-serif;
+      line-height: 1.6;
+      color: #202c3b;
+      background: #f2f5fa;
+      accent-color: #2454a4;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 900px; margin: auto; padding: 24px 16px 48px; }
+    h1, h2, h3 { line-height: 1.3; }
+    h1 { font-size: clamp(1.75rem, 5vw, 2.5rem); }
+    h2 { font-size: 1.4rem; }
+    a { color: #17488f; }
+    code { overflow-wrap: anywhere; }
+    .card, .question {
+      background: white;
+      border: 1px solid #ccd6e5;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 0 0 24px;
+    }
+    .eyebrow { color: #465875; font-weight: 700; margin-bottom: 4px; }
+    .note { background: #eaf1ff; border-left: 4px solid #2454a4; padding: 16px; }
+    .section-intro { margin-bottom: 20px; }
+    .question { min-width: 0; }
+    legend { font-size: 1.05rem; font-weight: 700; padding: 0 8px; max-width: 100%; }
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccd6e5;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .option:hover, .option:focus-within { background: #eef4ff; border-color: #2454a4; }
+    input[type="radio"] { flex-shrink: 0; width: 18px; height: 18px; margin: 4px 0 0; }
+    :focus-visible { outline: 3px solid #704400; outline-offset: 4px; }
+    .feedback { padding: 12px; border-left: 4px solid; }
+    .feedback.correct { background: #e7f5eb; border-color: #246237; }
+    .feedback.review { background: #fff2db; border-color: #875000; }
+    details { margin-top: 16px; }
+    summary { cursor: pointer; color: #17488f; font-weight: 600; }
+    .answer-key li { margin-bottom: 10px; }
+    progress { width: 100%; height: 18px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+    button {
+      font: inherit;
+      font-weight: 600;
+      padding: 12px 18px;
+      border: 2px solid #2454a4;
+      border-radius: 8px;
+      color: white;
+      background: #2454a4;
+      cursor: pointer;
+    }
+    button.secondary { background: white; color: #17488f; }
+    button:hover { filter: brightness(0.93); }
+    #download-status { min-height: 1.6em; }
+    footer { font-size: 0.9rem; color: #465875; }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 480px) {
+      .card, .question { padding: 16px; }
+      button { width: 100%; }
+    }
+
+    @media print {
+      body { background: white; }
+      main { max-width: none; padding: 0; }
+      .actions, #download-status { display: none; }
+      .question { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="card">
+      <p class="eyebrow">Aprender sin complicaciones · 12 preguntas · 4 secciones</p>
+      <h1>Entendamos FUNctions: del juego web a un plan claro</h1>
+      <p>
+        ¡Bienvenido! Aquí aprenderás qué es un juego web, cómo se juega y qué hacen las
+        herramientas elegidas para FUNctions. También descubrirás las reglas aprobadas,
+        cómo guardar el avance y cómo comprobar que el juego funciona antes de compartirlo.
+        No necesitas saber desarrollar videojuegos.
+      </p>
+      <p class="note">
+        <strong>Esto es una práctica, no una aprobación del proyecto.</strong>
+        Cada pregunta tiene una sola respuesta correcta. Las reglas del GDD v0.1 están aprobadas;
+        esto no significa que ya se hayan implementado o probado.
+      </p>
+      <ol>
+        <li>Lee la breve introducción de cada sección y elige una opción por pregunta.</li>
+        <li>Recibirás una explicación al responder. Puedes cambiar tu respuesta para aprender.</li>
+        <li>Abre «Ver respuesta y explicación de cada opción» si quieres repasar todas las alternativas.</li>
+        <li>Descarga tus respuestas antes de cerrar o recargar: esta página no las guarda automáticamente.</li>
+      </ol>
+      <p>
+        No se piden nombres ni se envían respuestas a un servidor. El botón de descarga crea
+        <code>respuestas_analisis_juego.md</code>, un archivo de texto con títulos y listas
+        que puedes abrir con cualquier editor.
+      </p>
+      <nav aria-label="Secciones del cuestionario">
+        <ul>
+          <li><a href="#seccion-1">1. El juego y su propósito</a></li>
+          <li><a href="#seccion-2">2. Las herramientas elegidas</a></li>
+          <li><a href="#seccion-3">3. Controles, guardado y respaldo</a></li>
+          <li><a href="#seccion-4">4. Crear, probar y compartir</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <noscript>
+      <p class="card">Activa JavaScript en tu navegador para ver las preguntas, responder y descargar el archivo.</p>
+    </noscript>
+
+    <!-- Las preguntas y sus explicaciones se escriben en la lista del script. -->
+    <form id="quiz" aria-label="Cuestionario de comprensión sobre FUNctions"></form>
+
+    <section class="card" aria-labelledby="resultado-titulo">
+      <h2 id="resultado-titulo" tabindex="-1">Tu recorrido</h2>
+      <p id="score" role="status">Has respondido 0 de 12 preguntas. Aciertos actuales: 0.</p>
+      <progress id="progress" value="0" max="12" aria-label="Preguntas respondidas">0 de 12</progress>
+      <p id="result-message">Puedes descargar un resultado parcial; lo que falte aparecerá como «Sin responder».</p>
+      <div class="actions">
+        <button type="button" id="review">Ver mi resumen</button>
+        <button type="button" id="download">Descargar respuestas en .md</button>
+        <button type="button" id="restart" class="secondary">Empezar de nuevo</button>
+      </div>
+      <p id="download-status" role="status"></p>
+      <p>Los aciertos ayudan a repasar: no demuestran que el juego esté terminado ni miden el aprendizaje de sus futuros estudiantes.</p>
+    </section>
+
+    <section class="card" aria-labelledby="resumen-titulo">
+      <h2 id="resumen-titulo">Qué te llevas de este cuestionario</h2>
+      <ul>
+        <li><strong>Primero, la experiencia:</strong> objetivo, acciones, ayudas y condiciones para avanzar deben quedar claras.</li>
+        <li><strong>Cada herramienta tiene su trabajo:</strong> mostrar una gráfica no es lo mismo que comprobar una respuesta matemática.</li>
+        <li><strong>Guardar no es sincronizar:</strong> el avance local no se traslada por sí solo a otro dispositivo.</li>
+        <li><strong>Terminar exige comprobar:</strong> hacen falta pruebas concretas, acceso público y la documentación acordada.</li>
+      </ul>
+      <h3>Un siguiente paso sencillo</h3>
+      <p>
+        Empieza con los materiales gratuitos de
+        <a href="https://developer.mozilla.org/es/docs/Learn_web_development">MDN para aprender desarrollo web</a>.
+        Practica creando una página con una pregunta y un botón que muestre una explicación.
+        Después, describe en papel cómo empezaría y terminaría un ejercicio de FUNctions;
+        lleva al equipo las decisiones pendientes antes de programarlas.
+      </p>
+    </section>
+
+    <footer>
+      <p>
+        Base: <a href="../.specify/memory/constitution.md">constitución de FUNctions</a>,
+        propuesta 0.4.0 del 16/11/2026, pendiente de ratificación en el documento revisado.
+        Herramientas elegidas no significa herramientas ya instaladas ni juego ya implementado.
+      </p>
+      <p>Este cuestionario es una ayuda de estudio independiente; no modifica la constitución ni el reporte de avance.</p>
+    </footer>
+  </main>
+
+  <script>
+    "use strict";
+
+    // Cada opción contiene su explicación. "correct" indica la única correcta:
+    // 0 = A, 1 = B, 2 = C, 3 = D. Para editar el contenido, empieza por estas listas.
+    const sections = [
+      {
+        title: "El juego y su propósito",
+        intro: "Un juego web se ejecuta en el navegador, como Firefox o Chrome. Puede necesitar un servidor, es decir, otro equipo que atiende peticiones. En un juego educativo, las acciones y las explicaciones deben ayudar a practicar un contenido, no solo a sumar puntos. En FUNctions los ejercicios tienen identificadores de E01 a E15; E01/E08 nombra un primer recorrido parcial con esos dos ejercicios."
+      },
+      {
+        title: "Las herramientas elegidas",
+        intro: "HTML organiza una página, CSS le da apariencia y JavaScript permite que reaccione. TypeScript se transforma en JavaScript y ayuda a detectar errores, como usar un texto donde se esperaba un número. React organiza las pantallas, la navegación y el estado: lo que la aplicación recuerda mientras se usa. PixiJS representa la Zona 1 y Mafs dibuja gráficas y controles de las Zonas 2–5. FastAPI recibe las peticiones del navegador y SymPy realiza las comprobaciones matemáticas admitidas en el servidor."
+      },
+      {
+        title: "Controles, guardado y respaldo",
+        intro: "Los controles son las formas de actuar: pulsar una tecla, hacer clic o tocar una pantalla. La accesibilidad busca que personas con distintas necesidades puedan participar. LocalStorage es un pequeño espacio que el navegador ofrece para guardar datos del sitio. El Modo estático de FUNctions es un respaldo que evalúa localmente los ejercicios previstos, sin consultar a SymPy."
+      },
+      {
+        title: "Crear, probar y compartir",
+        intro: "SDD significa desarrollar a partir de una descripción acordada de lo que debe hacer el producto. Después se prepara el plan, se dividen las tareas y se implementa, con las revisiones humanas previstas. Un criterio de aceptación es una condición concreta para comprobar si algo cumple lo acordado. Publicar consiste en poner el juego al alcance de otras personas mediante un enlace."
+      }
+    ];
+
+    const questions = [
+      {
+        id: "P01", section: 0,
+        text: "¿Qué caracteriza a un juego web?",
+        correct: 0,
+        options: [
+          { text: "Se juega desde un navegador y puede apoyarse en un servidor.", explanation: "El navegador ejecuta el juego; un servidor puede ayudar con tareas como comprobar respuestas." },
+          { text: "Necesita instalar un programa de escritorio para poder jugar.", explanation: "No necesita una instalación de escritorio por ser un juego web. Sus requisitos concretos deben indicarse." },
+          { text: "Funciona siempre sin conexión, desde la primera visita.", explanation: "Ser web no garantiza funcionar sin conexión. Primero deben estar disponibles los archivos necesarios." },
+          { text: "Es una página que solo muestra instrucciones, sin interacción.", explanation: "Las instrucciones ayudan, pero jugar implica realizar acciones y recibir una respuesta del juego." }
+        ]
+      },
+      {
+        id: "P02", section: 0,
+        text: "Según la constitución revisada, ¿qué alcance tiene FUNctions?",
+        correct: 2,
+        options: [
+          { text: "Practicar funciones con solo E01 y E08 como producto final.", explanation: "E01/E08 es un primer recorrido parcial: no sustituye el alcance final." },
+          { text: "Enseñar cualquier tema de matemáticas a cualquier edad.", explanation: "La propuesta se centra en funciones y en estudiantes de bachillerato; ampliar ese alcance sería otra decisión." },
+          { text: "Apoyar el aprendizaje de funciones en bachillerato, con cinco Zonas y quince Ejercicios.", explanation: "Ese público, propósito y número de Zonas y Ejercicios sí están expresados en el documento." },
+          { text: "Ofrecer quince Ejercicios con puntos e insignias.", explanation: "Los quince Ejercicios están fijados, pero el diseño aprobado no utiliza puntos ni insignias: el progreso se expresa con niveles y sistemas reparados." }
+        ]
+      },
+      {
+        id: "P03", section: 0,
+        text: "Para aclarar cómo se juega un ejercicio, ¿qué conviene definir antes de programarlo?",
+        correct: 1,
+        options: [
+          { text: "Los colores y las animaciones, dejando las reglas para después.", explanation: "La apariencia no determina qué debe hacer el estudiante ni cuándo termina el ejercicio." },
+          { text: "Qué hace el estudiante, qué explicación recibe y cuándo puede reintentar o avanzar.", explanation: "Estas reglas conectan la interacción con el aprendizaje y permiten saber qué comportamiento construir y probar." },
+          { text: "Que se avance al acertar, sin aclarar qué pasa al equivocarse o pedir ayuda.", explanation: "También hay que definir los errores, las ayudas y los reintentos; de lo contrario quedan situaciones sin resolver." },
+          { text: "Que habrá vidas y un límite de tiempo, porque todo juego los necesita.", explanation: "El diseño aprobado utiliza reintentos ilimitados y no incluye vidas ni temporizador." }
+        ]
+      },
+      {
+        id: "P04", section: 1,
+        text: "En una página interactiva sencilla, ¿qué hacen HTML, CSS y JavaScript?",
+        correct: 3,
+        options: [
+          { text: "HTML dibuja los colores, CSS comprueba matemáticas y JavaScript guarda todo en un servidor.", explanation: "CSS define la apariencia, no comprueba matemáticas. JavaScript tampoco guarda automáticamente nada en un servidor." },
+          { text: "Son tres programas que el jugador debe instalar por separado.", explanation: "El navegador interpreta estas tecnologías; el jugador no las instala como tres aplicaciones." },
+          { text: "Son herramientas que sustituyen las reglas y las pruebas del juego.", explanation: "Las herramientas no deciden el diseño ni demuestran que la experiencia funciona correctamente." },
+          { text: "HTML organiza el contenido, CSS le da estilo y JavaScript responde a las acciones.", explanation: "Por ejemplo: HTML crea un botón, CSS lo presenta y JavaScript muestra una explicación al pulsarlo." }
+        ]
+      },
+      {
+        id: "P05", section: 1,
+        text: "¿Qué reparto de tareas coincide con las herramientas elegidas para la parte visible de FUNctions?",
+        correct: 0,
+        options: [
+          { text: "React organiza la interfaz y el estado; PixiJS representa la Zona 1 y Mafs las Zonas 2–5.", explanation: "Ese es el reparto establecido. TypeScript ayuda a detectar ciertos errores en el código, pero no demuestra que una solución matemática sea correcta." },
+          { text: "PixiJS y Mafs deciden si toda respuesta matemática es correcta con solo mostrarla.", explanation: "Representar una respuesta no la valida. La constitución separa expresamente esas responsabilidades." },
+          { text: "React guarda el progreso de todas las personas en una base de datos compartida.", explanation: "React organiza la aplicación. El progreso previsto se guarda localmente; no se ha aprobado una base de datos para sincronizarlo." },
+          { text: "El equipo todavía debe elegir entre React, PixiJS y Mafs, porque cumplen el mismo trabajo.", explanation: "Las tres herramientas ya están elegidas para responsabilidades distintas; faltan sus versiones y detalles de cómo combinarlas." }
+        ]
+      },
+      {
+        id: "P06", section: 1,
+        text: "En Modo conectado, ¿cómo se comprueba una respuesta que requiere las operaciones matemáticas admitidas?",
+        correct: 2,
+        options: [
+          { text: "Se mira si la gráfica parece correcta y eso demuestra cualquier equivalencia.", explanation: "Una gráfica puede orientar, pero unos puntos o una apariencia similar no demuestran equivalencia matemática." },
+          { text: "Se acepta directamente lo que diga el navegador, sin revisarlo en el servidor.", explanation: "El servidor debe volver a comprobar formato, identificadores y tipos permitidos; no puede confiar solo en el navegador." },
+          { text: "FastAPI recibe y revisa la petición; SymPy realiza la comprobación permitida según lo acordado.", explanation: "El servidor solo acepta los formatos y tipos de ejercicios acordados. SymPy no es una garantía de resolver cualquier expresión." },
+          { text: "Se permite que el estudiante envíe código Python para ejecutarlo.", explanation: "La constitución prohíbe ejecutar código del usuario: las entradas deben estar limitadas a los formatos aprobados." }
+        ]
+      },
+      {
+        id: "P07", section: 2,
+        text: "Si una actividad pide mover un punto en una gráfica, ¿cómo se describen bien sus controles?",
+        correct: 1,
+        options: [
+          { text: "Se escribe «control intuitivo» y se supone que funciona en cualquier dispositivo.", explanation: "Esa frase no indica qué acciones están disponibles ni cómo comprobarlas." },
+          { text: "Se indican dispositivos admitidos, acciones concretas y alternativas accesibles para las personas previstas.", explanation: "Así se sabe qué construir y probar. El uso de móviles, mandos o una alternativa concreta no debe darse por aprobado." },
+          { text: "Se programa el arrastre con ratón y se da por hecho que también sirve con teclado.", explanation: "Arrastrar con ratón no garantiza acceso por teclado; esa interacción necesita una solución y una prueba propias." },
+          { text: "Se obliga a usar un mando de videojuegos porque es un juego.", explanation: "No hace falta un mando por ser un juego web. Los controles se eligen según las actividades y el público." }
+        ]
+      },
+      {
+        id: "P08", section: 2,
+        text: "¿Qué significa guardar el avance con LocalStorage, como está previsto en FUNctions?",
+        correct: 0,
+        options: [
+          { text: "Queda en ese navegador para la misma dirección base del sitio, llamada origen; no pasa por sí solo a otros dispositivos.", explanation: "Cambiar la dirección base puede cambiar el acceso a esos datos. El navegador también puede bloquearlos o borrarlos; hay que informar si no se pudo guardar." },
+          { text: "El servidor conserva automáticamente una copia del progreso.", explanation: "LocalStorage no crea esa copia. La constitución no prevé guardar el progreso en el servidor." },
+          { text: "Se puede recuperar desde cualquier navegador solo con abrir el enlace.", explanation: "Los navegadores y dispositivos no comparten automáticamente este almacenamiento." },
+          { text: "Los datos quedan protegidos para siempre, incluso si se limpia el navegador.", explanation: "La persona puede borrar los datos, y el almacenamiento puede fallar. No debe prometerse conservación permanente." }
+        ]
+      },
+      {
+        id: "P09", section: 2,
+        text: "Si falla el servicio de validación conectado, ¿qué comportamiento respeta la constitución?",
+        correct: 3,
+        options: [
+          { text: "Marcar la respuesta como incorrecta para no detener el juego.", explanation: "Un fallo técnico no dice nada sobre si la respuesta matemática está bien o mal." },
+          { text: "Cambiar a evaluación local sin comunicarlo.", explanation: "El cambio de modo debe ser explícito. No se puede dar a entender que se consultó al servidor si no ocurrió." },
+          { text: "Comprobar localmente cualquier fórmula que escriba la persona.", explanation: "El Modo estático está limitado al banco de quince Ejercicios y a validadores o respuestas revisados, no a cualquier fórmula." },
+          { text: "Mostrar el fallo y permitir el cambio explícito al respaldo previsto, indicando que la evaluación es local.", explanation: "La activación debe seguir el comportamiento aprobado. El respaldo no equivale a SymPy ni garantiza abrir el juego sin conexión desde la primera visita." }
+        ]
+      },
+      {
+        id: "P10", section: 3,
+        text: "¿Qué regla de reintentos fue aprobada para FUNctions?",
+        correct: 2,
+        options: [
+          { text: "Un solo intento por ejercicio.", explanation: "El juego busca experimentar sin castigo; no limita cada ejercicio a un intento." },
+          { text: "Tres intentos y después se pierde una vida.", explanation: "El diseño no utiliza vidas ni un máximo de intentos." },
+          { text: "Reintentos ilimitados, conservando el reto y ofreciendo retroalimentación.", explanation: "Esta es la regla aprobada. Las respuestas incorrectas no eliminan el progreso." },
+          { text: "Los reintentos dependen de puntos acumulados.", explanation: "El diseño aprobado no utiliza puntos." }
+        ]
+      },
+      {
+        id: "P11", section: 3,
+        text: "¿Cuál es un ejemplo de condición que se puede comprobar al probar el juego?",
+        correct: 1,
+        options: [
+          { text: "Que sea rápido, bonito y fácil para todo el mundo.", explanation: "Es una intención útil, pero faltan condiciones y resultados concretos para verificarla." },
+          { text: "Al simular un fallo del servicio, aparece un error técnico y la respuesta no se presenta como incorrecta.", explanation: "Se puede preparar ese fallo, observar la interfaz y registrar el resultado. Es una condición basada en una regla ya escrita." },
+          { text: "Que funcione en mi equipo, sin registrar navegador ni pasos.", explanation: "Sin entorno y procedimiento, otra persona no puede repetir la comprobación de forma fiable." },
+          { text: "Que tenga una gráfica visible; eso basta para confirmar que todas las respuestas se validan bien.", explanation: "Ver una gráfica no prueba la validación. También hacen falta casos correctos, incorrectos y situaciones límite según lo acordado." }
+        ]
+      },
+      {
+        id: "P12", section: 3,
+        text: "¿Qué comprobación se acerca más a poder entregar FUNctions como producto completo?",
+        correct: 3,
+        options: [
+          { text: "Tener la constitución y una lista de tareas, aunque nadie pueda jugar todavía.", explanation: "La documentación prepara el desarrollo, pero no sustituye un juego funcional." },
+          { text: "Mostrar E01/E08 y considerar cubiertos los quince Ejercicios.", explanation: "Un primer recorrido parcial no demuestra que estén listas las cinco Zonas y los quince Ejercicios." },
+          { text: "Hacer funcionar el juego en el equipo del autor y pedir nombres de estudiantes para medir visitas.", explanation: "Falta verificar el enlace público y el resto de la entrega. Además, la constitución prohíbe recopilar datos personales y usar analítica externa." },
+          { text: "Verificar el enlace público, los quince Ejercicios, los criterios acordados y el documento con soluciones y evidencias, respetando la privacidad.", explanation: "La entrega combina experiencia jugable, comprobaciones y documentación real. No basta con declarar que ya está terminada." }
+        ]
+      }
+    ];
+
+    const form = document.getElementById("quiz");
+    const answers = new Map();
+    const letter = (index) => String.fromCharCode(65 + index);
+
+    // Usamos textContent: el texto se muestra como texto, no como código HTML.
+    function element(tag, text, className) {
+      const node = document.createElement(tag);
+      if (text !== undefined) node.textContent = text;
+      if (className) node.className = className;
+      return node;
+    }
+
+    function renderQuiz() {
+      sections.forEach((section, sectionIndex) => {
+        const container = element("section");
+        container.id = `seccion-${sectionIndex + 1}`;
+        container.setAttribute("aria-labelledby", `titulo-${sectionIndex + 1}`);
+        const heading = element("h2", `${sectionIndex + 1}. ${section.title}`);
+        heading.id = `titulo-${sectionIndex + 1}`;
+        container.append(heading, element("p", section.intro, "section-intro"));
+
+        questions.filter((question) => question.section === sectionIndex).forEach((question) => {
+          const fieldset = element("fieldset", undefined, "question");
+          fieldset.append(element("legend", `${question.id}. ${question.text}`));
+          const feedback = element("p", undefined, "feedback");
+          feedback.id = `${question.id}-feedback`;
+          feedback.hidden = true;
+          feedback.setAttribute("role", "status");
+
+          question.options.forEach((option, index) => {
+            const label = element("label", undefined, "option");
+            const radio = element("input");
+            radio.type = "radio";
+            radio.name = question.id;
+            radio.value = String(index);
+            radio.id = `${question.id}-${index}`;
+            radio.setAttribute("aria-describedby", feedback.id);
+            label.htmlFor = radio.id;
+            label.append(radio, element("span", `${letter(index)}. ${option.text}`));
+            fieldset.append(label);
+
+            radio.addEventListener("change", () => {
+              answers.set(question.id, index);
+              const isCorrect = index === question.correct;
+              feedback.className = `feedback ${isCorrect ? "correct" : "review"}`;
+              feedback.textContent = isCorrect
+                ? `¡Correcto! ${option.explanation}`
+                : `Puedes repasarlo. ${option.explanation} Respuesta correcta: ${letter(question.correct)}. ${question.options[question.correct].explanation}`;
+              feedback.hidden = false;
+              document.getElementById("download-status").textContent = "";
+              updateSummary();
+            });
+          });
+
+          // El solucionario está disponible incluso antes de responder: es una práctica.
+          const details = element("details");
+          details.append(element("summary", "Ver respuesta y explicación de cada opción"));
+          details.append(element("p", `Respuesta correcta: ${letter(question.correct)}. ${question.options[question.correct].text}`));
+          const explanations = element("ul", undefined, "answer-key");
+          question.options.forEach((option, index) => {
+            const result = index === question.correct ? "Correcta" : "No es la correcta";
+            explanations.append(element("li", `${letter(index)}. ${option.text} — ${result}: ${option.explanation}`));
+          });
+          details.append(explanations);
+          fieldset.append(feedback, details);
+          container.append(fieldset);
+        });
+
+        form.append(container);
+      });
+    }
+
+    function countCorrect() {
+      return questions.filter((question) => answers.get(question.id) === question.correct).length;
+    }
+
+    function updateSummary() {
+      const correct = countCorrect();
+      document.getElementById("score").textContent = `Has respondido ${answers.size} de ${questions.length} preguntas. Aciertos actuales: ${correct}.`;
+      const progress = document.getElementById("progress");
+      progress.value = answers.size;
+      progress.textContent = `${answers.size} de ${questions.length}`;
+      const missing = questions.length - answers.size;
+      document.getElementById("result-message").textContent = missing > 0
+        ? `Te quedan ${missing} por responder. Puedes descargar un resultado parcial; lo que falte aparecerá como «Sin responder».`
+        : correct === questions.length
+          ? "¡Has completado el recorrido! Puedes volver a las explicaciones y descargar tus respuestas."
+          : `Has completado el recorrido. Repasa las ${questions.length - correct} respuestas que todavía no coinciden con la correcta; puedes cambiarlas.`;
+    }
+
+    // El archivo exportado distingue respuestas reales, pendientes y solucionario.
+    // No atribuye decisiones al equipo ni crea respuestas que no se hayan marcado.
+    function buildMarkdown() {
+      const lines = [
+        "# Respuestas: análisis sencillo del juego web FUNctions",
+        "",
+        `Fecha de exportación: ${new Date().toISOString()}`,
+        `Preguntas respondidas: ${answers.size}/${questions.length}`,
+        `Aciertos actuales: ${countCorrect()}/${questions.length}`,
+        "",
+        "> Práctica de comprensión, no aprobación de reglas ni evidencia de implementación. Se pueden cambiar las respuestas y consultar el solucionario.",
+        "> Base: constitución propuesta 0.4.0, revisada el 16/11/2026. Sus decisiones pendientes continúan pendientes.",
+        ""
+      ];
+
+      sections.forEach((section, sectionIndex) => {
+        lines.push(`## ${sectionIndex + 1}. ${section.title}`, "");
+        questions.filter((question) => question.section === sectionIndex).forEach((question) => {
+          const selected = answers.get(question.id);
+          const answered = selected !== undefined;
+          lines.push(`### ${question.id}. ${question.text}`, "");
+          lines.push(answered
+            ? `- Tu respuesta: ${letter(selected)}. ${question.options[selected].text}`
+            : "- Tu respuesta: Sin responder.");
+          lines.push(`- Estado: ${!answered ? "Pendiente" : selected === question.correct ? "Correcta" : "Para repasar"}.`);
+          lines.push(`- Respuesta correcta: ${letter(question.correct)}. ${question.options[question.correct].text}`);
+          if (answered) lines.push(`- Explicación de tu opción: ${question.options[selected].explanation}`);
+          lines.push("", "Explicación de todas las opciones:", "");
+          question.options.forEach((option, index) => {
+            lines.push(`- ${letter(index)}. ${option.text} — ${index === question.correct ? "Correcta" : "No es la correcta"}: ${option.explanation}`);
+          });
+          lines.push("");
+        });
+      });
+
+      lines.push(
+        "## Resumen y siguiente paso", "",
+        "- Acordar objetivo, acciones, ayudas y condiciones para avanzar antes de programar.",
+        "- Distinguir las herramientas que muestran el juego de las que comprueban matemáticas.",
+        "- Recordar que guardar localmente no sincroniza dispositivos ni garantiza conservar datos para siempre.",
+        "- Comprobar el juego y el enlace público, y preparar soluciones y evidencias respetando la privacidad.",
+        "",
+        "Siguiente paso: practicar una página con una pregunta y un botón usando HTML, CSS y JavaScript.",
+        "Material gratuito: https://developer.mozilla.org/es/docs/Learn_web_development", ""
+      );
+      return lines.join("\n");
+    }
+
+    document.getElementById("review").addEventListener("click", () => {
+      updateSummary();
+      document.getElementById("resultado-titulo").focus();
+    });
+
+    document.getElementById("download").addEventListener("click", () => {
+      const status = document.getElementById("download-status");
+      try {
+        // Blob crea el archivo en memoria; el navegador solicita su descarga.
+        const file = new Blob([buildMarkdown()], { type: "text/markdown;charset=utf-8" });
+        const url = URL.createObjectURL(file);
+        const link = element("a");
+        link.href = url;
+        link.download = "respuestas_analisis_juego.md";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        // Dejamos tiempo para iniciar la descarga antes de liberar la memoria.
+        window.setTimeout(() => URL.revokeObjectURL(url), 10000);
+        status.textContent = "Descarga solicitada: respuestas_analisis_juego.md. Revisa las descargas de tu navegador; este botón no escribe directamente en la carpeta del proyecto.";
+      } catch (error) {
+        status.textContent = "No se pudo iniciar la descarga. Prueba con otro navegador; tus selecciones siguen en esta página mientras no la cierres.";
+      }
+    });
+
+    document.getElementById("restart").addEventListener("click", () => {
+      if (answers.size > 0 && !window.confirm("¿Quieres borrar las selecciones de esta página? Descarga antes tus respuestas si deseas conservarlas.")) return;
+      form.reset();
+      answers.clear();
+      form.querySelectorAll(".feedback").forEach((feedback) => {
+        feedback.hidden = true;
+        feedback.textContent = "";
+      });
+      form.querySelectorAll("details").forEach((details) => { details.open = false; });
+      document.getElementById("download-status").textContent = "";
+      updateSummary();
+      form.querySelector("input").focus();
+    });
+
+    // Evita una recarga accidental si el navegador intenta enviar el formulario.
+    form.addEventListener("submit", (event) => event.preventDefault());
+    renderQuiz();
+    updateSummary();
+  </script>
+</body>
+</html>

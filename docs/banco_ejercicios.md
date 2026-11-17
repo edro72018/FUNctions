@@ -6,7 +6,7 @@
 
 **Actualización:** 15/11/2026. **Revisión documental:** `0.1-draft` (no es una versión publicada del juego).
 
-Este archivo es la fuente de verdad del contenido pedagógico de los 15 ejercicios, tres por zona. [exercises.md](./exercises.md) es una guía técnica derivada. Los HTML de `../../docs/reporte/` son reportes históricos, no contratos de comportamiento ni fuentes para implementar.
+Este archivo es la fuente de verdad del contenido pedagógico de los 15 ejercicios, tres por zona. [exercises.md](./exercises.md) es una guía técnica derivada. Los HTML de `reporte/` son reportes históricos, no contratos de comportamiento ni fuentes para implementar.
 
 ### Decisiones confirmadas por el usuario
 

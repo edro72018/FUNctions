@@ -1,0 +1,90 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Idioma y codificación ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{lmodern}
+
+% --- Matemáticas ---
+\usepackage{amsmath,amssymb,amsfonts}
+
+% --- Márgenes y espaciado ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+
+\title{Banco de Ejercicios de \textit{FUNctions}:\\ Hoja de Práctica}
+\author{Edwin Ernesto Rodríguez Pérez\\ Danny Mauricio Trujillo\\ María Erika González Ortez}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent\textbf{Instrucciones:} Resuelve cada ejercicio a lápiz, mostrando el procedimiento completo y justificando cada respuesta.
+
+\vspace{1em}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=2.5em]
+
+% 1
+\item El panel primario de energía muestra el conjunto de entrada $A=\{1, 2, 3\}$ y el conjunto de salida $B=\{4, 5\}$. La relación actual de transmisión es $R = \{(1,4), (2,4), (3,5)\}$. Evalúa las conexiones y determina si la corriente fluirá de forma válida (¿Es una función formal?).
+
+% 2
+\item ¡Alerta de sobrecarga! El nodo $1 \in A$ está enviando señal a dos puertos distintos en $B$: $R = \{(1,4), (1,5), (2,4), (3,5)\}$. Desconecta el cable excedente para restablecer la unicidad y convertir la relación en una función.
+
+% 3
+\item El circuito está incompleto: $R = \{(1,4), (3,5)\}$ sobre $A=\{1, 2, 3\}$ y $B=\{4, 5\}$. El nodo $2 \in A$ no tiene señal. Conecta el nodo $2$ a cualquier puerto de $B$ para completar la condición de existencia.
+
+% 4
+\item El escáner analiza $f(x) = 2x - 1$, con codominio real y dominio real máximo. Determina su dominio y rango mediante las proyecciones sobre los ejes $X$ e $Y$.
+
+% 5
+\item El sensor sigue $f(x)=\sqrt{x-2}$, tomando la raíz principal y codominio real. Determina el dominio real máximo y el rango. Indica si sus extremos están incluidos.
+
+% 6
+\item La señal sigue $f(x)=5/(x-3)$, con codominio real. Determina su dominio real máximo e identifica el valor de $x$ excluido.
+
+% 7
+\item Sintoniza la antena alineando la trayectoria rectilínea $f(x) = mx + b$. Determina $m$ y $b$ para conectar los puntos de control $(0,4)$ y $(2,0)$. Responde ambos valores y escribe la ecuación resultante.
+
+% 8
+\item Construye la trayectoria $f(x)=(x-h)^2+k$, con dominio real, para que su vértice sea $(3,2)$. Ajusta $h$ y $k$; el coeficiente $a$ permanece fijo en $1$. Escribe la ecuación de la parábola que construiste.
+
+% 9
+\item El escáner refleja una intensidad de salida $y = 8$ sobre la función cuadrática $f(x) = x^2 - 1$. Encuentra TODAS las preimágenes $x$ que producen esa señal.
+
+% 10
+\item Analiza el generador espacial $f(x)=2^x$. Determina su dominio real máximo, su rango y la ecuación de su asíntota horizontal.
+
+% 11
+\item Refleja los puntos $(0,1)$ y $(1,2)$ de $f(x)=2^x$ sobre la recta $y=x$ para construir su inversa $g(x)=\log_2(x)$. Indica los dos puntos reflejados, el dominio, el rango y la asíntota vertical de $g$.
+
+% 12
+\item El núcleo emite un impulso de salida $y = 81$ bajo la regla $f(x) = 3^x$. Transforma la ecuación a su forma logarítmica equivalente para hallar el valor exacto del exponente $x$.
+
+% 13
+\item El filtro de datos principal opera con la función $f(x) = \log_5(x - 4)$. Resuelve la restricción analítica del argumento para fijar los límites del escáner y la asíntota de falla.
+
+% 14
+\item El sistema de diagnóstico analiza la llegada de una señal de nivel $y = -2$ en dos módulos distintos:
+  \begin{enumerate}[label=\arabic*), leftmargin=*, itemsep=0.2em]
+    \item \textit{Módulo Exponencial:} $f(x)=2^x$; resolver $f(x)=-2$ en los reales.
+    \item \textit{Módulo Lineal:} $g(x)=3x+1$; resolver $g(x)=-2$ en los reales.
+  \end{enumerate}
+  Determina el conjunto de preimágenes $S_1$ y $S_2$ para cada módulo.
+
+% 15
+\item El núcleo principal del satélite funciona con el sistema por tramos:
+  \[
+    f(x) =
+    \begin{cases}
+      x + 2 & \text{si } x < 0 \\[4pt]
+      (x - 3)^2 + 2 & \text{si } x \ge 0
+    \end{cases}
+  \]
+  Evalúa la respuesta del sistema para $f(-2)$ y $f(0)$, y determina el dominio total de la función.
+
+\end{enumerate}
+
+\end{document}

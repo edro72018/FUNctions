@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banco de ejercicios</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #46536a;
+      --paper: #f3f6fb;
+      --card: #fff;
+      --line: #d7dfeb;
+      --accent: #174ea6;
+      --accent-soft: #eaf1ff;
+      --answer: #f0f8f2;
+      --answer-line: #b6d9bf;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 1.125rem/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(100% - 2rem, 940px);
+      margin: 0 auto;
+      padding: 2rem 0 4rem;
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: .5rem;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+    }
+
+    .intro {
+      margin-bottom: 2.5rem;
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    .zone {
+      margin-top: 2.75rem;
+    }
+
+    .zone > h2 {
+      margin-bottom: 1.25rem;
+      padding-bottom: .65rem;
+      border-bottom: 3px solid var(--accent);
+      color: #123b78;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      line-height: 1.3;
+    }
+
+    .exercise {
+      margin: 1rem 0;
+      padding: clamp(1.1rem, 4vw, 1.75rem);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 0 3px 12px rgb(23 32 51 / 5%);
+    }
+
+    .exercise h3 {
+      margin-bottom: 1rem;
+      color: #123b78;
+      font-size: 1.3rem;
+      line-height: 1.35;
+    }
+
+    .label {
+      margin-bottom: .35rem;
+      font-weight: 750;
+    }
+
+    .prompt {
+      margin-bottom: 1.1rem;
+    }
+
+    .data {
+      margin: 0 0 1.1rem;
+      padding: 1rem 1.25rem;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      background: var(--accent-soft);
+    }
+
+    .data p:last-child,
+    .answer p:last-child,
+    .answer ul:last-child,
+    .answer ol:last-child {
+      margin-bottom: 0;
+    }
+
+    .math {
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 1.08em;
+      overflow-wrap: anywhere;
+    }
+
+    .piecewise {
+      display: inline-block;
+      margin: .25rem 0;
+      padding-left: .8rem;
+      border-left: 2px solid currentColor;
+    }
+
+    details {
+      margin-top: 1rem;
+    }
+
+    summary {
+      display: inline-block;
+      padding: .65rem 1rem;
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 750;
+    }
+
+    summary:hover,
+    summary:focus-visible {
+      background: var(--accent-soft);
+    }
+
+    summary:focus-visible {
+      outline: 3px solid #f0a000;
+      outline-offset: 3px;
+    }
+
+    .answer {
+      margin-top: .9rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--answer-line);
+      border-radius: 8px;
+      background: var(--answer);
+    }
+
+    .answer .label {
+      color: #205a31;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+    }
+
+    li + li {
+      margin-top: .25rem;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 1.05rem;
+      }
+
+      main {
+        width: min(100% - 1.25rem, 940px);
+        padding-top: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Banco de ejercicios</h1>
+      <p class="intro">Lee cada ejercicio e intenta resolverlo antes de ver la respuesta.</p>
+    </header>
+
+    <section class="zone" aria-labelledby="zona-1">
+      <h2 id="zona-1">Zona 1: La máquina de enlaces</h2>
+
+      <article class="exercise">
+        <h3>E01 · El Conector de Energía</h3>
+        <p class="prompt">Revisa las conexiones entre los conjuntos de entrada y salida. Decide si la relación es una función.</p>
+        <div class="data">
+          <p><strong>Entradas:</strong> <span class="math">A = {1, 2, 3}</span></p>
+          <p><strong>Salidas:</strong> <span class="math">B = {4, 5}</span></p>
+          <p><strong>Conexiones:</strong> <span class="math">R = {(1, 4), (2, 4), (3, 5)}</span></p>
+          <p><strong>Opciones:</strong> Es función / No es función.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p class="label">Es una función.</p>
+            <p>Cada entrada tiene una sola salida. Que 1 y 2 lleguen a la misma salida, 4, sí está permitido.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E02 · El Cortocircuito de Unicidad</h3>
+        <p class="prompt">Elige una conexión que quieras quitar. Así, cada entrada quedará con una sola salida y la relación será una función.</p>
+        <div class="data">
+          <p><strong>Entradas:</strong> <span class="math">A = {1, 2, 3}</span></p>
+          <p><strong>Salidas:</strong> <span class="math">B = {4, 5}</span></p>
+          <p><strong>Conexiones:</strong> <span class="math">R = {(1, 4), (1, 5), (2, 4), (3, 5)}</span></p>
+          <p>Puedes quitar <span class="math">(1, 4)</span> o <span class="math">(1, 5)</span>.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p>Hay dos respuestas posibles:</p>
+            <ul>
+              <li>Quitar <span class="math">(1, 5)</span>: <span class="math">R = {(1, 4), (2, 4), (3, 5)}</span>.</li>
+              <li>Quitar <span class="math">(1, 4)</span>: <span class="math">R = {(1, 5), (2, 4), (3, 5)}</span>.</li>
+            </ul>
+            <p>La entrada 1 tenía dos salidas. Las entradas 2 y 3 ya estaban bien conectadas.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E03 · Restauración de Existencia</h3>
+        <p class="prompt">Conecta la entrada que no tiene salida. Elige cualquiera de las dos salidas.</p>
+        <div class="data">
+          <p><strong>Entradas:</strong> <span class="math">A = {1, 2, 3}</span></p>
+          <p><strong>Salidas:</strong> <span class="math">B = {4, 5}</span></p>
+          <p><strong>Conexiones actuales:</strong> <span class="math">R = {(1, 4), (3, 5)}</span></p>
+          <p>La entrada 2 no tiene conexión. Conéctala a 4 o a 5.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p>Las dos opciones son:</p>
+            <ul>
+              <li>Conectar <span class="math">(2, 4)</span>: <span class="math">R = {(1, 4), (2, 4), (3, 5)}</span>.</li>
+              <li>Conectar <span class="math">(2, 5)</span>: <span class="math">R = {(1, 4), (2, 5), (3, 5)}</span>.</li>
+            </ul>
+            <p>Cada entrada debe tener una salida. La entrada 2 debe tener solo una conexión.</p>
+          </div>
+        </details>
+      </article>
+    </section>
+
+    <section class="zone" aria-labelledby="zona-2">
+      <h2 id="zona-2">Zona 2: El escáner de proyección</h2>
+
+      <article class="exercise">
+        <h3>E04 · Escáner de Señal Lineal</h3>
+        <p class="prompt">Encuentra el dominio y el rango de la función. El dominio son los valores que puede tener <span class="math">x</span>. El rango son los valores que puede tomar la función.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = 2x − 1</span></p>
+          <p>Escribe el dominio y el rango con intervalos.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Dominio:</strong> <span class="math">(−∞, +∞) = ℝ</span>.</p>
+            <p><strong>Rango:</strong> <span class="math">(−∞, +∞) = ℝ</span>.</p>
+            <p>La recta continúa sin límite hacia ambos lados y también hacia arriba y abajo.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E05 · Límite de Altura Cuadrático</h3>
+        <p class="prompt">Encuentra el dominio y el rango. Indica la altura más baja que alcanza la parábola.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = (x − 2)² + 1</span></p>
+          <p>La parábola abre hacia arriba y su vértice está en <span class="math">(2, 1)</span>.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Dominio:</strong> <span class="math">(−∞, +∞) = ℝ</span>.</p>
+            <p><strong>Rango:</strong> <span class="math">[1, +∞)</span>.</p>
+            <p>La altura mínima es 1 y sí se alcanza en el punto <span class="math">(2, 1)</span>.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E06 · El Umbral Logarítmico</h3>
+        <p class="prompt">Encuentra el dominio de la función. También indica el valor de <span class="math">x</span> al que se acerca la curva sin tocarlo.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = log₂(x − 3)</span></p>
+          <p>El valor dentro del logaritmo debe ser mayor que cero.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Dominio:</strong> <span class="math">(3, +∞)</span>, es decir, <span class="math">x &gt; 3</span>.</p>
+            <p><strong>Asíntota vertical:</strong> <span class="math">x = 3</span>.</p>
+            <p>El valor 3 no se incluye porque <span class="math">log₂(0)</span> no está definido en los números reales.</p>
+          </div>
+        </details>
+      </article>
+    </section>
+
+    <section class="zone" aria-labelledby="zona-3">
+      <h2 id="zona-3">Zona 3: Sintonizador de trayectorias</h2>
+
+      <article class="exercise">
+        <h3>E07 · Sintonizador de Pendiente</h3>
+        <p class="prompt">Ajusta los valores de <span class="math">m</span> y <span class="math">b</span> para que la recta pase por los dos puntos.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = mx + b</span></p>
+          <p><strong>Puntos:</strong> <span class="math">(0, 4)</span> y <span class="math">(2, 0)</span>.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><span class="math">m = −2</span> y <span class="math">b = 4</span>.</p>
+            <p>La función es <span class="math">f(x) = −2x + 4</span>.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E08 · Foco del Vértice</h3>
+        <p class="prompt">Escribe la función en la forma <span class="math">(x − h)² + k</span>. Luego indica el vértice y el eje de simetría.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = x² − 6x + 11</span></p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Forma:</strong> <span class="math">f(x) = (x − 3)² + 2</span>.</p>
+            <p><strong>Vértice:</strong> <span class="math">(3, 2)</span>.</p>
+            <p><strong>Eje de simetría:</strong> <span class="math">x = 3</span>.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E09 · Eco de Preimágenes</h3>
+        <p class="prompt">Encuentra todos los valores de entrada <span class="math">x</span> que dan como resultado 8.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = x² − 1</span></p>
+          <p><strong>Valor de salida:</strong> <span class="math">y = 8</span></p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Entradas:</strong> <span class="math">x = −3</span> y <span class="math">x = 3</span>.</p>
+            <p><strong>Conjunto:</strong> <span class="math">S = {−3, 3}</span>.</p>
+            <p>Ambas entradas funcionan: <span class="math">(−3)² − 1 = 8</span> y <span class="math">3² − 1 = 8</span>.</p>
+          </div>
+        </details>
+      </article>
+    </section>
+
+    <section class="zone" aria-labelledby="zona-4">
+      <h2 id="zona-4">Zona 4: Espejo de las inversas</h2>
+
+      <article class="exercise">
+        <h3>E10 · Frecuencia Exponencial</h3>
+        <p class="prompt">Analiza la función. Indica su dominio, su rango y la línea horizontal a la que se acerca la curva.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = 2ˣ</span></p>
+          <p>La curva pasa por <span class="math">(0, 1)</span> y crece.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Dominio:</strong> <span class="math">(−∞, +∞) = ℝ</span>.</p>
+            <p><strong>Rango:</strong> <span class="math">(0, +∞)</span>.</p>
+            <p><strong>Asíntota horizontal:</strong> <span class="math">y = 0</span>.</p>
+            <p>La función siempre es mayor que cero. Se acerca a cero, pero no lo alcanza.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E11 · El Reflejo de la Inversa</h3>
+        <p class="prompt">Refleja la función <span class="math">f(x) = 2ˣ</span> sobre la línea <span class="math">y = x</span>. Escribe el dominio y el rango de la función inversa.</p>
+        <div class="data">
+          <p><strong>Función inversa:</strong> <span class="math">g(x) = log₂(x)</span></p>
+          <p>Al reflejar, los puntos <span class="math">(0, 1)</span> y <span class="math">(1, 2)</span> pasan a <span class="math">(1, 0)</span> y <span class="math">(2, 1)</span>.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Dominio de <span class="math">g</span>:</strong> <span class="math">(0, +∞)</span>.</p>
+            <p><strong>Rango de <span class="math">g</span>:</strong> <span class="math">(−∞, +∞) = ℝ</span>.</p>
+            <p><strong>Asíntota vertical:</strong> <span class="math">x = 0</span>.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E12 · Conversión de Poder</h3>
+        <p class="prompt">Convierte la potencia en una expresión con logaritmo. Luego encuentra el valor de <span class="math">x</span>.</p>
+        <div class="data">
+          <p><strong>Regla:</strong> <span class="math">3ˣ = 81</span></p>
+          <p><strong>Equivalencia:</strong> <span class="math">aʸ = x</span> significa lo mismo que <span class="math">y = logₐ(x)</span>.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><span class="math">log₃(81) = x</span>.</p>
+            <p>Como <span class="math">3⁴ = 81</span>, entonces <span class="math">x = 4</span>.</p>
+          </div>
+        </details>
+      </article>
+    </section>
+
+    <section class="zone" aria-labelledby="zona-5">
+      <h2 id="zona-5">Zona 5: Sala de integración y evaluación final</h2>
+
+      <article class="exercise">
+        <h3>E13 · Filtro del Satélite</h3>
+        <p class="prompt">Encuentra el dominio de la función y la línea vertical a la que se acerca la curva.</p>
+        <div class="data">
+          <p><strong>Función:</strong> <span class="math">f(x) = log₅(x − 4)</span></p>
+          <p>El valor dentro del logaritmo debe ser mayor que cero.</p>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Dominio:</strong> <span class="math">(4, +∞)</span>, es decir, <span class="math">x &gt; 4</span>.</p>
+            <p><strong>Asíntota vertical:</strong> <span class="math">x = 4</span>.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E14 · Verificador de Imposibles</h3>
+        <p class="prompt">Encuentra el conjunto de entradas que da como resultado <span class="math">−2</span> en cada módulo.</p>
+        <div class="data">
+          <ol>
+            <li><strong>Módulo exponencial:</strong> <span class="math">2ˣ = −2</span>. Encuentra <span class="math">S₁</span>.</li>
+            <li><strong>Módulo lineal:</strong> <span class="math">3x + 1 = −2</span>. Encuentra <span class="math">S₂</span>.</li>
+          </ol>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><strong>Módulo exponencial:</strong> <span class="math">S₁ = ∅</span>. No hay una potencia de 2 que dé un número negativo.</p>
+            <p><strong>Módulo lineal:</strong> <span class="math">S₂ = {−1}</span>, porque <span class="math">3(−1) + 1 = −2</span>.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise">
+        <h3>E15 · Núcleo Integrado a Trozos</h3>
+        <p class="prompt">Usa la regla que corresponde en cada caso. Encuentra <span class="math">f(−2)</span>, <span class="math">f(0)</span> y el dominio total.</p>
+        <div class="data">
+          <p><strong>Función por tramos:</strong></p>
+          <div class="piecewise math">
+            f(x) = x + 2, si x &lt; 0<br>
+            f(x) = (x − 3)² + 2, si x ≥ 0
+          </div>
+        </div>
+        <details>
+          <summary>Ver respuesta</summary>
+          <div class="answer">
+            <p><span class="math">f(−2) = 0</span>, porque <span class="math">−2 &lt; 0</span>.</p>
+            <p><span class="math">f(0) = 11</span>, porque para <span class="math">x = 0</span> se usa la regla <span class="math">(x − 3)² + 2</span>.</p>
+            <p><strong>Dominio total:</strong> <span class="math">(−∞, +∞) = ℝ</span>.</p>
+          </div>
+        </details>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
