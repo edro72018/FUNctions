@@ -1,0 +1,8 @@
+{
+  "source": "keyboard",
+  "type": "keydown",
+  "key": "Tab",
+  "shiftKey": false,
+  "controlId": "vertex-drag",
+  "nextControlId": "btn-continue"
+}

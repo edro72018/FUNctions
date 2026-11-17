@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://functions.local/specs/003-interaccion-2d/contracts/interaction-effect.schema.json",
+  "$comment": "Contrato de efectos como datos del módulo de interacción 2D. Versión 1.0.0. Propuesta para revisión.",
+  "title": "InteractionEffect",
+  "description": "Efecto ordenado que el consumidor aplica sin reinterpretar. No transporta trazas internas ni datos personales.",
+  "oneOf": [
+    {
+      "title": "Announce",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "state", "messageKey", "message", "sequence"],
+      "properties": {
+        "type": { "const": "announce" },
+        "state": {
+          "enum": ["pending", "correct", "incorrect", "indeterminate", "incomplete", "technical-error", "success"]
+        },
+        "messageKey": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 },
+        "sequence": { "type": "integer", "minimum": 0 }
+      }
+    },
+    {
+      "title": "Focus",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "controlId"],
+      "properties": {
+        "type": { "const": "focus" },
+        "controlId": { "$ref": "#/$defs/controlId" }
+      }
+    },
+    {
+      "title": "CapturePointer",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "controlId", "pointerId"],
+      "properties": {
+        "type": { "const": "capture-pointer" },
+        "controlId": { "$ref": "#/$defs/controlId" },
+        "pointerId": { "$ref": "#/$defs/pointerId" }
+      }
+    },
+    {
+      "title": "ReleasePointer",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "controlId", "pointerId"],
+      "properties": {
+        "type": { "const": "release-pointer" },
+        "controlId": { "$ref": "#/$defs/controlId" },
+        "pointerId": { "$ref": "#/$defs/pointerId" }
+      }
+    },
+    {
+      "title": "RequestValidation",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "exerciseId", "requestId", "payload"],
+      "properties": {
+        "type": { "const": "request-validation" },
+        "exerciseId": { "$ref": "#/$defs/exerciseId" },
+        "requestId": { "$ref": "#/$defs/requestId" },
+        "payload": { "description": "Respuesta opaca preparada por el consumidor; el contrato no la interpreta." }
+      }
+    },
+    {
+      "title": "AbandonRequest",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "requestId"],
+      "properties": {
+        "type": { "const": "abandon-request" },
+        "requestId": { "$ref": "#/$defs/requestId" }
+      }
+    },
+    {
+      "title": "CommitValue",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "controlId", "value"],
+      "properties": {
+        "type": { "const": "commit-value" },
+        "controlId": { "$ref": "#/$defs/controlId" },
+        "value": { "description": "Valor confirmado; opaco para el contrato." }
+      }
+    },
+    {
+      "title": "ShowFieldError",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "controlId", "messageKey", "message"],
+      "properties": {
+        "type": { "const": "show-field-error" },
+        "controlId": { "$ref": "#/$defs/controlId" },
+        "messageKey": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 }
+      }
+    },
+    {
+      "title": "RejectAction",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "action", "reason"],
+      "properties": {
+        "type": { "const": "reject-action" },
+        "action": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    {
+      "title": "ResetSession",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "exerciseId"],
+      "properties": {
+        "type": { "const": "reset-session" },
+        "exerciseId": { "$ref": "#/$defs/exerciseId" }
+      }
+    }
+  ],
+  "$defs": {
+    "controlId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]*$"
+    },
+    "pointerId": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exerciseId": {
+      "type": "string",
+      "pattern": "^E(0[1-9]|1[0-5])$"
+    },
+    "requestId": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    }
+  }
+}

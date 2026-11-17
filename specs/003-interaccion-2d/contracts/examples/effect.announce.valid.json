@@ -1,0 +1,7 @@
+{
+  "type": "announce",
+  "state": "pending",
+  "messageKey": "interaction.pending",
+  "message": "Validando la respuesta.",
+  "sequence": 1
+}

@@ -170,7 +170,7 @@ Las soluciones dentro del juego, elegidas originalmente, complementan pero no re
 | Bloque | Resuelto o disponible | Falta |
 |---|---|---|
 | Equipo y plazo (1–4) | Nombre, tres integrantes, coordinador y fecha | Hora y canal de entrega; subtítulo si se desea |
-| Contenido (5–11) | 15 ejercicios consolidados; objetivo final; cuatro familias principales y radicales/racionales incluidas; decisiones E01/E08/E15 confirmadas | Revisar C01–C07, fuentes y soluciones de forma cruzada; completar procedimientos en el documento; validadores |
+| Contenido (5–11) | 15 ejercicios consolidados; objetivo final; cuatro familias principales y radicales/racionales incluidas; decisiones E01/E08/E15 confirmadas | Revisar C01–C07, fuentes y soluciones de forma cruzada; validadores. Los procedimientos detallados ya están en el documento final |
 | Diseño (12–17) | Sinopsis aprobada; ESAI; puzle 2D; mapa de cinco zonas; ayudas H1–H3; reintentos ilimitados; sin puntos, insignias, temporizador ni vidas | Implementar y probar las reglas; evidencia de originalidad |
 | Tecnología (18–24) | Stack confirmado; políticas y contrato inicial propuesto; repositorio local en development; especificación E01/E08 para revisión | Aprobar especificación; plan y tareas; versiones, contratos por ejercicio, integración, compilación, remoto y URL |
 | Verificación (25–26) | Danny y María testers; respaldo estático aprobado | Plan detallado de pruebas; rendimiento; comparar validadores de Plan A y B; elegir hosting alternativo |

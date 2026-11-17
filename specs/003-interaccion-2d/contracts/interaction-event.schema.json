@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://functions.local/specs/003-interaccion-2d/contracts/interaction-event.schema.json",
+  "$comment": "Contrato normalizado de entrada del módulo de interacción 2D. Versión 1.0.0. Propuesta para revisión.",
+  "title": "InteractionInput",
+  "description": "Unión de eventos de dispositivo normalizados, respuestas de validación y comandos de sesión. No transporta eventos DOM crudos.",
+  "oneOf": [
+    {
+      "title": "PointerDown",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type", "controlId", "pointerId", "pointerType"],
+      "properties": {
+        "source": { "const": "pointer" },
+        "type": { "const": "pointerdown" },
+        "controlId": { "$ref": "#/$defs/controlId" },
+        "pointerId": { "$ref": "#/$defs/pointerId" },
+        "pointerType": { "enum": ["mouse", "touch", "pen"] },
+        "value": { "description": "Valor confirmado actual; opaco para el contrato." },
+        "editing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["controlId", "wellFormed"],
+          "properties": {
+            "controlId": { "$ref": "#/$defs/controlId" },
+            "value": { "description": "Texto o valor aún no confirmado del campo en edición; opaco." },
+            "wellFormed": {
+              "type": "boolean",
+              "description": "Validez sintáctica del borrador; no expresa corrección matemática."
+            }
+          }
+        },
+        "action": {
+          "enum": [
+            "seleccionar",
+            "manipular",
+            "confirmar",
+            "cancelar",
+            "deshacer",
+            "reiniciar",
+            "probar",
+            "reintentar",
+            "continuar",
+            "cambiar-ejercicio"
+          ]
+        }
+      }
+    },
+    {
+      "title": "PointerMove",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type", "pointerId"],
+      "properties": {
+        "source": { "const": "pointer" },
+        "type": { "const": "pointermove" },
+        "pointerId": { "$ref": "#/$defs/pointerId" },
+        "value": { "description": "Valor transitorio calculado por el consumidor; opaco." }
+      }
+    },
+    {
+      "title": "PointerUp",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type", "pointerId", "insideValidArea"],
+      "properties": {
+        "source": { "const": "pointer" },
+        "type": { "const": "pointerup" },
+        "pointerId": { "$ref": "#/$defs/pointerId" },
+        "insideValidArea": { "type": "boolean" },
+        "value": { "description": "Valor final calculado por el consumidor; opaco." }
+      }
+    },
+    {
+      "title": "PointerCancel",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type", "pointerId"],
+      "properties": {
+        "source": { "const": "pointer" },
+        "type": { "enum": ["pointercancel", "lostpointercapture"] },
+        "pointerId": { "$ref": "#/$defs/pointerId" }
+      }
+    },
+    {
+      "title": "Keyboard",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type", "key", "controlId"],
+      "properties": {
+        "source": { "const": "keyboard" },
+        "type": { "const": "keydown" },
+        "key": {
+          "enum": ["Tab", "Enter", "Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Escape"]
+        },
+        "shiftKey": { "type": "boolean" },
+        "controlId": { "$ref": "#/$defs/controlId" },
+        "nextControlId": { "$ref": "#/$defs/controlId" },
+        "value": { "description": "Valor transitorio o final; opaco." },
+        "wellFormed": {
+          "type": "boolean",
+          "description": "Validez sintáctica aportada por el consumidor. No expresa corrección matemática."
+        },
+        "missingFields": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/controlId" },
+          "uniqueItems": true
+        }
+      }
+    },
+    {
+      "title": "SemanticAction",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "action", "controlId"],
+      "properties": {
+        "source": { "const": "action" },
+        "action": {
+          "enum": [
+            "seleccionar",
+            "manipular",
+            "confirmar",
+            "cancelar",
+            "deshacer",
+            "reiniciar",
+            "probar",
+            "reintentar",
+            "continuar",
+            "cambiar-ejercicio"
+          ]
+        },
+        "controlId": { "$ref": "#/$defs/controlId" },
+        "value": { "description": "Valor confirmado o transitorio; opaco." },
+        "wellFormed": { "type": "boolean" },
+        "missingFields": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/controlId" },
+          "uniqueItems": true
+        }
+      }
+    },
+    {
+      "title": "ValidationResult",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "kind", "requestId", "exerciseId", "exerciseGeneration", "status", "origin"],
+      "properties": {
+        "source": { "const": "validation-response" },
+        "kind": { "const": "result" },
+        "requestId": { "$ref": "#/$defs/requestId" },
+        "exerciseId": { "$ref": "#/$defs/exerciseId" },
+        "exerciseGeneration": { "type": "integer", "minimum": 0 },
+        "status": { "enum": ["correct", "incorrect", "indeterminate"] },
+        "origin": { "enum": ["local", "api"] },
+        "feedbackCode": { "type": "string", "minLength": 1 }
+      }
+    },
+    {
+      "title": "ValidationTechnicalError",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "kind", "requestId", "exerciseId", "exerciseGeneration", "errorCode"],
+      "properties": {
+        "source": { "const": "validation-response" },
+        "kind": { "const": "technical-error" },
+        "requestId": { "$ref": "#/$defs/requestId" },
+        "exerciseId": { "$ref": "#/$defs/exerciseId" },
+        "exerciseGeneration": { "type": "integer", "minimum": 0 },
+        "errorCode": { "type": "string", "minLength": 1 }
+      }
+    },
+    {
+      "title": "ChangeExercise",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type", "exerciseId"],
+      "properties": {
+        "source": { "const": "session" },
+        "type": { "const": "change-exercise" },
+        "exerciseId": { "$ref": "#/$defs/exerciseId" }
+      }
+    },
+    {
+      "title": "LeaveExercise",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type"],
+      "properties": {
+        "source": { "const": "session" },
+        "type": { "const": "leave-exercise" }
+      }
+    },
+    {
+      "title": "RestoreDraft",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "type", "exerciseId", "draft"],
+      "properties": {
+        "source": { "const": "session" },
+        "type": { "const": "restore-draft" },
+        "exerciseId": { "$ref": "#/$defs/exerciseId" },
+        "draft": {
+          "type": "object",
+          "description": "Borrador opaco restaurado por el consumidor; no se interpreta."
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "controlId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]*$"
+    },
+    "pointerId": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exerciseId": {
+      "type": "string",
+      "pattern": "^E(0[1-9]|1[0-5])$"
+    },
+    "requestId": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    }
+  }
+}

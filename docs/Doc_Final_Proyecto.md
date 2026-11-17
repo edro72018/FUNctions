@@ -165,7 +165,7 @@ El juego utiliza quince ejercicios, tres por cada Zona. El [Banco canónico de e
 | E14 | Verificador de Imposibles | Para `2ˣ=−2`, `S₁=∅`; para `3x+1=−2`, `S₂={−1}`. |
 | E15 | Núcleo Integrado a Trozos | `f(−2)=0`, `f(0)=11` y dominio total `ℝ`. |
 
-La hoja de trabajo está disponible en [Práctica de los quince ejercicios](latex/Banco%20de%20Ejercicios%20de%20FUNctions.pdf). Antes de la entrega deben incorporarse en esta sección los procedimientos completos y realizarse la revisión cruzada de las soluciones. Los casos del GDD son resultados esperados de diseño y no deben presentarse como pruebas ya ejecutadas.
+La hoja de trabajo está disponible en [Práctica de los quince ejercicios](latex/Banco%20de%20Ejercicios%20de%20FUNctions.pdf). Los procedimientos completos por Zona se incorporan en la siguiente sección; antes de la entrega debe realizarse la revisión cruzada de las soluciones. Los casos del GDD son resultados esperados de diseño y no deben presentarse como pruebas ya ejecutadas.
 
 # Créditos y roles del equipo
 

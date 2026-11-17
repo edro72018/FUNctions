@@ -1,0 +1,13 @@
+{
+  "source": "pointer",
+  "type": "pointerdown",
+  "controlId": "btn-continue",
+  "pointerId": 7,
+  "pointerType": "mouse",
+  "editing": {
+    "controlId": "vertex-h",
+    "value": "3",
+    "wellFormed": true
+  },
+  "action": "continuar"
+}

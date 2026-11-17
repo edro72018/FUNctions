@@ -1,0 +1,6 @@
+{
+  "source": "pointer",
+  "type": "pointerdown",
+  "controlId": "vertex-drag",
+  "pointerType": "touch"
+}

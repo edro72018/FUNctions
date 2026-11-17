@@ -1,0 +1,8 @@
+{
+  "source": "pointer",
+  "type": "pointerdown",
+  "controlId": "vertex-drag",
+  "pointerId": 1,
+  "pointerType": "touch",
+  "value": { "h": 3, "k": 2 }
+}
