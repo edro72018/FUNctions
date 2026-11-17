@@ -1,0 +1,9 @@
+{
+  "requestId": "2f8c6d1a-4b3e-4f5a-9c7d-1e2f3a4b5c6d",
+  "exerciseId": "E01",
+  "answer": {
+    "kind": "boolean",
+    "value": true
+  },
+  "mechanism": "local"
+}

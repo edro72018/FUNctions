@@ -22,7 +22,11 @@ Las políticas se trasladaron aquí sin cambiar su contenido. Las rutas anterior
 
 Revisar el cierre de las tareas 001 y su evidencia. Después, definir las specs consumidoras y sus asociaciones pendientes. Las reglas de experiencia del GDD no están pendientes de aprobación.
 
-Stack acordado: React/TypeScript; PixiJS en zona 1; Mafs en zonas 2–5; FastAPI/SymPy; LocalStorage. Herramientas del núcleo: Node.js 20, TypeScript 5.6.3, Vitest 2.1.1, Ajv 8.17.1, pytest 8.3.3 y jsonschema 4.26.0. Las herramientas y versiones de la aplicación visual siguen por definir. Licencia MIT acordada; su incorporación al código será una tarea de arranque.
+Stack acordado: React/TypeScript; PixiJS en zona 1; Mafs en zonas 2–5; FastAPI/SymPy; LocalStorage. Versiones vigentes aprobadas en [DV-001](specs/decisiones/DV-001.md): Node.js 24.22.1, React y React DOM 18.3.1, PixiJS 8.23.0, Mafs 0.21.0, Vite 7.3.8, `@vitejs/plugin-react` 5.1.0, Vitest 4.1.12, Ajv 8.20.0, `@types/react` 18.3.31, `@types/react-dom` 18.3.7, TypeScript 5.6.3 y override `katex` 0.19.1. Python conserva pytest 8.3.3 y jsonschema 4.26.0. Licencia MIT acordada; su incorporación al código será una tarea de arranque.
+
+### Aprobación de alcance limitado — DV-001 (2026-11-16)
+
+Edwin confirmó en conversación: «Ratifico la enmienda 1.1.0 de la Constitución y apruebo DV-001 con las versiones indicadas.» Autoriza la migración de configuración y dependencias indicada en DV-001, no la implementación de funcionalidades de 002/003. Los requisitos matemáticos, API y especificaciones funcionales no cambian; se afectan configuración y planes técnicos. La evidencia de 001 corresponde al entorno histórico (Node.js 20, Vitest 2.1.1 y Ajv 8.17.1), no acredita resultados con las versiones nuevas. Esta actualización documental no acredita instalación, pruebas nuevas ni auditoría limpia.
 
 ## Spec Kit
 

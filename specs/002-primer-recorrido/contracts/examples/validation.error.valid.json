@@ -1,0 +1,5 @@
+{
+  "category": "transport",
+  "code": "TRANSPORT_ERROR",
+  "message": "No fue posible contactar el servicio de validación."
+}

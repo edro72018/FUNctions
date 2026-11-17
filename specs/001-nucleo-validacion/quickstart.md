@@ -9,7 +9,8 @@ matemática de E01–E15, una API HTTP desplegada ni una interfaz jugable.
 ## Prerequisites
 
 - Python 3.11 o superior (el entorno de verificación usa 3.15.2).
-- Node.js 20 (verificado con 20.20.2), npm y las versiones fijadas en `frontend/package-lock.json`.
+- Entorno histórico de la evidencia de 001: Node.js 20 (verificado con 20.20.2), npm y las versiones entonces fijadas en `frontend/package-lock.json`.
+- Migración aprobada el 2026-11-16: [DV-001](../decisiones/DV-001.md) fija Node.js 24.22.1, Vitest 4.1.12 y Ajv 8.20.0; conserva TypeScript 5.6.3. La evidencia anterior no acredita resultados bajo este nuevo entorno; su verificación queda por registrar. No cambian requisitos matemáticos, API ni especificación funcional.
 - pytest 8.3.3 y jsonschema 4.26.0 para las pruebas Python.
 - Opcionales para los comandos documentales de las secciones 1–4: `check-jsonschema` 0.39.0 y `PyYAML`.
 

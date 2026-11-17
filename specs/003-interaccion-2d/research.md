@@ -201,7 +201,7 @@ manual en las specs consumidoras.
 
 ## D-10. Cero dependencias nuevas
 
-**Decisión**: no instalar ningún paquete nuevo en `package.json`. Toda la funcionalidad se
+**Decisión de arquitectura**: no añadir paquetes específicos al núcleo de interacción. La restricción original de no instalar paquetes en `package.json` es histórica respecto de la migración compartida aprobada el 2026-11-16 en [DV-001](../decisiones/DV-001.md): TypeScript 5.6.3, Node.js 24.22.1, Vitest 4.1.12 y Ajv 8.20.0. Esta autorización de configuración no autoriza funcionalidades ni acredita instalación o pruebas; requisitos matemáticos, API y especificaciones funcionales sin cambio. Toda la funcionalidad se
 construye con TypeScript nativo y se prueba con las herramientas dev existentes (`typescript`,
 `vitest`, `ajv`).
 

@@ -526,12 +526,12 @@ validación local se presenta como API.
 | Campo | Contenido |
 |---|---|
 | Etapa | Especificación del primer recorrido |
-| Veredicto | `en revisión` |
+| Veredicto | `Aprobado` |
 | Fecha | 2026-11-16 |
 | Autoridad | Edwin Ernesto Rodríguez Pérez, Aprobador principal |
-| Evidencia | spec para revisión |
+| Evidencia | Aprobación explícita del Aprobador principal en la sesión de trabajo del 2026-11-16 |
 | Versión o revisión | `spec.md`, versión de trabajo 0.1.0 |
-| Comentarios o condiciones | Sin aprobación no se autoriza plan, tareas, contratos ni implementación; la spec 003 de interacción 2D debe existir antes del plan y las decisiones de clarify deben cerrarse |
+| Comentarios o condiciones | Autoriza únicamente la planificación de este incremento. No autoriza tareas ni implementación. La spec 003 existe y sus decisiones de interacción se consumen; el contenido de Acerca de y de la introducción conserva su compuerta de aprobación. |
 
 Este registro no sustituye el registro de aprobaciones de [`specs/README.md`](../README.md) ni
 acredita aprobación de contenido, implementación o pruebas.

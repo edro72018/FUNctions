@@ -1,6 +1,6 @@
 # Constitución de FUNctions
 
-**Estado:** Constitución ratificada, versión 1.0.0, desde 2026-11-16. El Principio VII entra en
+**Estado:** Constitución ratificada, versión 1.1.0, desde 2026-11-16. El Principio VII entra en
 vigor desde esta ratificación; no se afirma que rigiera retroactivamente. Las decisiones de esta
 redacción se apoyan en el
 [cuestionario de Constitución]](../../docs/cuestionario_constitucion.md) y en las instrucciones
@@ -287,6 +287,26 @@ Una biblioteca o servicio adicional DEBE aprobarse en el plan correspondiente.
 Las versiones exactas, las herramientas de build y la compatibilidad de dependencias DEBEN
 concretarse en el plan aprobado, sin reabrir la elección de tecnologías.
 
+### Versiones, migraciones y conflictos de dependencias
+
+Las versiones exactas de Node.js, dependencias de producto y herramientas de build DEBEN fijarse
+en `frontend/package.json`, `frontend/.nvmrc` y el plan vigente. Un cambio de versión no reabre la
+elección de tecnologías del [Principio II](#ii-stack-confirmado-y-fronteras-de-validación), pero
+DEBE tramitarse como **Decisión de Versiones** conforme a
+[Decisiones de versión y migración](#decisiones-de-versión-y-migración).
+
+- Un cambio de versión PUEDE proponerse por vulnerabilidad de seguridad, incompatibilidad
+  declarada entre dependencias, fin de soporte del runtime o imposibilidad de instalación
+  reproducible. No PUEDE proponerse por preferencia estética ni por novedad sin motivo.
+- Mientras una Decisión de Versiones no esté aprobada y registrada, la instalación, el `override`
+  o la actualización NO DEBEN ejecutarse.
+- Está prohibido resolver conflictos con `--force`, `--legacy-peer-deps`, borrado del archivo de
+  bloqueo sin registro, o degradación a una versión vulnerable. Un `override` de dependencia
+  transitiva DEBE justificarse y verificarse con una prueba funcional del componente afectado.
+- Las evidencias de etapas ya cerradas conservan su validez histórica. NO DEBEN reescribirse para
+  aparentar que se ejecutaron con versiones posteriores; DEBE añadirse una nota de superación que
+  identifique la Decisión de Versiones aplicable.
+
 ### Decisiones matemáticas confirmadas
 
 | Ejercicio | Regla y respuesta de referencia |
@@ -512,6 +532,42 @@ La ratificación de la Constitución no se registra en `specs/README.md`: DEBE c
 de aprobación, evidencia o ejecución conforme al Principio VII es metadato operativo y no reabre
 por sí mismo el contenido que identifica.
 
+### Decisiones de versión y migración
+
+Una **Decisión de Versiones** (`DV-NNN`) es la unidad de aprobación para cambiar versiones exactas
+de runtime, dependencias o herramientas. DEBE registrarse en
+[specs/README.md](../../specs/README.md#registro-de-decisiones-de-versión) y en el bloque
+`## Aprobaciones` del plan que la adopta.
+
+| Campo obligatorio | Contenido |
+|---|---|
+| Identificador | `DV-NNN` y fecha |
+| Autoridad | Nombre y rol de quien aprueba |
+| Disparador | Vulnerabilidad, conflicto de peers, fin de soporte o fallo de instalación, con evidencia |
+| Versiones | Versión anterior y nueva de cada paquete, exactas |
+| Alternativas | Opciones evaluadas y motivo de descarte, incluida la de no cambiar |
+| Impacto documental | Specs, planes, tareas y registros afectados, y los declarados sin impacto |
+| Impacto en código | Archivos que cambian, o declaración expresa de que no hay ninguno |
+| Verificación | Comandos ejecutados y resultado real |
+| Riesgo residual | Avisos aceptados, condiciones y fecha de revisión |
+| Veredicto | `aprobado`, `rechazado` o `en revisión` |
+
+Procedimiento:
+
+1. El agente DEBE presentar la propuesta con todos los campos, sin instalar ni modificar
+   artefactos aprobados.
+2. El Aprobador DEBE decidir de forma explícita. El silencio o la falta de objeción no aprueban.
+3. Aprobada la Decisión, el agente PUEDE instalar y actualizar los artefactos afectados.
+4. Un cambio de versión mayor de React, Node.js, Vite, Vitest o de un renderizador DEBE reabrir los
+   planes cuyo contenido dependa de esa versión. Los no afectados retoman su aprobación previa
+   cuando el Aprobador registre expresamente la ausencia de impacto.
+5. Si la verificación falla, la Decisión queda `rechazado` o `en revisión`; no PUEDE declararse
+   resuelta una vulnerabilidad sin evidencia.
+
+**Razón:** fijar la forma de decidir versiones evita dos extremos: instalar por inercia y reabrir
+ todo el proceso por cada parche de seguridad. El Aprobador conserva la decisión con información
+completa, y la trazabilidad no depende de reescribir evidencia pasada.
+
 ### Excepciones
 
 Solo el Aprobador o su suplente PUEDE autorizar una excepción a la Constitución. La excepción
@@ -568,4 +624,20 @@ registro de fecha, autoridad y evidencia.
 Los metadatos de ratificación no alteran el contenido normativo aprobado. Cualquier cambio
 normativo posterior DEBE prepararse como una nueva revisión conforme a esta sección.
 
-**Version**: 1.0.0 | **Ratified**: 2026-11-16 | **Last Amended**: 2026-11-16
+#### Ratificación de la enmienda 1.1.0
+
+| Campo | Contenido |
+|---|---|
+| Versión | 1.1.0 (ampliación MINOR) |
+| Veredicto | aprobado y ratificado |
+| Fecha | 2026-11-16, fecha del entorno de trabajo |
+| Autoridad | Edwin Ernesto Rodríguez Pérez, Aprobador principal |
+| Evidencia | «Ratifico la enmienda 1.1.0 de la Constitución y apruebo DV-001 con las versiones indicadas.» — mensaje explícito del Aprobador en esta sesión |
+| Motivación | Permitir migraciones y resolución de conflictos con pleno conocimiento y aprobación explícita del Aprobador |
+| Alcance e impacto | Nuevas subsecciones de versiones y decisiones DV; conserva Principios I–VII, alcance, stack y matemática. Registro externo en specs/README.md; primera aplicación DV-001 |
+| Condiciones | No acredita instalación ni verificación; conserva evidencia histórica de 1.0.0 |
+
+El borrador de DV-001 presentado en conversación usó 2026-11-17; se registra la fecha real del
+entorno (2026-11-16), sin atribuir a esa discrepancia un cambio en la autorización.
+
+**Version**: 1.1.0 | **Ratified**: 2026-11-16 | **Last Amended**: 2026-11-16

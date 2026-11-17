@@ -8,9 +8,9 @@ presentarse como evidencia hasta que la implementación esté autorizada y las p
 
 ## Requisitos previos
 
-- Node.js `>=20.20.0 <21` (el repositorio declara `engines` y `.nvmrc`).
-- Dependencias de desarrollo ya declaradas en `frontend/package.json`: TypeScript 5.6.3,
-  Vitest 2.1.1 y Ajv 8.17.1.
+- Node.js `24.22.1`: objetivo para `engines` y `.nvmrc` aprobado por [DV-001](../decisiones/DV-001.md) el 2026-11-16, no afirmación del estado instalado.
+- Objetivo de herramientas aprobado: TypeScript 5.6.3, Vitest 4.1.12 y Ajv 8.20.0.
+- DV-001 autoriza la migración de configuración, no funcionalidades. Los comentarios originales sobre paquetes instalados describen el entorno histórico; no acreditan migración, pruebas ni auditoría limpia. Requisitos matemáticos, API y especificaciones funcionales sin cambio.
 - No se instalan paquetes nuevos. No se requiere navegador, `jsdom` ni `happy-dom` para la suite
   unitaria.
 

@@ -27,6 +27,10 @@ en v1. La normalización convierte números exactos a racionales internos, orden
 colapsa duplicados de conjuntos y pares, y bloquea con error de configuración cualquier tipo cuya
 gramática o normalización no esté aprobada. No existe fallback automático entre local y API.
 
+## Migración DV-001 — 2026-11-16
+
+Edwin confirmó: «Ratifico la enmienda 1.1.0 de la Constitución y apruebo DV-001 con las versiones indicadas.» [DV-001](../decisiones/DV-001.md) autoriza la migración de configuración: Node.js 24.22.1, Vitest 4.1.12 y Ajv 8.20.0, conservando TypeScript 5.6.3. Las versiones y decisiones originales de este plan se conservan como historia del trabajo de 001, no como objetivo vigente de instalación. Se afectan configuración y planificación técnica, no requisitos matemáticos, API ni especificaciones funcionales. No se acredita instalación, nuevas pruebas ni auditoría limpia; tampoco se autoriza implementación de funcionalidades de 002/003.
+
 ## Technical Context
 
 **Language/Version**: TypeScript 5.6.3 sobre Node.js 20.20.2 para el núcleo local; Python 3.11.9+

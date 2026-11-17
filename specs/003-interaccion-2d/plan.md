@@ -36,18 +36,18 @@ sin añadir estados, acciones ni transiciones propias.
 
 **Language/Version**: TypeScript 5.6.3 con modo estricto (`strict`,
 `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noFallthroughCasesInSwitch`) sobre
-Node.js 20.20.2 para pruebas y navegadores modernos con `lib: ES2022 + DOM` para el adaptador del
+Node.js 24.22.1 para pruebas y navegadores modernos con `lib: ES2022 + DOM` para el adaptador del
 consumidor. El módulo en sí no usa APIs del DOM.
 
 **Primary Dependencies**: Ninguna dependencia de ejecución. Herramientas de desarrollo ya presentes
-en `frontend/`: TypeScript 5.6.3, Vitest 2.1.1 y Ajv 8.17.1. React, PixiJS y Mafs pertenecen a los
+en `frontend/`: TypeScript 5.6.3, Vitest 4.1.12 y Ajv 8.20.0. React, PixiJS y Mafs pertenecen a los
 consumidores y no se instalan ni se importan en este incremento. No se añaden paquetes.
 
 **Storage**: N/A. El contrato mantiene el estado de la sesión de interacción en memoria. No escribe
 en LocalStorage, no versiona progreso y no define qué se guarda entre recargas; el borrador que el
 consumidor conserve al salir es responsabilidad de la spec de progreso.
 
-**Testing**: Vitest 2.1.1 en `environment: 'node'`, con pruebas puras del reducer, la tabla de
+**Testing**: Vitest 4.1.12 en `environment: 'node'`, con pruebas puras del reducer, la tabla de
 transiciones, la captura de puntero, la historia de deshacer, los anuncios y la arquitectura de
 importaciones. La validación de los esquemas JSON de `contracts/` se ejecuta con Ajv dentro de
 Vitest. No se añaden `jsdom`, `happy-dom` ni un runner de navegador: la integración DOM real se
@@ -248,12 +248,23 @@ rama y la condición de aprobación de etapa.
 | Objetivos táctiles y foco no verificables en Node. | El contrato expone la constante y los descriptores; la evidencia de 44×44 y foco visible se recoge manualmente en cada consumidor. |
 | Nota obsoleta en la checklist de requisitos. | Se registra para corrección editorial en una etapa que permita editar el archivo; no afecta el veredicto 16/16. |
 
+## Aprobaciones de alcance limitado — DV-001
+
+- **Fecha:** 2026-11-16, comprobada con `date -I`.
+- **Aprobador:** Edwin Ernesto Rodríguez Pérez.
+- **Evidencia en conversación:** «Ratifico la enmienda 1.1.0 de la Constitución y apruebo DV-001 con las versiones indicadas.»
+- **Veredicto:** aprobado, limitado a [DV-001](../decisiones/DV-001.md).
+- **Objetivo compartido:** Node.js 24.22.1, React/DOM 18.3.1, PixiJS 8.23.0, Mafs 0.21.0, Vite 7.3.8, `@vitejs/plugin-react` 5.1.0, Vitest 4.1.12, Ajv 8.20.0, `@types/react` 18.3.31, `@types/react-dom` 18.3.7, TypeScript 5.6.3 y override `katex` 0.19.1. El núcleo no incorpora imports de UI.
+- **Alcance:** migración de configuración/dependencias, no implementación de funcionalidades. Requisitos matemáticos, API y especificaciones funcionales sin cambio; configuración y planes afectados.
+- **Historia:** las menciones originales a herramientas «ya instaladas» o a no instalar paquetes describen la planificación anterior; no acreditan el nuevo entorno ni impiden la migración autorizada. Las compuertas de implementación permanecen.
+- **Evidencia pendiente:** no se acredita instalación, pruebas ni auditoría limpia.
+
 ## Aprobaciones
 
 | Campo | Contenido |
 |---|---|
 | Etapa | Aprobación del plan técnico del contrato de interacción 2D |
-| Veredicto | `en revisión` |
+| Veredicto | `Aprobado` |
 | Fecha | 2026-11-16 |
 | Autoridad | Edwin Ernesto Rodríguez Pérez, Aprobador principal |
 | Evidencia | plan para revisión |

@@ -1,0 +1,10 @@
+{
+  "requestId": "7a1b2c3d-4e5f-4a6b-8c9d-0e1f2a3b4c5d",
+  "exerciseId": "E08",
+  "answer": {
+    "kind": "vertex",
+    "h": "3",
+    "k": "2"
+  },
+  "mechanism": "api"
+}

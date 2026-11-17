@@ -9,6 +9,12 @@
 
 El primer recorrido E01/E08 está especificado en `002-primer-recorrido` y espera revisión. Sus reglas generales de experiencia ya están aprobadas en el [GDD v0.1](../../docs/workspace/GDD_FUNctions_v0.1.md). La spec de interacción 2D (`003-interaccion-2d`) todavía no existe y es requisito previo del plan, conforme al bloqueo B3 de la auditoría.
 
+## Registro de decisiones de versión
+
+| Decisión | Autoridad | Fecha | Veredicto | Alcance y evidencia |
+|---|---|---|---|---|
+| [DV-001](decisiones/DV-001.md) | Edwin Ernesto Rodríguez Pérez, Aprobador principal | 2026-11-16 | aprobado; instalación y verificaciones básicas completadas (ver DV-001) | Opción B; «Ratifico la enmienda 1.1.0 de la Constitución y apruebo DV-001 con las versiones indicadas.» Autoriza migración técnica y adecuación documental limitada, no implementación de funcionalidades |
+
 ## Aprobaciones
 
 Registro de las decisiones de aprobación de etapas SDD. Cada fila remite al bloque `## Aprobaciones` del artefacto correspondiente.
@@ -19,6 +25,8 @@ Registro de las decisiones de aprobación de etapas SDD. Cada fila remite al blo
 | 001 | Plan | `aprobado` | 2026-11-16 | Edwin Ernesto Rodríguez Pérez, Aprobador principal | Aprobación explícita del Aprobador principal en la sesión de trabajo del 2026-11-16 | `plan.md`, versión 0.1.0 | Autoriza la etapa de descomposición de tareas; no autoriza la implementación. Actualizar el Contrato de API antes de implementar el adaptador HTTP; mantener bloqueadas la gramática de `expression` y las asociaciones E02–E15 |
 | 001 | Tareas | `aprobado` | 2026-11-16 | Edwin Ernesto Rodríguez Pérez, Aprobador principal | Aprobación explícita registrada por Edwin en [tasks.md](001-nucleo-validacion/tasks.md#aprobaciones) y orden de implementación en la sesión de trabajo | `tasks.md`, versión 0.1.0 | Autoriza la etapa de implementación. |
 | 002 | Especificación | `aprobado` | 2026-11-16 | Edwin Ernesto Rodríguez Pérez, Aprobador principal | spec para revisión | `spec.md`, versión de trabajo 0.1.0 | Sin aprobación no se autoriza plan, tareas, contratos ni implementación; requiere `003-interaccion-2d` antes del plan |
+| 002 | Plan | `aprobado` | 2026-11-16 | Edwin Ernesto Rodríguez Pérez, Aprobador principal | Aprobación explícita del Aprobador principal en la sesión de trabajo del 2026-11-16 | `plan.md`, versión 0.1.0 | Autoriza la etapa de descomposición de tareas; no autoriza la implementación. |
 | 003 | Especificación | `aprobado` | 2026-11-16 | Edwin Ernesto Rodríguez Pérez, Aprobador principal | [Registro de aprobación](003-interaccion-2d/spec.md#aprobaciones) | `spec.md`, versión de trabajo 0.1.1 | Aprueba el contrato para consumo por 002 y 004–008; no acredita implementación ni pruebas |
+| 003 | Plan | `aprobado` | 2026-11-16 | Edwin Ernesto Rodríguez Pérez, Aprobador principal | Aprobación explícita del Aprobador principal en la sesión de trabajo del 2026-11-16 | `plan.md`, versión 0.1.0 | Autoriza la etapa de descomposición de tareas. |
 
 Una especificación en borrador no autoriza instalar dependencias ni programar. Los requisitos y criterios identificados se usarán para trazar las pruebas cuando comience la implementación. El estado «aprobada» requiere registrar una confirmación real del usuario/equipo.
